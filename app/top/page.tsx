@@ -23,7 +23,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 const featureCards = [
   {
     title: "MIX依頼",
-    desc: "はじめての歌ってみた依頼でも迷いにくいように、必要な準備から相談の流れまで順番に案内します。自然な補正をベースに、やさしく丁寧に対応します。",
+    desc: "はじめての歌ってみた依頼でも迷いにくいように、必要な準備から相談の流れまで順番に案内します。自然な補正をベースに丁寧に対応します。",
     icon: Mic2,
     badge: "はじめてでも安心",
     href: siteLinks.mix,
@@ -31,7 +31,7 @@ const featureCards = [
   },
   {
     title: "音声データチェック",
-    desc: "難しい専門用語だけで終わらず、『このまま提出して大丈夫か』をやさしく確認できます。初回依頼の不安を減らすための入口です。",
+    desc: "難しい専門用語だけで終わらず、『このまま提出して大丈夫か』を自動で確認できます。初回依頼の不安を減らすための入口です。",
     icon: FileAudio,
     badge: "提出前に確認",
     href: siteLinks.audioCheck,
@@ -39,15 +39,15 @@ const featureCards = [
   },
   {
     title: "作品展示",
-    desc: "YouTubeベースで作品や関与実績を見やすく整理。透明感や空気感、世界観のある音づくりをひと目で感じてもらえる構成です。",
+    desc: "作品や関与実績を記載しています。私の作品の空気感、世界観のある音づくりを感じてもらえるとうれしいです。",
     icon: PlayCircle,
-    badge: "実績を見る",
+    badge: "作品を見る",
     href: siteLinks.works,
     linkText: "作品展示ページへ",
   },
   {
     title: "作曲依頼",
-    desc: "MIXを主軸にしつつ、将来的な作曲・編曲相談にもつながる入口です。参考曲の共有や方向性のすり合わせも、相談ベースで進められます。",
+    desc: "作曲・編曲相談の入口です。参考曲の共有や方向性のすり合わせも、相談ベースで進められます。",
     icon: Music4,
     badge: "制作相談OK",
     href: siteLinks.compose,
@@ -274,7 +274,7 @@ export default function TopPage() {
               transition={{ duration: 0.75, delay: 0.14 }}
               className="mt-4 max-w-3xl text-base leading-8 text-slate-700 md:text-lg"
             >
-              声の良さを大切にしながら、聴きやすく自然な補正をベースに希望や世界観へできるだけ寄り添って制作します。はじめての依頼でもやり取りや相談しやすいよう十分に配慮し、必要があれば雰囲気づくりやオリジナルのハモリも一緒に考えます。
+              声の良さを大切にしながら、聴きやすく自然な補正をベースに希望の世界観になるようできるだけ寄り添って制作します。はじめての依頼でもやり取りや相談しやすいよう十分に配慮し、必要があれば雰囲気づくりやオリジナルのハモリも一緒に考えます。
             </motion.p>
 
             <motion.div
