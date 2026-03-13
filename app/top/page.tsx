@@ -79,7 +79,7 @@ const works = [
     role: "作曲 / 編曲 / 作詞 / 仕上げ",
     desc: "瑞々しさと爽やかさの中に、ほのかなエモーショナルさがにじむ1曲。",
     tags: ["爽やか", "瑞々しさ", "ほのかなエモーショナルさ"],
-    url: "https://www.youtube.com/watch?v=wfamkctKfUw&pp=0gcJCcUKAYcqIYzv",
+    url: "https://www.youtube.com/watch?v=wfamkctKfUw",
     thumbnail: "https://i.ytimg.com/vi/wfamkctKfUw/hqdefault.jpg",
   },
   {
@@ -88,7 +88,7 @@ const works = [
     role: "MIX / ハモリ提案",
     desc: "夜の感情を丁寧にすくい取るような、余韻を大切にしたMIX。",
     tags: ["エモーショナル", "夜", "余韻"],
-    url: "https://youtu.be/yu2VQvv9l5s",
+    url: "https://www.youtube.com/watch?v=yu2VQvv9l5s",
     thumbnail: "https://i.ytimg.com/vi/yu2VQvv9l5s/hqdefault.jpg",
   },
 ] as const;
@@ -247,7 +247,7 @@ export default function TopPage() {
               >
                 <Sparkles className="h-4 w-4 text-sky-500" />
               </motion.div>
-              <span>声の透明感と、作品の世界観を整える</span>
+              <span>イメージする世界観を作品へ</span>
             </motion.div>
 
             <div className="relative overflow-hidden rounded-[2rem] py-2">
@@ -257,8 +257,9 @@ export default function TopPage() {
                 transition={{ duration: 0.75, delay: 0.06 }}
                 className="max-w-4xl whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-slate-950 md:text-5xl xl:text-6xl"
               >
-                {`声の透明感も、
-作品の世界観も、まっすぐ届くように。`}
+                {`声の透明感も
+作品の世界観も
+まっすぐ届くように`}
               </motion.h2>
               <motion.div
                 className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-[linear-gradient(120deg,rgba(255,255,255,0),rgba(255,255,255,0.7),rgba(255,255,255,0))] mix-blend-screen"
@@ -273,7 +274,7 @@ export default function TopPage() {
               transition={{ duration: 0.75, delay: 0.14 }}
               className="mt-4 max-w-3xl text-base leading-8 text-slate-700 md:text-lg"
             >
-              声の良さを大切にしながら、聴きやすく自然な補正をベースに、希望や世界観へできるだけ寄り添って制作します。はじめての依頼でも相談しやすいように、ハモリや雰囲気づくりもできる範囲で丁寧に考えます。
+              声の良さを大切にしながら、聴きやすく自然な補正をベースに希望や世界観へできるだけ寄り添って制作します。はじめての依頼でもやり取りや相談しやすいよう十分に配慮し、必要があれば雰囲気づくりやオリジナルのハモリも一緒に考えます。
             </motion.p>
 
             <motion.div
@@ -382,7 +383,7 @@ export default function TopPage() {
                 <div className="relative mb-4 flex items-center justify-between gap-3">
                   <div className="min-w-0">
                     <p className="text-xs tracking-[0.2em] text-sky-200">作品展示</p>
-                    <h4 className="mt-2 text-xl font-semibold">作品で、音の雰囲気も伝わる</h4>
+                    <h4 className="mt-2 text-xl font-semibold">音で空気/雰囲気も伝える</h4>
                   </div>
                   <motion.div
                     className="shrink-0"
@@ -394,7 +395,7 @@ export default function TopPage() {
                 </div>
 
                 <p className="relative text-sm leading-7 text-slate-200">
-                  透明感や空気感、青春感のあるサウンドを中心に、どんな雰囲気の作品を作っているかが自然に伝わるようにまとめています。
+                  透明感や空気感、青春感のあるサウンドを中心に様々な作品を取り扱ってます。
                 </p>
 
                 <div className="relative mt-4 grid gap-3">
@@ -471,49 +472,9 @@ export default function TopPage() {
           >
             <div>
               <p className="text-sm font-medium text-sky-600">ページ一覧</p>
-              <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-                気になるページから、そのまま進めます
-              </h3>
-            </div>
+              </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-            className="mb-5"
-          >
-            <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
-              <div className="grid gap-5 p-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-                <div>
-                  <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
-                    最初におすすめ
-                  </div>
-                  <h4 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900">
-                    はじめての方へ
-                  </h4>
-                  <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
-                    まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください。依頼の流れや送ってほしいもの、不安になりやすいポイントをまとめて確認できます。
-                  </p>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                  {[
-                    "依頼の流れが分かる",
-                    "送ってほしいものを確認できる",
-                    "FAQで不安を先に解消できる",
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-600"
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimatedPanel>
-          </motion.div>
 
           <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
             {featureCards.map((card, i) => {
@@ -583,7 +544,7 @@ export default function TopPage() {
                     はじめての依頼でも、安心して相談できるように。
                   </h3>
                   <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-                    まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください。はじめての歌ってみたでも、流れが分かるように丁寧に案内します。
+                    まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください！はじめての歌ってみたでも、流れが分かるように丁寧に案内します。
                   </p>
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                     <Button
