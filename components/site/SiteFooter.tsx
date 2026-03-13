@@ -90,7 +90,7 @@ export function SiteFooter() {
                     <ExternalLink className="h-4 w-4 text-slate-400" />
                   </a>
                   <a href={siteLinks.x} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
-                    <span>XのDMで相談する</span>
+                    <span>Xで相談する</span>
                     <ExternalLink className="h-4 w-4 text-slate-400" />
                   </a>
                   <a href={siteLinks.youtubeChannel} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">

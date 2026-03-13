@@ -207,7 +207,7 @@ export default function TopPage() {
               <Radio className="h-5 w-5 text-sky-500" />
             </motion.div>
             <div>
-              <p className="text-sm font-medium text-sky-700">倫 / Rin music works</p>
+              <p className="text-sm font-medium text-sky-700">music works</p>
               <h1 className="text-base font-semibold tracking-wide text-slate-900">倫 / Rin</h1>
             </div>
           </motion.div>
@@ -274,7 +274,7 @@ export default function TopPage() {
               transition={{ duration: 0.75, delay: 0.14 }}
               className="mt-4 max-w-3xl text-base leading-8 text-slate-700 md:text-lg"
             >
-              声の良さを大切にしながら、聴きやすく自然な補正をベースに希望の世界観になるようできるだけ寄り添って制作します。はじめての依頼でもやり取りや相談しやすいよう十分に配慮し、必要があれば雰囲気づくりやオリジナルのハモリも一緒に考えます。
+              声の良さを大切にしながら、聴きやすく自然な補正をベースに希望の世界観になるようできるだけ寄り添って制作します。はじめての依頼でもやり取りや相談しやすいよう十分に配慮し、必要があれば雰囲気づくりやオリジナルのアレンジやハモリも一緒に考えます。
             </motion.p>
 
             <motion.div
