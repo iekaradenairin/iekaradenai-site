@@ -233,7 +233,7 @@ export default function TopPage() {
           </motion.nav>
         </header>
 
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 pb-16 pt-4 lg:px-10 xl:grid-cols-[minmax(0,1fr)_minmax(420px,540px)] 2xl:pb-20 2xl:pt-8">
+        <div className="mx-auto grid max-w-7xl gap-6 px-6 pb-16 pt-4 lg:px-10 xl:grid-cols-[minmax(0,1fr)_minmax(400px,520px)] xl:gap-8 2xl:pb-20 2xl:pt-8">
           <div className="relative z-10 flex min-w-0 flex-col justify-center">
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.96 }}
@@ -271,7 +271,7 @@ export default function TopPage() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.14 }}
-              className="mt-5 max-w-3xl text-base leading-8 text-slate-700 md:text-lg"
+              className="mt-4 max-w-3xl text-base leading-8 text-slate-700 md:text-lg"
             >
               声の良さを大切にしながら、聴きやすく自然な補正をベースに、希望や世界観へできるだけ寄り添って制作します。はじめての依頼でも相談しやすいように、ハモリや雰囲気づくりもできる範囲で丁寧に考えます。
             </motion.p>
@@ -280,7 +280,7 @@ export default function TopPage() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.28 }}
-              className="mt-7 flex flex-col gap-3 sm:flex-row"
+              className="mt-6 flex flex-col gap-3 sm:flex-row"
             >
               <motion.div
                 animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
@@ -317,10 +317,10 @@ export default function TopPage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.34 }}
-              className="mt-8"
+              className="mt-6"
             >
-              <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/80 backdrop-blur-xl">
-                <div className="p-5 md:p-6">
+              <AnimatedPanel className="rounded-[1.6rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+                <div className="p-5">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <div>
                       <p className="text-sm text-slate-500">まず確認できること</p>
@@ -337,7 +337,7 @@ export default function TopPage() {
                     </motion.div>
                   </div>
 
-                  <div className="grid gap-3">
+                  <div className="grid gap-2.5">
                     {beginnerSteps.map((step, i) => (
                       <motion.div
                         key={step}
@@ -345,7 +345,7 @@ export default function TopPage() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.45, delay: 0.42 + i * 0.08 }}
                         whileHover={{ x: 6 }}
-                        className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-sm leading-7 text-slate-600"
+                        className="rounded-2xl border border-slate-200 bg-slate-50/70 p-3.5 text-sm leading-7 text-slate-600"
                       >
                         {step}
                       </motion.div>
@@ -356,7 +356,7 @@ export default function TopPage() {
             </motion.div>
           </div>
 
-          <div className="relative z-10 min-w-0 xl:justify-self-end xl:w-full xl:max-w-[540px]">
+          <div className="relative z-10 min-w-0 xl:justify-self-end xl:w-full xl:max-w-[520px] xl:pt-4">
             <motion.div
               className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/70 via-cyan-100/40 to-sky-200/30 blur-2xl"
               animate={{ opacity: [0.72, 1, 0.76], scale: [1, 1.03, 1] }}
@@ -367,7 +367,7 @@ export default function TopPage() {
               animate={{ y: [0, -2, 0] }}
               transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <AnimatedPanel className="relative overflow-hidden rounded-[2rem] bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.94))] p-5 text-white shadow-[0_30px_80px_rgba(148,163,184,0.18)] md:p-6">
+              <AnimatedPanel className="relative overflow-hidden rounded-[1.9rem] bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.94))] p-5 text-white shadow-[0_30px_80px_rgba(148,163,184,0.18)]">
                 <motion.div
                   className="pointer-events-none absolute inset-0 opacity-50"
                   animate={{ backgroundPosition: ["0% 0%", "120% 0%"] }}
@@ -397,7 +397,7 @@ export default function TopPage() {
                   透明感や空気感、青春感のあるサウンドを中心に、どんな雰囲気の作品を作っているかが自然に伝わるようにまとめています。
                 </p>
 
-                <div className="relative mt-5 grid gap-4">
+                <div className="relative mt-4 grid gap-3">
                   {works.map((work, i) => (
                     <motion.a
                       key={work.title}
@@ -408,9 +408,9 @@ export default function TopPage() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ duration: 0.5, delay: 0.34 + i * 0.08 }}
                       whileHover={{ y: -4, scale: 1.01 }}
-                      className="group rounded-[1.25rem] border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-colors hover:bg-white/[0.07]"
+                      className="group rounded-[1.15rem] border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm transition-colors hover:bg-white/[0.07]"
                     >
-                      <div className="grid gap-4 md:grid-cols-[200px_minmax(0,1fr)] md:items-start">
+                      <div className="grid gap-3 md:grid-cols-[184px_minmax(0,1fr)] md:items-start">
                         <div className="relative aspect-video overflow-hidden rounded-2xl ring-1 ring-white/10">
                           <img
                             src={work.thumbnail}
@@ -425,13 +425,13 @@ export default function TopPage() {
                         </div>
 
                         <div className="min-w-0">
-                          <div className="mb-3 inline-flex rounded-full bg-white/10 px-2.5 py-1 text-[10px] tracking-[0.14em] text-sky-100">
+                          <div className="mb-2 inline-flex rounded-full bg-white/10 px-2.5 py-1 text-[10px] tracking-[0.14em] text-sky-100">
                             {work.label}
                           </div>
-                          <div className="text-xl font-semibold tracking-tight text-white">{work.title}</div>
-                          <div className="mt-2 text-xs leading-6 text-sky-100/80">{work.role}</div>
-                          <div className="mt-3 text-sm leading-7 text-slate-300">{work.desc}</div>
-                          <div className="mt-4 flex flex-wrap gap-2">
+                          <div className="text-lg font-semibold tracking-tight text-white">{work.title}</div>
+                          <div className="mt-1.5 text-xs leading-6 text-sky-100/80">{work.role}</div>
+                          <div className="mt-2.5 text-sm leading-6 text-slate-300">{work.desc}</div>
+                          <div className="mt-3 flex flex-wrap gap-2">
                             {work.tags.map((tag) => (
                               <span
                                 key={tag}
@@ -446,6 +446,14 @@ export default function TopPage() {
                     </motion.a>
                   ))}
                 </div>
+
+                <a
+                  href={siteLinks.works}
+                  className="relative mt-4 inline-flex items-center text-sm font-medium text-sky-200 transition hover:text-white"
+                >
+                  作品展示ページへ
+                  <ChevronRight className="ml-1 h-4 w-4" />
+                </a>
               </AnimatedPanel>
             </motion.div>
           </div>
