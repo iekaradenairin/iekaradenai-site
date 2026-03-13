@@ -1,674 +1,811 @@
-"use client";
-
-import React from "react";
-import Link from "next/link";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  Radio,
-  Sparkles,
-  ChevronRight,
-  Mic2,
-  FileAudio,
-  PlayCircle,
   Music4,
+  Mic2,
   Wand2,
+  Sparkles,
   Disc3,
+  Radio,
+  ChevronRight,
+  PlayCircle,
+  FileAudio,
+  Waves,
+  Headphones,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { siteLinks } from "@/lib/siteLinks";
-import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
-import { SiteFooter } from "@/components/site/SiteFooter";
+
+const options = [
+  {
+    id: "a",
+    name: "A. Crystal Flow",
+    catch: "ガラス感・高級感・信頼感・やさしさを両立",
+    tag: "本命 / Hybrid",
+    summary:
+      "Aをベースに、Bの実績感とCのやさしい導線を少し混ぜた本命案。上質で透明感がありつつ、初めて依頼する人にも怖くないトップページを目指す。",
+    heroTitle: `透明感のある音づくりを,
+ていねいに、美しく届ける。`,
+    heroSub:
+      "すりガラスのような透明感と上品さを軸にしながら、歌ってみた投稿やVTuber風の活動に憧れる人でも、迷わず依頼やチェックに進める入口を整えたトップページ。",
+    accent: "from-white/70 via-cyan-100/40 to-sky-200/30",
+    glow: "from-cyan-200/40 via-sky-200/30 to-transparent",
+    points: ["高級ガラス感", "実績感も出せる", "初心者にやさしい"],
+  },
+  {
+    id: "b",
+    name: "B. Studio Luxe",
+    catch: "高級感・実績感・プロ感を重視",
+    tag: "映える",
+    summary:
+      "作品展示を強く見せたいときに映える案。やや硬派で重厚感があり、『本格的にやっている人』感は強いが、やさしさは少し減る。",
+    heroTitle: `作品で魅せて,
+信頼で選ばれる。`,
+    heroSub:
+      "ポートフォリオを大きく見せて実績感を出す構成。アニメーションや奥行き表現で『しっかり音楽している人』という印象を強く出す。",
+    accent: "from-slate-200/70 via-zinc-100/70 to-white",
+    glow: "from-violet-300/20 via-slate-300/10 to-transparent",
+    points: ["プロっぽい", "作品が主役になる", "少し硬派"],
+  },
+  {
+    id: "c",
+    name: "C. Airy Pop",
+    catch: "青系ポップ・かわいさ・クール感を重視",
+    tag: "やさしい",
+    summary:
+      "青系のかわいさを軸にしながら、少しクールで洗練された印象も入れた案。話しかけやすさを残しつつ、甘すぎないポップさで見せられる。",
+    heroTitle: `相談しやすくて,
+見た目もちゃんと良い。`,
+    heroSub:
+      "依頼のしやすさを前面に出しつつ、青系の軽やかなポップ感とクールさを両立したトップページ。やさしく見えるのに、子どもっぽくなりすぎない印象を目指す。",
+    accent: "from-sky-100/80 via-cyan-100/70 to-white",
+    glow: "from-sky-200/35 via-cyan-200/25 to-transparent",
+    points: ["青系でかわいい", "やわらかいけど甘すぎない", "軽いクール感がある"],
+  },
+];
 
 const featureCards = [
   {
     title: "MIX依頼",
-    desc: "はじめての歌ってみた依頼でも迷いにくいように、必要な準備から相談の流れまで順番に案内します。自然な補正をベースに、やさしく丁寧に対応します。",
+    desc: "はじめての歌ってみた依頼でも迷いにくいように、必要な準備と流れを順番に案内します。",
     icon: Mic2,
     badge: "はじめてでも安心",
-    href: siteLinks.mix,
-    linkText: "MIX依頼ページへ",
   },
   {
     title: "音声データチェック",
-    desc: "難しい専門用語だけで終わらず、『このまま提出して大丈夫か』をやさしく確認できます。初回依頼の不安を減らすための入口です。",
+    desc: "難しい専門用語だけで終わらず、『このまま提出して大丈夫か』をやさしく確認できます。",
     icon: FileAudio,
     badge: "提出前に確認",
-    href: siteLinks.audioCheck,
-    linkText: "音声データチェックページへ",
   },
   {
     title: "作品展示",
-    desc: "YouTubeベースで作品や関与実績を見やすく整理。透明感や空気感、世界観のある音づくりをひと目で感じてもらえる構成です。",
+    desc: "YouTubeベースで実績を見やすく整理。音の方向性やクオリティ感もひと目で伝わります。",
     icon: PlayCircle,
     badge: "実績を見る",
-    href: siteLinks.works,
-    linkText: "作品展示ページへ",
   },
   {
     title: "作曲依頼",
-    desc: "MIXを主軸にしつつ、将来的な作曲・編曲相談にもつながる入口です。参考曲の共有や方向性のすり合わせも、相談ベースで進められます。",
+    desc: "世界観や参考楽曲の伝え方まで含めて、相談ベースで進めやすい導線にしています。",
     icon: Music4,
     badge: "制作相談OK",
-    href: siteLinks.compose,
-    linkText: "作曲依頼ページへ",
   },
-  {
-    title: "オフボーカル配布",
-    desc: "歌ってみたに使えるオフボーカルを公開しています。気軽に使ってもらえたらうれしいです。曲の空気感や世界観も一緒に楽しんでもらえたらと思っています。",
-    icon: Disc3,
-    badge: "気軽に使ってOK",
-    href: siteLinks.instrumentals,
-    linkText: "配布中の音源を見る",
-  },
-] as const;
+];
 
 const works = [
-  {
-    label: "注目作品",
-    title: "花笑み、ひとひら",
-    role: "作曲 / 編曲 / MIX",
-    desc: "透明感と夏の空気を、まっすぐ閉じ込めた1曲。",
-    tags: ["透明感", "夏", "青春感"],
-    url: "https://www.youtube.com/watch?v=BC8ZgzJWhX0",
-    thumbnail: "https://i.ytimg.com/vi/BC8ZgzJWhX0/hqdefault.jpg",
-  },
-  {
-    label: "透明感の軸",
-    title: "水星巡航トリップ",
-    role: "作曲 / 編曲 / 作詞 / 仕上げ",
-    desc: "瑞々しさと爽やかさの中に、ほのかなエモーショナルさがにじむ1曲。",
-    tags: ["爽やか", "瑞々しさ", "ほのかなエモーショナルさ"],
-    url: "https://www.youtube.com/watch?v=wfamkctKfUw&pp=0gcJCcUKAYcqIYzv",
-    thumbnail: "https://i.ytimg.com/vi/wfamkctKfUw/hqdefault.jpg",
-  },
-  {
-    label: "MIX参考",
-    title: "紫色のひまわり",
-    role: "MIX / ハモリ提案",
-    desc: "夜の感情を丁寧にすくい取るような、余韻を大切にしたMIX。",
-    tags: ["エモーショナル", "夜", "余韻"],
-    url: "https://youtu.be/yu2VQvv9l5s",
-    thumbnail: "https://i.ytimg.com/vi/yu2VQvv9l5s/hqdefault.jpg",
-  },
-] as const;
+  { title: "Featured Work / Vocal Mix", meta: "歌ってみた・透明感・女性Vo" },
+  { title: "Original Song / Compose", meta: "ポップス・切なめ・映像向け" },
+  { title: "BGM / Arrangement", meta: "爽やか・配信用・明るい" },
+];
+
+const targetTags = [
+  "歌ってみたを投稿したい",
+  "はじめてMIX依頼する",
+  "VTuber風の活動に憧れる",
+  "提出データに不安がある",
+];
 
 const beginnerSteps = [
-  "1. はじめての方へ で、依頼の流れと必要なものを確認",
-  "2. 音声データチェックで、提出前の不安をかんたん確認",
-  "3. わからないところは、そのまま相談しながら進めてOK",
-] as const;
+  "1. MIX依頼ページで、必要なものと流れを確認",
+  "2. 音声データチェックで、提出前の状態をかんたん確認",
+  "3. わからない部分は、そのまま相談してOK",
+];
 
-function GlassOrb({
-  className,
-  delay = 0,
-}: {
-  className?: string;
-  delay?: number;
-}) {
+function GradientOrb({ className }: { className?: string }) {
   return (
-    <motion.div
-      className={`pointer-events-none absolute rounded-full blur-3xl opacity-55 ${className ?? ""}`}
-      animate={{ x: [0, 20, -12, 0], y: [0, -16, 10, 0], scale: [1, 1.05, 0.98, 1] }}
-      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay }}
+    <div
+      className={`absolute rounded-full blur-3xl opacity-60 ${className}`}
+      aria-hidden="true"
     />
   );
 }
 
-function AnimatedPanel({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  return (
-    <motion.div
-      animate={{
-        boxShadow: [
-          "0 10px 24px rgba(148,163,184,0.10)",
-          "0 18px 34px rgba(148,163,184,0.14)",
-          "0 10px 24px rgba(148,163,184,0.10)",
-        ],
-      }}
-      transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+function SampleHome({ option }: { option: (typeof options)[number] }) {
+  const statCards = useMemo(
+    () => [
+      { label: "Works", value: "12+", icon: Disc3 },
+      { label: "Mix Support", value: "丁寧案内", icon: Headphones },
+      { label: "Audio Check", value: "無料", icon: Waves },
+    ],
+    []
   );
-}
 
-export default function TopPage() {
-  return (
-    <div className="min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#f3fbff_0%,#e8f5ff_32%,#f8fcff_70%,#ffffff_100%)] text-slate-800">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <motion.div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.88),transparent_24%),radial-gradient(circle_at_top_right,rgba(191,219,254,0.34),transparent_30%),radial-gradient(circle_at_40%_18%,rgba(255,255,255,0.48),transparent_14%)]"
-          animate={{ opacity: [0.78, 1, 0.82] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute inset-0 opacity-45"
-          animate={{ backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"] }}
-          transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
-          style={{
-            backgroundImage:
-              "linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.24) 18%, rgba(255,255,255,0) 38%)",
-            backgroundSize: "220% 100%",
-          }}
-        />
-        <GlassOrb
-          className="left-[-120px] top-[-40px] h-72 w-72 bg-gradient-to-br from-cyan-200/40 via-sky-200/30 to-transparent"
-          delay={0.2}
-        />
-        <GlassOrb
-          className="right-[-80px] top-10 h-96 w-96 bg-gradient-to-br from-cyan-200/35 via-sky-200/25 to-transparent"
-          delay={1.2}
-        />
-        <GlassOrb
-          className="left-[36%] top-[8%] h-48 w-48 bg-gradient-to-br from-white/50 via-cyan-100/25 to-transparent"
-          delay={2.1}
-        />
-      </div>
-
-      <section className="relative overflow-hidden">
-        <motion.div
-          className="pointer-events-none absolute left-[5%] top-10 h-24 w-24 rounded-full border border-white/45 bg-white/10 backdrop-blur-xl"
-          animate={{ y: [0, -8, 0], rotate: [0, 6, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="pointer-events-none absolute right-[8%] top-28 h-16 w-16 rounded-full border border-white/40 bg-white/10 backdrop-blur-xl"
-          animate={{ y: [0, 10, 0], rotate: [0, -8, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-        />
-
-        <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="relative z-10 flex items-center gap-3"
-          >
-            <motion.div
-              className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/70 bg-white/35 shadow-[0_12px_32px_rgba(148,163,184,0.14)] ring-1 ring-white/50 backdrop-blur-2xl"
-              animate={{
-                boxShadow: [
-                  "0 12px 32px rgba(148,163,184,0.14)",
-                  "0 18px 42px rgba(56,189,248,0.18)",
-                  "0 12px 32px rgba(148,163,184,0.14)",
-                ],
-              }}
-              transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <Radio className="h-5 w-5 text-sky-500" />
-            </motion.div>
-            <div>
-              <p className="text-sm font-medium text-sky-700">倫 / Rin music works</p>
-              <h1 className="text-base font-semibold tracking-wide text-slate-900">倫 / Rin</h1>
+  if (option.id === "b") {
+    return (
+      <div className="min-h-screen bg-[linear-gradient(180deg,#0b1220_0%,#111827_48%,#e5edf7_48%,#f3f6fb_100%)] text-white">
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(125,211,252,0.16),transparent_28%),radial-gradient(circle_at_left,rgba(168,85,247,0.16),transparent_30%)]" />
+          <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur">
+                <Radio className="h-5 w-5 text-sky-300" />
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.24em] text-sky-200/80">premium portfolio</p>
+                <h1 className="text-base font-semibold tracking-wide text-white">Rin Sound Atelier</h1>
+              </div>
             </div>
-          </motion.div>
+            <nav className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
+              <a href="#showcase" className="transition hover:text-white">Showcase</a>
+              <a href="#services" className="transition hover:text-white">Services</a>
+              <a href="#contact" className="transition hover:text-white">Contact</a>
+            </nav>
+          </header>
 
-          <motion.nav
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.08 }}
-            className="relative z-10 hidden items-center gap-6 text-sm text-slate-700 md:flex"
-          >
-            <a href="#features" className="transition hover:text-slate-900">
-              サービス
-            </a>
-            <Link
-              href={siteLinks.guide}
-              className="rounded-full bg-white/60 px-3 py-1.5 text-slate-900 shadow-sm transition hover:bg-white/80"
-            >
-              はじめての方へ
-            </Link>
-            <Link href={siteLinks.works} className="transition hover:text-slate-900">
-              作品
-            </Link>
-          </motion.nav>
-        </header>
-
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 pb-16 pt-4 lg:px-10 xl:grid-cols-[minmax(0,1fr)_minmax(460px,560px)] 2xl:pb-20 2xl:pt-8">
-          <div className="relative z-10 flex min-w-0 flex-col justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.65 }}
-              className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 py-2 text-sm text-slate-800 shadow-[0_10px_30px_rgba(148,163,184,0.10)] ring-1 ring-white/60 backdrop-blur-xl"
-            >
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 pb-20 pt-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 lg:pb-24">
+            <div className="flex flex-col justify-center">
               <motion.div
-                animate={{ rotate: [0, 8, -5, 0], scale: [1, 1.08, 1] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55 }}
+                className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-sky-100 backdrop-blur"
               >
-                <Sparkles className="h-4 w-4 text-sky-500" />
+                <Sparkles className="h-4 w-4 text-sky-300" />
+                <span>{option.catch}</span>
+                <span className="rounded-full bg-white/10 px-2 py-0.5 text-xs text-sky-100">{option.tag}</span>
               </motion.div>
-              <span>声の透明感と、作品の世界観を整える</span>
-            </motion.div>
 
-            <div className="relative overflow-hidden rounded-[2rem] py-2">
               <motion.h2
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.06 }}
-                className="max-w-4xl whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-slate-950 md:text-5xl xl:text-6xl"
+                transition={{ duration: 0.65, delay: 0.05 }}
+                className="whitespace-pre-line text-5xl font-semibold leading-[1.02] tracking-tight text-white md:text-6xl lg:text-7xl"
               >
-                {`声の透明感も、
-作品の世界観も、まっすぐ届くように。`}
+                {option.heroTitle}
               </motion.h2>
-              <motion.div
-                className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-[linear-gradient(120deg,rgba(255,255,255,0),rgba(255,255,255,0.7),rgba(255,255,255,0))] mix-blend-screen"
-                animate={{ x: ["-10%", "320%"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.6 }}
-              />
-            </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.14 }}
-              className="mt-5 max-w-3xl text-base leading-8 text-slate-700 md:text-lg"
-            >
-              声の良さを大切にしながら、聴きやすく自然な補正をベースに、希望や世界観へできるだけ寄り添って制作します。はじめての依頼でも相談しやすいように、ハモリや雰囲気づくりもできる範囲で丁寧に考えます。
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.28 }}
-              className="mt-7 flex flex-col gap-3 sm:flex-row"
-            >
-              <motion.div
-                animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
-                transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+              <motion.p
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.1 }}
+                className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg"
               >
-                <Button
-                  asChild
-                  className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]"
-                >
-                  <Link href={siteLinks.guide}>
-                    はじめての方へ
-                    <ChevronRight className="ml-2 h-4 w-4" />
-                  </Link>
+                {option.heroSub}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.15 }}
+                className="mt-8 flex flex-col gap-3 sm:flex-row"
+              >
+                <Button className="h-12 rounded-full bg-white px-7 text-sm font-semibold text-slate-900 shadow-lg shadow-black/20 hover:bg-slate-100">
+                  代表作品を見る
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button variant="outline" className="h-12 rounded-full border-white/20 bg-white/5 px-7 text-sm text-white backdrop-blur hover:bg-white/10">
+                  MIX依頼を見る
                 </Button>
               </motion.div>
 
+              <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                {statCards.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.45, delay: 0.2 + i * 0.05 }}
+                      className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur"
+                    >
+                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10">
+                        <Icon className="h-5 w-5 text-sky-300" />
+                      </div>
+                      <div className="text-3xl font-semibold text-white">{item.value}</div>
+                      <div className="mt-1 text-sm text-slate-400">{item.label}</div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 18, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              id="showcase"
+              className="relative"
+            >
+              <div className="absolute -inset-3 rounded-[2rem] bg-[linear-gradient(135deg,rgba(125,211,252,0.18),rgba(168,85,247,0.12),transparent)] blur-2xl" />
+              <Card className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(145deg,rgba(15,23,42,0.95),rgba(17,24,39,0.92))] shadow-2xl shadow-black/30">
+                <CardContent className="p-6 md:p-7">
+                  <div className="mb-5 flex items-center justify-between">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.24em] text-sky-200/80">Featured showcase</p>
+                      <h3 className="mt-2 text-2xl font-semibold tracking-tight text-white">作品を先に見せて、信頼を取る</h3>
+                    </div>
+                    <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Studio view</div>
+                  </div>
+
+                  <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-4">
+                    <div className="mb-4 aspect-[16/10] rounded-[1.25rem] bg-[linear-gradient(135deg,rgba(125,211,252,0.22),rgba(15,23,42,0.1),rgba(168,85,247,0.18))] ring-1 ring-white/10" />
+                    <div className="grid gap-3 md:grid-cols-3">
+                      {works.map((work, i) => (
+                        <motion.div
+                          key={work.title}
+                          initial={{ opacity: 0, y: 18 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.45, delay: 0.25 + i * 0.06 }}
+                          className="group rounded-[1.25rem] border border-white/10 bg-white/[0.04] p-3 transition hover:-translate-y-1 hover:bg-white/[0.06]"
+                        >
+                          <div className="mb-3 aspect-video rounded-2xl bg-[linear-gradient(135deg,rgba(125,211,252,0.16),rgba(255,255,255,0.04))] ring-1 ring-white/10" />
+                          <div className="text-sm font-medium text-white">{work.title}</div>
+                          <div className="mt-1 text-xs leading-6 text-slate-400">{work.meta}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        <main className="mx-auto max-w-7xl px-6 pb-20 lg:px-10">
+          <section id="services" className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {featureCards.map((card, i) => {
+              const Icon = card.icon;
+              return (
+                <motion.div
+                  key={card.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.45, delay: i * 0.05 }}
+                >
+                  <Card className="h-full rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                    <CardContent className="p-5 text-slate-800">
+                      <div className="mb-4 flex items-center justify-between">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900">
+                          <Icon className="h-5 w-5 text-sky-300" />
+                        </div>
+                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-500">{card.badge}</span>
+                      </div>
+                      <h4 className="text-lg font-semibold text-slate-900">{card.title}</h4>
+                      <p className="mt-3 text-sm leading-7 text-slate-600">{card.desc}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  if (option.id === "c") {
+    return (
+      <div className="min-h-screen bg-[linear-gradient(180deg,#f4fbff_0%,#eaf6ff_45%,#ffffff_100%)] text-slate-800">
+        <section className="relative overflow-hidden">
+          <div className="absolute left-[-80px] top-16 h-64 w-64 rounded-full bg-sky-200/35 blur-3xl" />
+          <div className="absolute right-[-60px] top-8 h-72 w-72 rounded-full bg-cyan-200/35 blur-3xl" />
+
+          <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-[1.25rem] bg-white shadow-sm ring-1 ring-sky-100">
+                <Radio className="h-5 w-5 text-sky-500" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-sky-500">cool pop music support</p>
+                <h1 className="text-base font-semibold tracking-wide text-slate-900">Rin Sound Atelier</h1>
+              </div>
+            </div>
+            <nav className="hidden items-center gap-6 text-sm text-slate-500 md:flex">
+              <a href="#quickstart" className="transition hover:text-slate-900">はじめての方へ</a>
+              <a href="#features" className="transition hover:text-slate-900">できること</a>
+              <a href="#works" className="transition hover:text-slate-900">作品</a>
+            </nav>
+          </header>
+
+          <div className="mx-auto grid max-w-7xl gap-8 px-6 pb-16 pt-4 lg:grid-cols-[1fr_0.95fr] lg:px-10 lg:pb-20 lg:pt-8">
+            <div className="flex flex-col justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-5 inline-flex w-fit items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm shadow-sm ring-1 ring-sky-100"
+              >
+                <Sparkles className="h-4 w-4 text-sky-500" />
+                <span>{option.catch}</span>
+                <span className="rounded-full bg-sky-50 px-2 py-0.5 text-xs text-sky-600">{option.tag}</span>
+              </motion.div>
+
+              <motion.h2
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.05 }}
+                className="whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-slate-900 md:text-5xl lg:text-6xl"
+              >
+                {option.heroTitle}
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.1 }}
+                className="mt-5 max-w-2xl text-base leading-8 text-slate-600 md:text-lg"
+              >
+                {option.heroSub}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.15 }}
+                className="mt-7 flex flex-col gap-3 sm:flex-row"
+              >
+                <Button className="h-12 rounded-full bg-[linear-gradient(135deg,#38bdf8,#60a5fa)] px-7 text-sm text-white shadow-lg shadow-sky-200/60 hover:bg-[linear-gradient(135deg,#22c1f1,#3b82f6)]">
+                  はじめての依頼を見る
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button variant="outline" className="h-12 rounded-full border-sky-100 bg-white px-7 text-sm text-slate-700 hover:bg-sky-50">
+                  音声チェックを試す
+                </Button>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="grid gap-4"
+            >
+              <Card className="rounded-[2rem] border-sky-100 bg-white/90 shadow-lg shadow-sky-100/50">
+                <CardContent className="p-6">
+                  <p className="text-sm font-medium text-sky-500">quick start</p>
+                  <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">まず何をすればいいか、すぐ分かる</h3>
+                  <div id="quickstart" className="mt-5 grid gap-3">
+                    {beginnerSteps.map((step, i) => (
+                      <motion.div
+                        key={step}
+                        initial={{ opacity: 0, x: 16 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.45, delay: 0.2 + i * 0.06 }}
+                        className="rounded-[1.25rem] bg-[linear-gradient(135deg,#eef8ff,#f6fbff)] p-4 ring-1 ring-sky-100"
+                      >
+                        <div className="text-sm font-medium text-slate-700">{step}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <Card className="rounded-[1.75rem] border-sky-100 bg-sky-50/70 shadow-sm">
+                  <CardContent className="p-5">
+                    <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm">
+                      <FileAudio className="h-5 w-5 text-sky-500" />
+                    </div>
+                    <h4 className="text-lg font-semibold text-slate-900">音声チェックもやさしく案内</h4>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">難しい数値だけでなく、「このままで大丈夫か」を一目で分かるようにする。</p>
+                  </CardContent>
+                </Card>
+                <Card className="rounded-[1.75rem] border-cyan-100 bg-cyan-50/70 shadow-sm">
+                  <CardContent className="p-5">
+                    <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm">
+                      <Mic2 className="h-5 w-5 text-cyan-500" />
+                    </div>
+                    <h4 className="text-lg font-semibold text-slate-900">かわいさの中に少しクールを入れる</h4>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">やわらかい雰囲気は残しつつ、青系の配色と整った余白で甘すぎない印象にする。</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <main className="mx-auto max-w-7xl px-6 pb-20 lg:px-10">
+          <section id="features" className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {featureCards.map((card, i) => {
+              const Icon = card.icon;
+              return (
+                <motion.div
+                  key={card.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.45, delay: i * 0.05 }}
+                >
+                  <Card className="h-full rounded-[2rem] border-white bg-white/90 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                    <CardContent className="p-5">
+                      <div className="mb-4 flex items-center justify-between">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-[1.25rem] bg-[linear-gradient(135deg,#eaf7ff,#eef8ff)]">
+                          <Icon className="h-5 w-5 text-sky-500" />
+                        </div>
+                        <span className="rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-600">{card.badge}</span>
+                      </div>
+                      <h4 className="text-lg font-semibold text-slate-900">{card.title}</h4>
+                      <p className="mt-3 text-sm leading-7 text-slate-600">{card.desc}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </section>
+
+          <section id="works" className="mt-16 rounded-[2rem] bg-[linear-gradient(135deg,#eef8ff,#f5fbff)] p-6 ring-1 ring-sky-100 md:p-8">
+            <div className="mb-5 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-sky-500">soft cool portfolio</p>
+                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">やわらかく見せつつ、作品はちゃんと並べる</h3>
+              </div>
+              <Wand2 className="h-5 w-5 text-sky-400" />
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {works.map((work, i) => (
+                <motion.div
+                  key={work.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: i * 0.06 }}
+                  className="rounded-[1.5rem] bg-white p-4 shadow-sm ring-1 ring-sky-100"
+                >
+                  <div className="mb-3 aspect-video rounded-2xl bg-[linear-gradient(135deg,#dff4ff,#eaf6ff)]" />
+                  <div className="text-sm font-medium text-slate-900">{work.title}</div>
+                  <div className="mt-1 text-xs leading-6 text-slate-500">{work.meta}</div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-[linear-gradient(180deg,#f2faff_0%,#e9f5ff_34%,#f8fcff_70%,#ffffff_100%)] text-slate-800">
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.95),transparent_28%),radial-gradient(circle_at_top_right,rgba(191,219,254,0.42),transparent_34%),radial-gradient(circle_at_40%_20%,rgba(255,255,255,0.72),transparent_18%)]" />
+        <GradientOrb className={`left-[-70px] top-8 h-64 w-64 bg-gradient-to-br ${option.glow}`} />
+        <GradientOrb className={`right-[-30px] top-20 h-80 w-80 bg-gradient-to-br ${option.glow}`} />
+        <div className="absolute left-[14%] top-20 h-28 w-28 rounded-full border border-white/55 bg-white/20 blur-md backdrop-blur-2xl" />
+        <div className="absolute right-[11%] top-40 h-16 w-16 rounded-full border border-white/45 bg-white/15 blur-md backdrop-blur-2xl" />
+
+        <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/70 bg-white/35 shadow-[0_12px_32px_rgba(148,163,184,0.14)] ring-1 ring-white/50 backdrop-blur-2xl">
+              <Radio className="h-5 w-5 text-sky-500" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-sky-600">premium personal music site</p>
+              <h1 className="text-base font-semibold tracking-wide">Rin Sound Atelier</h1>
+            </div>
+          </div>
+          <nav className="hidden items-center gap-6 text-sm text-slate-600 md:flex">
+            <a href="#features" className="transition hover:text-slate-900">サービス</a>
+            <a href="#guide" className="transition hover:text-slate-900">はじめての方へ</a>
+            <a href="#works" className="transition hover:text-slate-900">作品</a>
+          </nav>
+        </header>
+
+        <section className="mx-auto grid max-w-7xl gap-8 px-6 pb-16 pt-4 lg:grid-cols-[1.08fr_0.92fr] lg:px-10 lg:pb-20 lg:pt-8">
+          <div className="flex flex-col justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55 }}
+              className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/65 bg-white/35 px-4 py-2 text-sm shadow-[0_10px_30px_rgba(148,163,184,0.10)] ring-1 ring-white/40 backdrop-blur-2xl"
+            >
+              <Sparkles className="h-4 w-4 text-sky-500" />
+              <span>{option.catch}</span>
+              <span className="rounded-full bg-sky-50 px-2 py-0.5 text-xs text-sky-600">{option.tag}</span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.05 }}
+              className="whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-slate-900 md:text-5xl lg:text-6xl"
+            >
+              {option.heroTitle}
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.1 }}
+              className="mt-5 max-w-2xl text-base leading-8 text-slate-600 md:text-lg"
+            >
+              {option.heroSub}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.14 }}
+              className="mt-5 flex flex-wrap gap-2"
+            >
+              {targetTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/65 bg-white/32 px-3 py-1.5 text-xs text-slate-600 shadow-[0_8px_20px_rgba(148,163,184,0.08)] backdrop-blur-xl"
+                >
+                  {tag}
+                </span>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.18 }}
+              className="mt-7 flex flex-col gap-3 sm:flex-row"
+            >
+              <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                MIX依頼を見る
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
               <Button
-                asChild
                 variant="outline"
                 className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
               >
-                <Link href={siteLinks.mix}>MIX依頼を見る</Link>
+                作品を見る
               </Button>
-
               <Button
-                asChild
                 variant="outline"
                 className="h-12 rounded-full border-sky-100 bg-sky-50/70 px-6 text-sm text-sky-700 shadow-sm hover:bg-sky-100"
               >
-                <Link href={siteLinks.audioCheck}>音声データチェックを試す</Link>
+                はじめての方へ
               </Button>
             </motion.div>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              {statCards.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.22 + i * 0.05 }}
+                    className="rounded-[1.75rem] border border-white/70 bg-white/28 p-4 shadow-[0_18px_45px_rgba(148,163,184,0.14)] backdrop-blur-2xl"
+                  >
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-50">
+                      <Icon className="h-5 w-5 text-sky-500" />
+                    </div>
+                    <div className="text-2xl font-semibold text-slate-900">{item.value}</div>
+                    <div className="mt-1 text-sm text-slate-500">{item.label}</div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
 
-          <div className="relative z-10 min-w-0 xl:justify-self-end xl:w-full xl:max-w-[560px]">
-            <motion.div
-              className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/70 via-cyan-100/40 to-sky-200/30 blur-2xl"
-              animate={{ opacity: [0.72, 1, 0.76], scale: [1, 1.03, 1] }}
-              transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-            />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.12 }}
+            className="relative grid gap-4"
+          >
+            <div className={`absolute inset-0 rounded-[2rem] bg-gradient-to-br ${option.accent} blur-2xl`} />
             <div className="absolute inset-x-8 top-0 h-px bg-white/80" />
 
-            <motion.div
-              animate={{ y: [0, -2, 0] }}
-              transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <Card className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/28 shadow-[0_30px_80px_rgba(148,163,184,0.18)] backdrop-blur-[28px]">
-                <motion.div
-                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/2 bg-[linear-gradient(120deg,rgba(255,255,255,0),rgba(255,255,255,0.35),rgba(255,255,255,0))]"
-                  animate={{ x: ["-10%", "220%"] }}
-                  transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.2 }}
-                />
-                <CardContent className="relative p-5 md:p-6">
-                  <div className="mb-4 flex items-center justify-between">
-                    <div className="min-w-0">
-                      <p className="text-sm text-slate-500">まず確認できること</p>
-                      <h3 className="text-lg font-semibold text-slate-900">
-                        相談のしやすさと、作品の雰囲気を見られます
-                      </h3>
-                    </div>
-                    <motion.div
-                      className="shrink-0 rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-600"
-                      animate={{ scale: [1, 1.05, 1] }}
-                      transition={{ duration: 2.6, repeat: Infinity }}
-                    >
-                      はじめてでも安心
-                    </motion.div>
+            <Card className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/28 shadow-[0_30px_80px_rgba(148,163,184,0.18)] backdrop-blur-[28px]">
+              <CardContent className="p-5 md:p-6">
+                <div className="mb-4 flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-slate-500">featured direction</p>
+                    <h3 className="text-lg font-semibold text-slate-900">やさしい入口と、しっかり見える実績感</h3>
                   </div>
+                  <div className="rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-600">hybrid</div>
+                </div>
 
-                  <div className="grid gap-4">
-                    <AnimatedPanel
-                      delay={0.3}
-                      className="rounded-[1.25rem] border border-white/60 bg-white/30 p-4 backdrop-blur-2xl"
-                    >
-                      <p className="text-xs tracking-[0.2em] text-sky-500">はじめての方へ</p>
-                      <h4 className="mt-2 text-xl font-semibold text-slate-900">
-                        初回依頼でも、安心して進められる
-                      </h4>
+                <div className="rounded-[1.5rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.40),rgba(239,246,255,0.20))] p-4 ring-1 ring-white/55 backdrop-blur-2xl">
+                  <div className="grid gap-4 md:grid-cols-[0.9fr_1.1fr]">
+                    <div className="rounded-[1.25rem] border border-white/60 bg-white/30 p-4 shadow-[0_12px_30px_rgba(148,163,184,0.10)] backdrop-blur-2xl">
+                      <p className="text-xs tracking-[0.2em] text-sky-500">FIRST STEP</p>
+                      <h4 className="mt-2 text-xl font-semibold text-slate-900">はじめてでも、次にやることが分かる</h4>
                       <div className="mt-4 grid gap-3">
                         {beginnerSteps.map((step, i) => (
                           <motion.div
                             key={step}
                             initial={{ opacity: 0, x: 14 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.45, delay: 0.22 + i * 0.08 }}
-                            whileHover={{ x: 6 }}
-                            className="rounded-2xl border border-white/55 bg-white/35 p-3 text-sm leading-7 text-slate-600 backdrop-blur-xl"
+                            transition={{ duration: 0.4, delay: 0.18 + i * 0.05 }}
+                            className="rounded-2xl border border-white/55 bg-white/35 p-3 text-sm text-slate-600 backdrop-blur-xl"
                           >
                             {step}
                           </motion.div>
                         ))}
                       </div>
-                    </AnimatedPanel>
+                    </div>
 
-                    <AnimatedPanel
-                      delay={0.8}
-                      className="relative overflow-hidden rounded-[1.25rem] bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.94))] p-4 text-white"
-                    >
-                      <motion.div
-                        className="pointer-events-none absolute inset-0 opacity-50"
-                        animate={{ backgroundPosition: ["0% 0%", "120% 0%"] }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(125,211,252,0.16) 30%, rgba(255,255,255,0) 58%)",
-                          backgroundSize: "180% 100%",
-                        }}
-                      />
-                      <div className="relative mb-3 flex items-center justify-between">
-                        <div className="min-w-0">
-                          <p className="text-xs tracking-[0.2em] text-sky-200">作品展示</p>
-                          <h4 className="mt-2 text-xl font-semibold">
-                            作品で、音の雰囲気も伝わる
-                          </h4>
+                    <div className="rounded-[1.25rem] bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.94))] p-4 text-white shadow-sm">
+                      <div className="mb-3 flex items-center justify-between">
+                        <div>
+                          <p className="text-xs tracking-[0.2em] text-sky-200">PORTFOLIO</p>
+                          <h4 className="mt-2 text-xl font-semibold">作品で「ちゃんとしてる感」を出す</h4>
                         </div>
-                        <motion.div
-                          className="shrink-0"
-                          animate={{ rotate: [0, 10, -8, 0], scale: [1, 1.08, 1] }}
-                          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-                        >
-                          <Wand2 className="h-5 w-5 text-sky-200" />
-                        </motion.div>
+                        <Wand2 className="h-5 w-5 text-sky-200" />
                       </div>
-                      <p className="relative text-sm leading-7 text-slate-200">
-                        透明感や空気感、青春感のあるサウンドを中心に、どんな雰囲気の作品を作っているかが自然に伝わるようにまとめています。
+                      <p className="text-sm leading-7 text-slate-200">
+                        作品展示では少しだけドラマチックな見せ方を入れて、信頼感や本格感を先に伝える。
                       </p>
-
-                      <div className="relative mt-5 grid gap-4">
+                      <div className="mt-4 grid gap-3 sm:grid-cols-3">
                         {works.map((work, i) => (
-                          <motion.a
+                          <motion.div
                             key={work.title}
-                            href={work.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            initial={{ opacity: 0, y: 18, scale: 0.97 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{ duration: 0.5, delay: 0.34 + i * 0.08 }}
-                            whileHover={{ y: -4, scale: 1.01 }}
-                            className="group rounded-[1.25rem] border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-colors hover:bg-white/[0.07]"
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.45, delay: 0.28 + i * 0.06 }}
+                            className="group rounded-[1.15rem] border border-white/10 bg-white/5 p-3 backdrop-blur-sm transition hover:-translate-y-1"
                           >
-                            <div className="grid gap-4 md:grid-cols-[200px_minmax(0,1fr)] md:items-start">
-                              <div className="relative aspect-video overflow-hidden rounded-2xl ring-1 ring-white/10">
-                                <img
-                                  src={work.thumbnail}
-                                  alt={work.title}
-                                  className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                                />
-                                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.08),rgba(15,23,42,0.24)_52%,rgba(15,23,42,0.70))]" />
-                                <div className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/20 px-2.5 py-1 text-[10px] tracking-[0.14em] text-white/90 backdrop-blur-md">
-                                  <PlayCircle className="h-3.5 w-3.5" />
-                                  再生先: YouTube
-                                </div>
-                              </div>
-
-                              <div className="min-w-0">
-                                <div className="mb-3 inline-flex rounded-full bg-white/10 px-2.5 py-1 text-[10px] tracking-[0.14em] text-sky-100">
-                                  {work.label}
-                                </div>
-                                <div className="text-xl font-semibold tracking-tight text-white">
-                                  {work.title}
-                                </div>
-                                <div className="mt-2 text-xs leading-6 text-sky-100/80">
-                                  {work.role}
-                                </div>
-                                <div className="mt-3 text-sm leading-7 text-slate-300">
-                                  {work.desc}
-                                </div>
-                                <div className="mt-4 flex flex-wrap gap-2">
-                                  {work.tags.map((tag) => (
-                                    <span
-                                      key={tag}
-                                      className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-200"
-                                    >
-                                      {tag}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          </motion.a>
+                            <div className="mb-3 aspect-video rounded-2xl bg-[linear-gradient(135deg,rgba(125,211,252,0.22),rgba(56,189,248,0.08))] ring-1 ring-white/10 transition group-hover:scale-[1.02]" />
+                            <div className="text-sm font-medium text-white">{work.title}</div>
+                            <div className="mt-1 text-xs leading-6 text-slate-300">{work.meta}</div>
+                          </motion.div>
                         ))}
                       </div>
-                    </AnimatedPanel>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <main className="mx-auto max-w-7xl px-6 pb-16 lg:px-10">
-        <section id="features">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
-          >
-            <div>
-              <p className="text-sm font-medium text-sky-600">ページ一覧</p>
-              <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-                気になるページから、そのまま進めます
-              </h3>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-            className="mb-5"
-          >
-            <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
-              <div className="grid gap-5 p-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-                <div>
-                  <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
-                    最初におすすめ
-                  </div>
-                  <h4 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900">
-                    はじめての方へ
-                  </h4>
-                  <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
-                    まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください。依頼の流れや送ってほしいもの、不安になりやすいポイントをまとめて確認できます。
-                  </p>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                  {[
-                    "依頼の流れが分かる",
-                    "送ってほしいものを確認できる",
-                    "FAQで不安を先に解消できる",
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-600"
-                    >
-                      {item}
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
-            </AnimatedPanel>
+              </CardContent>
+            </Card>
           </motion.div>
+        </section>
+      </div>
 
-          <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+      <main className="mx-auto max-w-7xl px-6 pb-20 lg:px-10">
+        <section id="features">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium text-sky-600">entry points</p>
+              <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">迷わず進める4つの入口</h3>
+            </div>
+            <div className="hidden text-sm text-slate-500 md:block">初見の人でも、やりたいことから選びやすい構成</div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {featureCards.map((card, i) => {
               const Icon = card.icon;
-
               return (
                 <motion.div
                   key={card.title}
-                  initial={{ opacity: 0, y: 24, scale: 0.97 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  transition={{ duration: 0.45, delay: i * 0.05 }}
                 >
-                  <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
-                    <motion.div whileHover={{ y: -5, scale: 1.01 }}>
-                      <Card className="border-none bg-transparent shadow-none">
-                        <CardContent className="p-5">
-                          <div className="mb-4 flex items-center justify-between">
-                            <motion.div
-                              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50"
-                              animate={{ rotate: [0, 2, -2, 0] }}
-                              transition={{
-                                duration: 4 + i * 0.4,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                              }}
-                            >
-                              <Icon className="h-5 w-5 text-sky-500" />
-                            </motion.div>
-                            <span className="rounded-full bg-slate-50 px-3 py-1 text-xs text-slate-500">
-                              {card.badge}
-                            </span>
-                          </div>
-                          <h4 className="text-lg font-semibold text-slate-900">{card.title}</h4>
-                          <p className="mt-3 text-sm leading-7 text-slate-600">{card.desc}</p>
-                          <Link
-                            href={card.href}
-                            className="mt-4 inline-flex items-center text-sm font-medium text-sky-600 transition hover:text-sky-700"
-                          >
-                            {card.linkText}
-                            <ChevronRight className="ml-1 h-4 w-4" />
-                          </Link>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </AnimatedPanel>
+                  <Card className="group h-full rounded-[1.75rem] border-white/70 bg-white/75 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-100/60">
+                    <CardContent className="p-5">
+                      <div className="mb-4 flex items-center justify-between">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50">
+                          <Icon className="h-5 w-5 text-sky-500" />
+                        </div>
+                        <span className="rounded-full bg-slate-50 px-3 py-1 text-xs text-slate-500">{card.badge}</span>
+                      </div>
+                      <h4 className="text-lg font-semibold text-slate-900">{card.title}</h4>
+                      <p className="mt-3 text-sm leading-7 text-slate-600">{card.desc}</p>
+                      <div className="mt-5 flex items-center text-sm font-medium text-sky-600 transition group-hover:translate-x-0.5">
+                        このページへ進む
+                        <ChevronRight className="ml-1 h-4 w-4" />
+                      </div>
+                    </CardContent>
+                  </Card>
                 </motion.div>
               );
             })}
           </div>
         </section>
 
-        <section id="guide" className="mt-16 space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-          >
-            <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
-              <div className="grid gap-6 p-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-                <div>
-                  <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
-                    はじめての方へ
-                  </div>
-                  <h3 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
-                    はじめての依頼でも、安心して相談できるように。
-                  </h3>
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-                    まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください。はじめての歌ってみたでも、流れが分かるように丁寧に案内します。
-                  </p>
-                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                    <Button
-                      asChild
-                      className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]"
-                    >
-                      <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
-                        {contactActionLabels.primary}
-                      </a>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                    >
-                      <Link href={siteLinks.audioCheck}>音声データチェックを試す</Link>
-                    </Button>
-                  </div>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                  {[
-                    "まず相談からでOK",
-                    "送ってほしいものが分かる",
-                    "FAQで不安を整理できる",
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-600"
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
+        <section id="guide" className="mt-16 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+          <Card className="rounded-[1.75rem] border-white/70 bg-white/75 shadow-sm backdrop-blur">
+            <CardContent className="p-6">
+              <p className="text-sm font-medium text-sky-600">for beginners</p>
+              <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">歌い手さん向けのやさしい導線</h3>
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                音楽や機材に詳しくなくても、まず何を準備して、どこを確認すればよいかが分かるように、専門用語よりも行動のしやすさを優先した導線にする。
+              </p>
+              <div className="mt-5 space-y-3 text-sm text-slate-600">
+                <div className="rounded-2xl border border-white/60 bg-white/35 p-4 backdrop-blur-xl">・歌ってみた初投稿や、はじめての依頼でも流れが分かる</div>
+                <div className="rounded-2xl border border-white/60 bg-white/35 p-4 backdrop-blur-xl">・音声チェック結果は、数値だけでなく意味もやさしく説明する</div>
+                <div className="rounded-2xl border border-white/60 bg-white/35 p-4 backdrop-blur-xl">・エラーよりも「どう直せばいいか」を先に見せる</div>
               </div>
-            </AnimatedPanel>
-          </motion.div>
+            </CardContent>
+          </Card>
 
-          <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
-            <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
-              <div>
-                <p className="text-sm font-medium text-sky-600">{contactPolicyCopy.eyebrow}</p>
-                <h4 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
-                  {contactPolicyCopy.title}
-                </h4>
-                <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-                  {contactPolicyCopy.full}
-                </p>
+          <Card
+            id="works"
+            className="overflow-hidden rounded-[1.75rem] border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.94))] text-white shadow-xl shadow-slate-200/60"
+          >
+            <CardContent className="p-6 md:p-7">
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-sky-200">portfolio impact</p>
+                  <h3 className="mt-2 text-2xl font-semibold tracking-tight">作品展示は少し“魅せる”</h3>
+                </div>
+                <Wand2 className="h-5 w-5 text-sky-200" />
               </div>
-              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Button
-                  asChild
-                  className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]"
-                >
-                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
-                    {contactActionLabels.primary}
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                >
-                  <a href={siteLinks.x} target="_blank" rel="noreferrer">
-                    {contactActionLabels.secondary}
-                  </a>
-                </Button>
+              <div className="grid gap-4 md:grid-cols-3">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: i * 0.08 }}
+                    className="group rounded-[1.25rem] border border-white/10 bg-white/5 p-3 backdrop-blur-sm"
+                  >
+                    <div className="aspect-video rounded-2xl bg-[linear-gradient(135deg,rgba(125,211,252,0.22),rgba(56,189,248,0.08))] ring-1 ring-white/10 transition group-hover:scale-[1.02]" />
+                    <div className="mt-3 text-sm font-medium">Featured Movie #{i + 1}</div>
+                    <div className="mt-1 text-xs leading-6 text-slate-300">
+                      サムネイル演出やフェードで、実績感を一段上げるイメージ。
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            </div>
-          </AnimatedPanel>
+            </CardContent>
+          </Card>
         </section>
       </main>
-
-      <SiteFooter />
     </div>
   );
 }
+
+export default function MusicSiteHomeSamples() {
+  const [selected, setSelected] = useState(options[0]);
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <div className="sticky top-0 z-20 border-b border-slate-200/70 bg-white/80 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-between lg:px-8">
+          <div>
+            <div className="text-sm font-medium text-sky-600">Homepage UI Samples</div>
+            <div className="mt-1 text-xl font-semibold tracking-tight text-slate-900">
+              爽やか / 綺麗め / 透明感 を軸にしたトップページ比較
+            </div>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {options.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => setSelected(option)}
+                className={`rounded-2xl border px-4 py-3 text-left transition ${
+                  selected.id === option.id
+                    ? "border-sky-300 bg-sky-50 shadow-sm"
+                    : "border-slate-200 bg-white hover:border-slate-300"
+                }`}
+              >
+                <div className="text-sm font-semibold text-slate-900">{option.name}</div>
+                <div className="mt-1 text-xs leading-5 text-slate-500">{option.catch}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-4 pt-6 lg:px-8">
+        <Card className="mb-6 rounded-[1.75rem] border-slate-200 bg-white shadow-sm">
+          <CardContent className="p-6">
+            <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr] md:items-start">
+              <div>
+                <div className="mb-2 inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
+                  {selected.name}
+                </div>
+                <h2 className="text-2xl font-semibold tracking-tight text-slate-900">{selected.catch}</h2>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{selected.summary}</p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3">
+        
