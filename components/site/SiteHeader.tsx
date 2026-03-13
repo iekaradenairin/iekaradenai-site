@@ -36,7 +36,7 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
           </motion.div>
 
           <div>
-            <p className="text-sm font-medium text-sky-700">倫 / Rin music works</p>
+            <p className="text-sm font-medium text-sky-700">music works</p>
             <div className="text-base font-semibold tracking-wide text-slate-900">倫 / Rin</div>
           </div>
         </Link>
