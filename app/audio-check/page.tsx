@@ -1,97 +1,104 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Upload, FileAudio, CircleCheckBig, TriangleAlert, ChevronDown, ChevronUp, ShieldCheck, Waves, SlidersHorizontal, Info } from "lucide-react";
+import {
+  Sparkles,
+  FileAudio,
+  CheckCircle2,
+  AlertCircle,
+  SlidersHorizontal,
+  ChevronRight,
+  CircleHelp,
+  ShieldCheck,
+  AudioLines,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
 import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
-import { SiteFooter } from "@/components/site/SiteFooter";
 
-type CheckStatus = "ok" | "consult";
-type CheckMode = "vocal" | "master";
+const quickChecks = [
+  {
+    title: "ノイズが強くないか",
+    desc: "サーッという定常ノイズや、環境音が大きすぎないかを最初に確認します。",
+    icon: AudioLines,
+  },
+  {
+    title: "音割れしていないか",
+    desc: "ピークが強すぎて耳に痛い状態になっていないかを見ます。",
+    icon: AlertCircle,
+  },
+  {
+    title: "音量が小さすぎないか",
+    desc: "極端に小さい場合は、後工程で扱いにくくなることがあります。",
+    icon: SlidersHorizontal,
+  },
+] as const;
 
-type CheckItem = {
-  name: string;
-  status: CheckStatus;
-  summary: string;
-  value?: string;
-  note?: string;
-  action?: string;
+const okayExamples = [
+  "多少のノイズはあるが、歌声が十分に聴き取れる",
+  "大きな破綻はなく、そのまま相談しながら進められる",
+  "少し気になる点はあるが、修正や調整の余地がある",
+] as const;
+
+const cautionExamples = [
+  "音割れが強く、修正で取り戻しにくい",
+  "ノイズが大きく、歌声より目立ってしまっている",
+  "音量が極端に小さく、判断しづらい",
+  "頭出しや書き出し状態に問題がある",
+] as const;
+
+const beforeSubmit = [
+  "モノラル推奨",
+  "エフェクトなし推奨",
+  "頭出し済みだと助かります",
+  "24bit / 44.1kHz 以上推奨",
+  "ハモリ / コーラスは別トラック推奨",
+] as const;
+
+const faqItems = [
+  {
+    q: "完璧じゃないと送れませんか？",
+    a: "完璧でなくても大丈夫です。大きな問題がないかを先に確認して、不安があれば相談しながら進めるための入口として使ってください。",
+  },
+  {
+    q: "このページだけで合否が決まりますか？",
+    a: "最終判断を断定するためというより、提出前の不安を減らすための簡易チェックです。迷う場合は、そのまま相談してもらえれば大丈夫です。",
+  },
+  {
+    q: "録り直しが必要なケースはありますか？",
+    a: "あります。特に音割れや大きなノイズなど、後から直しにくい問題が強い場合は、録り直しをおすすめすることがあります。",
+  },
+  {
+    q: "そのままMIX依頼に進んでもいいですか？",
+    a: "大丈夫です。状態に大きな問題がなければ、そのまま相談へ進んでもらって問題ありません。",
+  },
+] as const;
+
+type GlassOrbProps = {
+  className?: string;
+  delay?: number;
 };
 
-type CheckedFile = {
-  id: string;
-  fileName: string;
-  modeLabel: string;
-  overall: CheckStatus;
-  overallText: string;
-  shortComment: string;
-  meta: { duration: string; size: string };
-  items: CheckItem[];
-};
-
-const mockFilesByMode: Record<CheckMode, CheckedFile[]> = {
-  vocal: [
-    {
-      id: "vocal-1",
-      fileName: "main_vocal_take01.wav",
-      modeLabel: "ボーカル素材チェック",
-      overall: "ok",
-      overallText: "○ 問題なし",
-      shortComment: "モノラル / 48kHz / 24bit。ピークも安定していて、大きな問題は見られません。",
-      meta: { duration: "03:41", size: "64.2MB" },
-      items: [
-        { name: "ファイル形式", status: "ok", summary: "WAV 形式です。大きな問題は見られません。", value: "PCM / 48kHz / 24bit" },
-        { name: "チャンネル数", status: "ok", summary: "モノラルです。ボーカル素材として問題ない状態です。", value: "1ch" },
-        { name: "S/N比（参考）", status: "ok", summary: "大きな不安はなさそうです。", value: "推定 S/N: 61dB", note: "参考値です。" },
-      ],
-    },
-    {
-      id: "vocal-2",
-      fileName: "lead_vo_stereo_export.wav",
-      modeLabel: "ボーカル素材チェック",
-      overall: "consult",
-      overallText: "△ 一度確認したい",
-      shortComment: "ステレオ書き出しです。提出前に一度確認したい状態です。",
-      meta: { duration: "04:08", size: "71.8MB" },
-      items: [
-        { name: "ファイル形式", status: "ok", summary: "WAV 形式です。大きな問題は見られません。", value: "PCM / 44.1kHz / 24bit" },
-        { name: "チャンネル数", status: "consult", summary: "ステレオです。モノラル書き出しの方が進めやすい場合があります。", value: "2ch", action: "DAW の書き出し設定で、ボーカルトラックをモノラルで書き出してください。" },
-        { name: "ピーク / ヘッドルーム", status: "consult", summary: "ピークがやや高めです。余裕を持たせられると安心です。", value: "Peak: -1.2dBFS", action: "書き出し時のレベルを少し下げてください。" },
-      ],
-    },
-  ],
-  master: [
-    {
-      id: "master-1",
-      fileName: "full_mix_preview.wav",
-      modeLabel: "一般音源チェック",
-      overall: "ok",
-      overallText: "○ 問題なし",
-      shortComment: "ステレオ / 48kHz / 24bit。一般音源として大きな問題は見られません。",
-      meta: { duration: "04:22", size: "82.1MB" },
-      items: [
-        { name: "ファイル形式", status: "ok", summary: "WAV 形式です。大きな問題は見られません。", value: "PCM / 48kHz / 24bit" },
-        { name: "チャンネル数", status: "ok", summary: "ステレオです。一般音源として問題ない状態です。", value: "2ch" },
-        { name: "左右バランス", status: "ok", summary: "大きな偏りは見られません。", value: "L/R diff: 1.4dB" },
-      ],
-    },
-  ],
-};
-
-
-function GlassOrb({ className, delay = 0 }: { className?: string; delay?: number }) {
+function GlassOrb({ className = "", delay = 0 }: GlassOrbProps) {
   return (
     <motion.div
-      className={`pointer-events-none absolute rounded-full blur-3xl opacity-55 ${className ?? ""}`}
+      className={`pointer-events-none absolute rounded-full blur-3xl opacity-55 ${className}`}
       animate={{ x: [0, 18, -10, 0], y: [0, -14, 8, 0], scale: [1, 1.04, 0.98, 1] }}
       transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay }}
     />
   );
 }
 
-function AnimatedPanel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+type AnimatedPanelProps = {
+  children: React.ReactNode;
+  className?: string;
+};
+
+function AnimatedPanel({ children, className = "" }: AnimatedPanelProps) {
   return (
     <motion.div
       animate={{
@@ -109,7 +116,33 @@ function AnimatedPanel({ children, className = "" }: { children: React.ReactNode
   );
 }
 
-function PageFrame({ children }: { children: React.ReactNode }) {
+function SectionHeader({
+  eyebrow,
+  title,
+  body,
+}: {
+  eyebrow: string;
+  title: string;
+  body?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.55 }}
+      className="mb-5"
+    >
+      <p className="text-sm font-medium text-sky-600">{eyebrow}</p>
+      <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 md:text-[2rem]">
+        {title}
+      </h2>
+      {body ? <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">{body}</p> : null}
+    </motion.div>
+  );
+}
+
+export default function AudioCheckPage() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#f3fbff_0%,#e8f5ff_30%,#f8fcff_70%,#ffffff_100%)] text-slate-800">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
@@ -118,227 +151,300 @@ function PageFrame({ children }: { children: React.ReactNode }) {
           animate={{ opacity: [0.78, 1, 0.82] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
-        <GlassOrb className="left-[-120px] top-[-40px] h-72 w-72 bg-gradient-to-br from-cyan-200/40 via-sky-200/30 to-transparent" delay={0.2} />
-        <GlassOrb className="right-[-80px] top-10 h-96 w-96 bg-gradient-to-br from-cyan-200/35 via-sky-200/25 to-transparent" delay={1.2} />
+        <GlassOrb
+          className="left-[-120px] top-[-40px] h-72 w-72 bg-gradient-to-br from-cyan-200/40 via-sky-200/30 to-transparent"
+          delay={0.2}
+        />
+        <GlassOrb
+          className="right-[-80px] top-10 h-96 w-96 bg-gradient-to-br from-cyan-200/35 via-sky-200/25 to-transparent"
+          delay={1.2}
+        />
       </div>
-      {children}
-    </div>
-  );
-}
 
-function ContactBlock({ useNextStep = false }: { useNextStep?: boolean }) {
-  return (
-    <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/82 backdrop-blur-xl">
-      <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
-        <div>
-          <p className="text-sm font-medium text-sky-600">{contactPolicyCopy.eyebrow}</p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
-            {useNextStep ? contactPolicyCopy.nextStepTitle : contactPolicyCopy.title}
-          </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-            {useNextStep ? contactPolicyCopy.nextStepBody : contactPolicyCopy.full}
-          </p>
-        </div>
-        <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-          <Button asChild className="h-12 rounded-full px-6">
-            <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
-              {contactActionLabels.primary}
-            </a>
-          </Button>
-          <Button asChild variant="outline" className="h-12 rounded-full px-6">
-            <a href={siteLinks.x} target="_blank" rel="noreferrer">
-              {contactActionLabels.secondary}
-            </a>
-          </Button>
-        </div>
-      </div>
-    </AnimatedPanel>
-  );
-}
+      <SiteHeader currentLabel="音声データチェック" />
 
-function SummaryBadge({ status, text }: { status: CheckStatus; text: string }) {
-  const ok = status === "ok";
-  return (
-    <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium ${ok ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-amber-200 bg-amber-50 text-amber-700"}`}>
-      {ok ? <CircleCheckBig className="h-3.5 w-3.5" /> : <TriangleAlert className="h-3.5 w-3.5" />}
-      {text}
-    </span>
-  );
-}
-
-function FileResultCard({ file }: { file: CheckedFile }) {
-  const [open, setOpen] = useState(file.id === "vocal-1");
-
-  return (
-    <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/78 backdrop-blur-xl">
-      <div className="p-5 md:p-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-center gap-2">
-              <SummaryBadge status={file.overall} text={file.overallText} />
-              <span className="rounded-full bg-slate-50 px-3 py-1 text-xs text-slate-500">{file.modeLabel}</span>
-            </div>
-            <h3 className="mt-3 truncate text-xl font-semibold tracking-tight text-slate-900">{file.fileName}</h3>
-            <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-600">{file.shortComment}</p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:min-w-[220px] lg:grid-cols-1">
-            <div className="rounded-[1.1rem] border border-slate-200 bg-slate-50/80 px-4 py-3">
-              <div className="text-[11px] tracking-[0.14em] text-slate-400">長さ</div>
-              <div className="mt-1 text-sm font-medium text-slate-700">{file.meta.duration}</div>
-            </div>
-            <div className="rounded-[1.1rem] border border-slate-200 bg-slate-50/80 px-4 py-3">
-              <div className="text-[11px] tracking-[0.14em] text-slate-400">ファイルサイズ</div>
-              <div className="mt-1 text-sm font-medium text-slate-700">{file.meta.size}</div>
-            </div>
-          </div>
-        </div>
-
-        <button type="button" onClick={() => setOpen((v) => !v)} className="mt-5 inline-flex items-center text-sm font-medium text-sky-600">
-          詳細を見る
-          {open ? <ChevronUp className="ml-1 h-4 w-4" /> : <ChevronDown className="ml-1 h-4 w-4" />}
-        </button>
-
-        {open ? (
-          <div className="mt-5 grid gap-3">
-            {file.items.map((item) => (
-              <div key={item.name} className="rounded-[1.2rem] border border-slate-200 bg-slate-50/75 p-4">
-                <div className="flex flex-wrap items-center gap-2">
-                  <div className="text-sm font-medium text-slate-900">{item.name}</div>
-                  <SummaryBadge status={item.status} text={item.status === "ok" ? "○ 問題なし" : "△ 一度確認したい"} />
-                </div>
-                <p className="mt-2 text-sm leading-7 text-slate-600">{item.summary}</p>
-                {item.value ? <div className="mt-2 text-xs text-slate-400">{item.value}</div> : null}
-                {item.action ? <div className="mt-3 rounded-[1rem] border border-sky-100 bg-sky-50/70 px-4 py-3 text-sm leading-7 text-slate-600">見直し方：{item.action}</div> : null}
-                {item.note ? <div className="mt-3 text-sm text-slate-500">補足：{item.note}</div> : null}
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </div>
-    </AnimatedPanel>
-  );
-}
-
-export default function AudioCheckPage() {
-  const [mode, setMode] = useState<CheckMode>("vocal");
-  const files = useMemo(() => mockFilesByMode[mode], [mode]);
-  const summary = useMemo(() => ({
-    total: files.length,
-    ok: files.filter((f) => f.overall === "ok").length,
-    consult: files.filter((f) => f.overall === "consult").length,
-  }), [files]);
-
-  return (
-    <PageFrame>
-      <main className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pt-10">
+      <main className="mx-auto max-w-7xl px-6 pb-20 pt-2 lg:px-10 lg:pt-4">
         <section className="space-y-6">
-          <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 p-6 backdrop-blur-xl">
-            <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-              <div>
-                <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">音声データチェック</div>
-                <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-                  提出前に、
-                  <br />
-                  音源の状態を簡易チェックできます。
-                </h1>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-                  WAV かどうか、モノラル / ステレオ、ピークや参考値などをブラウザ上で確認できます。難しい数値を見るためというより、「大きな問題がなさそうか」を確認するためのページです。
-                </p>
-                <div className="mt-5 inline-flex items-start gap-2 rounded-[1rem] border border-sky-100 bg-sky-50/70 px-4 py-3 text-sm leading-7 text-slate-600">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-sky-600" />
-                  解析はブラウザ内で行います。音源ファイルはサーバーへ送信しません。
-                </div>
-              </div>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+              <div className="grid gap-6 p-6 md:p-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+                <div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.55 }}
+                    className="inline-flex items-center gap-2 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700"
+                  >
+                    <motion.div
+                      animate={{ rotate: [0, 8, -5, 0], scale: [1, 1.08, 1] }}
+                      transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <Sparkles className="h-3.5 w-3.5" />
+                    </motion.div>
+                    <span>音声データチェック</span>
+                  </motion.div>
 
-              <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-1">
-                {[
-                  { label: "チェック対象", value: "ボーカル / 一般音源" },
-                  { label: "対応形式", value: "複数ファイル対応" },
-                  { label: "使いどころ", value: "提出前の簡易確認" },
-                ].map((item) => (
-                  <div key={item.label} className="rounded-[1.3rem] border border-slate-200 bg-slate-50/70 p-4">
-                    <div className="text-xs tracking-[0.14em] text-slate-500">{item.label}</div>
-                    <div className="mt-2 text-lg font-semibold text-slate-900">{item.value}</div>
+                  <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+                    提出前に、
+                    <br />
+                    このままで大丈夫そうかをやさしく確認できます。
+                  </h1>
+
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+                    難しい専門用語だけで終わらず、いまの音源状態で大きな問題がなさそうかを確認するための入口です。
+                    はじめての依頼で不安なときに、まず軽く状態を整理してから相談に進めるようにしています。
+                  </p>
+
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                    <motion.div
+                      animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
+                      transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
+                        <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                          相談へ進む
+                        </Button>
+                      </a>
+                    </motion.div>
+
+                    <Link href={siteLinks.mix}>
+                      <Button
+                        variant="outline"
+                        className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                      >
+                        MIX依頼ページを見る
+                      </Button>
+                    </Link>
                   </div>
-                ))}
-              </div>
-            </div>
-          </AnimatedPanel>
-
-          <div className="grid gap-4 xl:grid-cols-[0.92fr_1.08fr]">
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/78 p-6 backdrop-blur-xl">
-              <div className="flex items-center gap-2">
-                <SlidersHorizontal className="h-4 w-4 text-sky-600" />
-                <p className="text-sm font-medium text-sky-600">チェックモード</p>
-              </div>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">用途に合わせて見方を切り替えます</h2>
-              <div className="mt-5 grid gap-3 md:grid-cols-2">
-                {[
-                  { key: "vocal" as const, title: "ボーカル素材チェック", desc: "MIX依頼前のボーカル素材向けです。" },
-                  { key: "master" as const, title: "一般音源チェック", desc: "2mix や完成音源向けです。" },
-                ].map((item) => (
-                  <button key={item.key} type="button" onClick={() => setMode(item.key)} className={`rounded-[1.3rem] border px-4 py-4 text-left transition ${mode === item.key ? "border-sky-200 bg-sky-50/85 shadow-sm" : "border-slate-200 bg-slate-50/70"}`}>
-                    <div className="text-sm font-medium text-slate-900">{item.title}</div>
-                    <div className="mt-2 text-sm leading-7 text-slate-600">{item.desc}</div>
-                  </button>
-                ))}
-              </div>
-            </AnimatedPanel>
-
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/78 p-6 backdrop-blur-xl">
-              <div className="flex items-center gap-2">
-                <Upload className="h-4 w-4 text-sky-600" />
-                <p className="text-sm font-medium text-sky-600">ファイルを追加する</p>
-              </div>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">複数ファイルをまとめて確認できます</h2>
-              <div className="mt-5 rounded-[1.5rem] border border-dashed border-sky-200 bg-sky-50/60 p-6 text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-sky-100">
-                  <FileAudio className="h-6 w-6 text-sky-500" />
                 </div>
-                <div className="mt-4 text-base font-medium text-slate-900">ここにファイルをドラッグ&ドロップ</div>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
-                  WAV を中心に、複数ファイルをまとめて確認できます。ここではUI試作としてサンプル結果を表示しています。
-                </p>
-                <Button className="mt-5 h-11 rounded-full px-6">ファイルを選ぶ</Button>
+
+                <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-1">
+                  {quickChecks.map((item, i) => {
+                    const Icon = item.icon;
+                    return (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.45, delay: 0.12 + i * 0.08 }}
+                        whileHover={{ y: -4 }}
+                        className="rounded-[1.3rem] border border-slate-200 bg-slate-50/70 p-4"
+                      >
+                        <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm">
+                          <Icon className="h-5 w-5 text-sky-500" />
+                        </div>
+                        <div className="text-base font-semibold text-slate-900">{item.title}</div>
+                        <div className="mt-2 text-sm leading-7 text-slate-500">{item.desc}</div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </AnimatedPanel>
+          </motion.div>
+
+          <div className="grid gap-4 xl:grid-cols-[1.02fr_0.98fr]">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+              <div className="p-6">
+                <SectionHeader
+                  eyebrow="このページで分かること"
+                  title="まずは、大きな問題がなさそうかを確認します"
+                  body="最終的な細かい判断まで一気に決めるというより、提出前に不安になりやすいポイントを先に整理するイメージです。"
+                />
+
+                <div className="grid gap-3">
+                  {[
+                    "ノイズが極端に大きくないか",
+                    "音割れのような強い破綻がないか",
+                    "音量が小さすぎて扱いにくくないか",
+                    "そのまま相談しながら進められそうか",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-700"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </AnimatedPanel>
+
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+              <div className="p-6">
+                <SectionHeader
+                  eyebrow="チェック結果の見方"
+                  title="OK寄り / 注意寄り の目安をやさしく見ます"
+                />
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4">
+                    <div className="mb-3 flex items-center gap-2 text-sm font-medium text-slate-900">
+                      <CheckCircle2 className="h-4 w-4 text-sky-500" />
+                      そのまま相談しやすい例
+                    </div>
+                    <div className="space-y-2 text-sm leading-7 text-slate-600">
+                      {okayExamples.map((item) => (
+                        <div key={item}>・{item}</div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4">
+                    <div className="mb-3 flex items-center gap-2 text-sm font-medium text-slate-900">
+                      <AlertCircle className="h-4 w-4 text-sky-500" />
+                      先に見直したい例
+                    </div>
+                    <div className="space-y-2 text-sm leading-7 text-slate-600">
+                      {cautionExamples.map((item) => (
+                        <div key={item}>・{item}</div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </AnimatedPanel>
           </div>
 
-          <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/78 p-6 backdrop-blur-xl">
-            <div className="flex items-center gap-2">
-              <Waves className="h-4 w-4 text-sky-600" />
-              <p className="text-sm font-medium text-sky-600">チェック結果</p>
-            </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50/75 p-4">
-                <div className="text-xs tracking-[0.14em] text-slate-500">チェックしたファイル数</div>
-                <div className="mt-2 text-2xl font-semibold text-slate-900">{summary.total}</div>
+          <div className="grid gap-4 xl:grid-cols-[1.04fr_0.96fr]">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+              <div className="p-6">
+                <SectionHeader
+                  eyebrow="提出前の目安"
+                  title="このような形ですと、よりスムーズに進められます"
+                />
+
+                <div className="grid gap-3 text-sm text-slate-600">
+                  {beforeSubmit.map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  理想的な形はありますが、最初から完璧でなくても問題ありません。状態に迷う場合は、そのまま相談してもらっても大丈夫です。
+                </p>
               </div>
-              <div className="rounded-[1.2rem] border border-emerald-200 bg-emerald-50/70 p-4">
-                <div className="text-xs tracking-[0.14em] text-emerald-700">○ 問題なし</div>
-                <div className="mt-2 text-2xl font-semibold text-slate-900">{summary.ok}</div>
+            </AnimatedPanel>
+
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+              <div className="p-6">
+                <SectionHeader
+                  eyebrow="次に進む目安"
+                  title="判断に迷ったら、そのまま相談へ進んで大丈夫です"
+                />
+
+                <div className="space-y-3 text-sm text-slate-600">
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                    ・大きな音割れやノイズがなければ、そのまま相談しながら進められることが多いです。
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                    ・録り直しが必要そうな場合でも、どこが気になるかを整理して次に進みやすくします。
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                    ・状態に不安が残る場合は、GoogleフォームやXからそのまま相談してください。
+                  </div>
+                </div>
               </div>
-              <div className="rounded-[1.2rem] border border-amber-200 bg-amber-50/70 p-4">
-                <div className="text-xs tracking-[0.14em] text-amber-700">△ 一度確認したい</div>
-                <div className="mt-2 text-2xl font-semibold text-slate-900">{summary.consult}</div>
+            </AnimatedPanel>
+          </div>
+
+          <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <div className="p-6">
+              <SectionHeader eyebrow="よくある質問" title="提出前に不安になりやすい点を先に整理したい方へ" />
+
+              <div className="space-y-3">
+                {faqItems.map((item) => (
+                  <motion.div
+                    key={item.q}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.45 }}
+                    className="rounded-[1.2rem] border border-slate-200 bg-slate-50/70 p-4"
+                  >
+                    <div className="flex items-start gap-3">
+                      <CircleHelp className="mt-0.5 h-4 w-4 shrink-0 text-sky-500" />
+                      <div className="min-w-0">
+                        <div className="text-sm font-medium text-slate-900">Q. {item.q}</div>
+                        <div className="mt-2 text-sm leading-7 text-slate-600">{item.a}</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            </div>
-            <div className="mt-4 inline-flex items-start gap-2 rounded-[1rem] border border-slate-200 bg-white px-4 py-3 text-sm leading-7 text-slate-600">
-              <Info className="mt-0.5 h-4 w-4 shrink-0 text-sky-600" />
-              まずは ○ と △ を目安に見てください。細かい数値は必要に応じて詳細で確認できます。
             </div>
           </AnimatedPanel>
 
-          <div className="grid gap-4">
-            {files.map((file) => (
-              <FileResultCard key={file.id} file={file} />
-            ))}
-          </div>
+          <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+            <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
+              <div>
+                <SectionHeader
+                  eyebrow={contactPolicyCopy.eyebrow}
+                  title={contactPolicyCopy.title}
+                  body="音源状態に不安がある場合も、そのままご相談いただいて大丈夫です。大きな問題がなさそうかを確認したうえで、必要なら次の進め方も一緒に整理できます。"
+                />
+              </div>
 
-          <ContactBlock useNextStep />
+              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+                <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
+                  <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                    {contactActionLabels.primary}
+                  </Button>
+                </a>
+
+                <a href={siteLinks.x} target="_blank" rel="noreferrer">
+                  <Button
+                    variant="outline"
+                    className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                  >
+                    {contactActionLabels.secondary}
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </AnimatedPanel>
+
+          <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <div className="grid gap-5 p-6 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <SectionHeader
+                  eyebrow="次に進む"
+                  title="必要に応じて、こちらも確認できます"
+                  body="依頼内容が固まってきたら MIX依頼ページへ、その前に流れを確認したい場合は はじめての方へ へ進んでください。"
+                />
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+                <Link href={siteLinks.mix}>
+                  <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                    MIX依頼ページへ
+                  </Button>
+                </Link>
+
+                <Link href={siteLinks.guide}>
+                  <Button
+                    variant="outline"
+                    className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                  >
+                    はじめての方へ
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </AnimatedPanel>
         </section>
       </main>
+
       <SiteFooter />
-    </PageFrame>
+    </div>
   );
 }
