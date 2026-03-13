@@ -10,8 +10,8 @@ import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 import { SiteFooter } from "@/components/site/SiteFooter";
 
 const steps = [
-  { step: "STEP 1", title: "まず相談する", desc: "まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください。" },
-  { step: "STEP 2", title: "音源を準備する", desc: "まずはボーカル音源とオケがあれば大丈夫です。不安がある場合は、音声データチェックで提出前の確認もできます。" },
+  { step: "STEP 1", title: "まず相談する", desc: "まだ迷っていても大丈夫です！ざっくりした内容だけでも、まずは気軽に相談してください。" },
+  { step: "STEP 2", title: "音源を準備する", desc: "ボーカル音源とオケがあれば大丈夫です。不安がある場合は、音声データチェックで提出前の確認もできます。" },
   { step: "STEP 3", title: "制作・確認・納品", desc: "やり取りしながら、できるだけ希望に寄り添って進めます。納品は基本的に、すべてのデータを受け取ってから1ヶ月が目安です。" },
 ] as const;
 
@@ -102,7 +102,7 @@ export default function GuidePage() {
                 <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">はじめての方へ</div>
                 <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">はじめての依頼でも、安心して相談できるように。</h1>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-                  まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください。はじめての歌ってみたでも、流れが分かるように丁寧に案内します。
+                  まだ迷っていても大丈夫です。ざっくりした内容だけでも、まずは気軽に相談してください。はじめての歌ってみたでも、流れが分かるように丁寧に案内します。
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Button asChild className="h-12 rounded-full px-6">

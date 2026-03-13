@@ -45,7 +45,7 @@ export function SiteFooter() {
               </Link>
 
               <p className="mt-5 text-sm leading-7 text-slate-600">
-                透明感のある音づくりと、作品の世界観を大切にしながら、MIX・作曲・編曲のご相談を受けています。
+                透明感のある音づくりと作品の世界観を大切にしながら、MIX・作曲・編曲のご相談を受けています。
               </p>
 
               <div className="mt-5 rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4 text-sm leading-7 text-slate-600">
@@ -90,7 +90,7 @@ export function SiteFooter() {
                     <ExternalLink className="h-4 w-4 text-slate-400" />
                   </a>
                   <a href={siteLinks.x} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
-                    <span>Xで相談する</span>
+                    <span>XのDMで相談する</span>
                     <ExternalLink className="h-4 w-4 text-slate-400" />
                   </a>
                   <a href={siteLinks.youtubeChannel} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
