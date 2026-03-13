@@ -233,7 +233,7 @@ export default function TopPage() {
           </motion.nav>
         </header>
 
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 pb-16 pt-4 lg:px-10 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] 2xl:pb-20 2xl:pt-8">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 pb-16 pt-4 lg:px-10 xl:grid-cols-[minmax(0,1fr)_minmax(460px,560px)] 2xl:pb-20 2xl:pt-8">
           <div className="relative z-10 flex min-w-0 flex-col justify-center">
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.96 }}
@@ -315,7 +315,7 @@ export default function TopPage() {
             </motion.div>
           </div>
 
-          <div className="relative z-10 grid min-w-0 gap-4">
+          <div className="relative z-10 min-w-0 xl:justify-self-end xl:w-full xl:max-w-[560px]">
             <motion.div
               className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/70 via-cyan-100/40 to-sky-200/30 blur-2xl"
               animate={{ opacity: [0.72, 1, 0.76], scale: [1, 1.03, 1] }}
@@ -335,14 +335,14 @@ export default function TopPage() {
                 />
                 <CardContent className="relative p-5 md:p-6">
                   <div className="mb-4 flex items-center justify-between">
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-sm text-slate-500">まず確認できること</p>
                       <h3 className="text-lg font-semibold text-slate-900">
                         相談のしやすさと、作品の雰囲気を見られます
                       </h3>
                     </div>
                     <motion.div
-                      className="rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-600"
+                      className="shrink-0 rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-600"
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ duration: 2.6, repeat: Infinity }}
                     >
@@ -350,7 +350,7 @@ export default function TopPage() {
                     </motion.div>
                   </div>
 
-                  <div className="grid gap-4 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                  <div className="grid gap-4">
                     <AnimatedPanel
                       delay={0.3}
                       className="rounded-[1.25rem] border border-white/60 bg-white/30 p-4 backdrop-blur-2xl"
@@ -367,7 +367,7 @@ export default function TopPage() {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.45, delay: 0.22 + i * 0.08 }}
                             whileHover={{ x: 6 }}
-                            className="rounded-2xl border border-white/55 bg-white/35 p-3 text-sm text-slate-600 backdrop-blur-xl"
+                            className="rounded-2xl border border-white/55 bg-white/35 p-3 text-sm leading-7 text-slate-600 backdrop-blur-xl"
                           >
                             {step}
                           </motion.div>
@@ -390,22 +390,24 @@ export default function TopPage() {
                         }}
                       />
                       <div className="relative mb-3 flex items-center justify-between">
-                        <div>
+                        <div className="min-w-0">
                           <p className="text-xs tracking-[0.2em] text-sky-200">作品展示</p>
                           <h4 className="mt-2 text-xl font-semibold">
                             作品で、音の雰囲気も伝わる
                           </h4>
                         </div>
                         <motion.div
+                          className="shrink-0"
                           animate={{ rotate: [0, 10, -8, 0], scale: [1, 1.08, 1] }}
                           transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
                         >
                           <Wand2 className="h-5 w-5 text-sky-200" />
                         </motion.div>
                       </div>
-                      <p className="relative max-w-3xl text-sm leading-7 text-slate-200">
+                      <p className="relative text-sm leading-7 text-slate-200">
                         透明感や空気感、青春感のあるサウンドを中心に、どんな雰囲気の作品を作っているかが自然に伝わるようにまとめています。
                       </p>
+
                       <div className="relative mt-5 grid gap-4">
                         {works.map((work, i) => (
                           <motion.a
@@ -419,7 +421,7 @@ export default function TopPage() {
                             whileHover={{ y: -4, scale: 1.01 }}
                             className="group rounded-[1.25rem] border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-colors hover:bg-white/[0.07]"
                           >
-                            <div className="grid gap-4 md:grid-cols-[minmax(180px,220px)_minmax(0,1fr)] md:items-start">
+                            <div className="grid gap-4 md:grid-cols-[200px_minmax(0,1fr)] md:items-start">
                               <div className="relative aspect-video overflow-hidden rounded-2xl ring-1 ring-white/10">
                                 <img
                                   src={work.thumbnail}
