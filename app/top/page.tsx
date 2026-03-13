@@ -99,7 +99,13 @@ const beginnerSteps = [
   "3. わからないところは、そのまま相談しながら進めてOK",
 ] as const;
 
-function GlassOrb({ className, delay = 0 }: { className?: string; delay?: number }) {
+function GlassOrb({
+  className,
+  delay = 0,
+}: {
+  className?: string;
+  delay?: number;
+}) {
   return (
     <motion.div
       className={`pointer-events-none absolute rounded-full blur-3xl opacity-55 ${className ?? ""}`}
@@ -154,9 +160,18 @@ export default function TopPage() {
             backgroundSize: "220% 100%",
           }}
         />
-        <GlassOrb className="left-[-120px] top-[-40px] h-72 w-72 bg-gradient-to-br from-cyan-200/40 via-sky-200/30 to-transparent" delay={0.2} />
-        <GlassOrb className="right-[-80px] top-10 h-96 w-96 bg-gradient-to-br from-cyan-200/35 via-sky-200/25 to-transparent" delay={1.2} />
-        <GlassOrb className="left-[36%] top-[8%] h-48 w-48 bg-gradient-to-br from-white/50 via-cyan-100/25 to-transparent" delay={2.1} />
+        <GlassOrb
+          className="left-[-120px] top-[-40px] h-72 w-72 bg-gradient-to-br from-cyan-200/40 via-sky-200/30 to-transparent"
+          delay={0.2}
+        />
+        <GlassOrb
+          className="right-[-80px] top-10 h-96 w-96 bg-gradient-to-br from-cyan-200/35 via-sky-200/25 to-transparent"
+          delay={1.2}
+        />
+        <GlassOrb
+          className="left-[36%] top-[8%] h-48 w-48 bg-gradient-to-br from-white/50 via-cyan-100/25 to-transparent"
+          delay={2.1}
+        />
       </div>
 
       <section className="relative overflow-hidden">
@@ -206,7 +221,10 @@ export default function TopPage() {
             <a href="#features" className="transition hover:text-slate-900">
               サービス
             </a>
-            <Link href={siteLinks.guide} className="rounded-full bg-white/60 px-3 py-1.5 text-slate-900 shadow-sm transition hover:bg-white/80">
+            <Link
+              href={siteLinks.guide}
+              className="rounded-full bg-white/60 px-3 py-1.5 text-slate-900 shadow-sm transition hover:bg-white/80"
+            >
               はじめての方へ
             </Link>
             <Link href={siteLinks.works} className="transition hover:text-slate-900">
@@ -215,8 +233,8 @@ export default function TopPage() {
           </motion.nav>
         </header>
 
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 pb-16 pt-4 lg:px-10 2xl:grid-cols-[1.02fr_0.98fr] 2xl:pb-20 2xl:pt-8">
-          <div className="relative z-10 flex flex-col justify-center">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 pb-16 pt-4 lg:px-10 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] 2xl:pb-20 2xl:pt-8">
+          <div className="relative z-10 flex min-w-0 flex-col justify-center">
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -268,7 +286,10 @@ export default function TopPage() {
                 animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
                 transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
               >
-                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button
+                  asChild
+                  className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]"
+                >
                   <Link href={siteLinks.guide}>
                     はじめての方へ
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -276,17 +297,25 @@ export default function TopPage() {
                 </Button>
               </motion.div>
 
-              <Button asChild variant="outline" className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45">
+              <Button
+                asChild
+                variant="outline"
+                className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+              >
                 <Link href={siteLinks.mix}>MIX依頼を見る</Link>
               </Button>
 
-              <Button asChild variant="outline" className="h-12 rounded-full border-sky-100 bg-sky-50/70 px-6 text-sm text-sky-700 shadow-sm hover:bg-sky-100">
+              <Button
+                asChild
+                variant="outline"
+                className="h-12 rounded-full border-sky-100 bg-sky-50/70 px-6 text-sm text-sky-700 shadow-sm hover:bg-sky-100"
+              >
                 <Link href={siteLinks.audioCheck}>音声データチェックを試す</Link>
               </Button>
             </motion.div>
           </div>
 
-          <div className="relative z-10 grid gap-4">
+          <div className="relative z-10 grid min-w-0 gap-4">
             <motion.div
               className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/70 via-cyan-100/40 to-sky-200/30 blur-2xl"
               animate={{ opacity: [0.72, 1, 0.76], scale: [1, 1.03, 1] }}
@@ -294,7 +323,10 @@ export default function TopPage() {
             />
             <div className="absolute inset-x-8 top-0 h-px bg-white/80" />
 
-            <motion.div animate={{ y: [0, -2, 0] }} transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}>
+            <motion.div
+              animate={{ y: [0, -2, 0] }}
+              transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+            >
               <Card className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/28 shadow-[0_30px_80px_rgba(148,163,184,0.18)] backdrop-blur-[28px]">
                 <motion.div
                   className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/2 bg-[linear-gradient(120deg,rgba(255,255,255,0),rgba(255,255,255,0.35),rgba(255,255,255,0))]"
@@ -304,22 +336,29 @@ export default function TopPage() {
                 <CardContent className="relative p-5 md:p-6">
                   <div className="mb-4 flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-slate-500">サイトの方向性</p>
-                      <h3 className="text-lg font-semibold text-slate-900">声の魅力と、音楽の世界観を両立</h3>
+                      <p className="text-sm text-slate-500">まず見てほしいこと</p>
+                      <h3 className="text-lg font-semibold text-slate-900">
+                        相談しやすさと、作品の雰囲気を一緒に見られます
+                      </h3>
                     </div>
                     <motion.div
                       className="rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-600"
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ duration: 2.6, repeat: Infinity }}
                     >
-                      声の魅力と世界観
+                      はじめてでも安心
                     </motion.div>
                   </div>
 
-                  <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
-                    <AnimatedPanel delay={0.3} className="rounded-[1.25rem] border border-white/60 bg-white/30 p-4 backdrop-blur-2xl">
+                  <div className="grid gap-4 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                    <AnimatedPanel
+                      delay={0.3}
+                      className="rounded-[1.25rem] border border-white/60 bg-white/30 p-4 backdrop-blur-2xl"
+                    >
                       <p className="text-xs tracking-[0.2em] text-sky-500">はじめての方へ</p>
-                      <h4 className="mt-2 text-xl font-semibold text-slate-900">初回依頼でも、安心して進められる</h4>
+                      <h4 className="mt-2 text-xl font-semibold text-slate-900">
+                        初回依頼でも、安心して進められる
+                      </h4>
                       <div className="mt-4 grid gap-3">
                         {beginnerSteps.map((step, i) => (
                           <motion.div
@@ -336,7 +375,10 @@ export default function TopPage() {
                       </div>
                     </AnimatedPanel>
 
-                    <AnimatedPanel delay={0.8} className="relative overflow-hidden rounded-[1.25rem] bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.94))] p-4 text-white">
+                    <AnimatedPanel
+                      delay={0.8}
+                      className="relative overflow-hidden rounded-[1.25rem] bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.94))] p-4 text-white"
+                    >
                       <motion.div
                         className="pointer-events-none absolute inset-0 opacity-50"
                         animate={{ backgroundPosition: ["0% 0%", "120% 0%"] }}
@@ -350,7 +392,9 @@ export default function TopPage() {
                       <div className="relative mb-3 flex items-center justify-between">
                         <div>
                           <p className="text-xs tracking-[0.2em] text-sky-200">作品展示</p>
-                          <h4 className="mt-2 text-xl font-semibold">作品で、ちゃんと世界観が伝わる</h4>
+                          <h4 className="mt-2 text-xl font-semibold">
+                            作品で、音の雰囲気も伝わる
+                          </h4>
                         </div>
                         <motion.div
                           animate={{ rotate: [0, 10, -8, 0], scale: [1, 1.08, 1] }}
@@ -360,7 +404,7 @@ export default function TopPage() {
                         </motion.div>
                       </div>
                       <p className="relative max-w-3xl text-sm leading-7 text-slate-200">
-                        透明感や空気感、青春感のあるサウンドを中心に。作品を見たときに、この人はちゃんと世界観のある音楽を作っている、と感じてもらえる見せ方を意識しています。
+                        透明感や空気感、青春感のあるサウンドを中心に、どんな雰囲気の作品を作っているかが自然に伝わるようにまとめています。
                       </p>
                       <div className="relative mt-5 grid gap-4">
                         {works.map((work, i) => (
@@ -375,7 +419,7 @@ export default function TopPage() {
                             whileHover={{ y: -4, scale: 1.01 }}
                             className="group rounded-[1.25rem] border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-colors hover:bg-white/[0.07]"
                           >
-                            <div className="grid gap-4 md:grid-cols-[220px_minmax(0,1fr)] md:items-start">
+                            <div className="grid gap-4 md:grid-cols-[minmax(180px,220px)_minmax(0,1fr)] md:items-start">
                               <div className="relative aspect-video overflow-hidden rounded-2xl ring-1 ring-white/10">
                                 <img
                                   src={work.thumbnail}
@@ -393,12 +437,21 @@ export default function TopPage() {
                                 <div className="mb-3 inline-flex rounded-full bg-white/10 px-2.5 py-1 text-[10px] tracking-[0.14em] text-sky-100">
                                   {work.label}
                                 </div>
-                                <div className="text-xl font-semibold tracking-tight text-white">{work.title}</div>
-                                <div className="mt-2 text-xs leading-6 text-sky-100/80">{work.role}</div>
-                                <div className="mt-3 text-sm leading-7 text-slate-300">{work.desc}</div>
+                                <div className="text-xl font-semibold tracking-tight text-white">
+                                  {work.title}
+                                </div>
+                                <div className="mt-2 text-xs leading-6 text-sky-100/80">
+                                  {work.role}
+                                </div>
+                                <div className="mt-3 text-sm leading-7 text-slate-300">
+                                  {work.desc}
+                                </div>
                                 <div className="mt-4 flex flex-wrap gap-2">
                                   {work.tags.map((tag) => (
-                                    <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-200">
+                                    <span
+                                      key={tag}
+                                      className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-200"
+                                    >
                                       {tag}
                                     </span>
                                   ))}
@@ -427,11 +480,13 @@ export default function TopPage() {
             className="mb-6 flex items-end justify-between gap-4"
           >
             <div>
-              <p className="text-sm font-medium text-sky-600">入口一覧</p>
-              <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">迷わず進める5つの入口</h3>
+              <p className="text-sm font-medium text-sky-600">ページ一覧</p>
+              <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
+                気になるページから、そのまま進めます
+              </h3>
             </div>
             <div className="hidden text-sm text-slate-500 md:block">
-              はじめての相談から、作品確認や配布音源まで迷いにくく整理した導線
+              依頼前の確認から作品チェックまで、必要な入口をまとめています
             </div>
           </motion.div>
 
@@ -445,15 +500,26 @@ export default function TopPage() {
             <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
               <div className="grid gap-5 p-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
                 <div>
-                  <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">最初におすすめ</div>
-                  <h4 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900">はじめての方へ</h4>
+                  <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
+                    最初におすすめ
+                  </div>
+                  <h4 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900">
+                    はじめての方へ
+                  </h4>
                   <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
                     まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください。依頼の流れや送ってほしいもの、不安になりやすいポイントをまとめて確認できます。
                   </p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                  {["依頼の流れが分かる", "送ってほしいものを確認できる", "FAQ で不安を先に解消できる"].map((item) => (
-                    <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-600">
+                  {[
+                    "依頼の流れが分かる",
+                    "送ってほしいものを確認できる",
+                    "FAQで不安を先に解消できる",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-600"
+                    >
                       {item}
                     </div>
                   ))}
@@ -465,6 +531,7 @@ export default function TopPage() {
           <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
             {featureCards.map((card, i) => {
               const Icon = card.icon;
+
               return (
                 <motion.div
                   key={card.title}
@@ -481,15 +548,24 @@ export default function TopPage() {
                             <motion.div
                               className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50"
                               animate={{ rotate: [0, 2, -2, 0] }}
-                              transition={{ duration: 4 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
+                              transition={{
+                                duration: 4 + i * 0.4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                              }}
                             >
                               <Icon className="h-5 w-5 text-sky-500" />
                             </motion.div>
-                            <span className="rounded-full bg-slate-50 px-3 py-1 text-xs text-slate-500">{card.badge}</span>
+                            <span className="rounded-full bg-slate-50 px-3 py-1 text-xs text-slate-500">
+                              {card.badge}
+                            </span>
                           </div>
                           <h4 className="text-lg font-semibold text-slate-900">{card.title}</h4>
                           <p className="mt-3 text-sm leading-7 text-slate-600">{card.desc}</p>
-                          <Link href={card.href} className="mt-4 inline-flex items-center text-sm font-medium text-sky-600 transition hover:text-sky-700">
+                          <Link
+                            href={card.href}
+                            className="mt-4 inline-flex items-center text-sm font-medium text-sky-600 transition hover:text-sky-700"
+                          >
                             {card.linkText}
                             <ChevronRight className="ml-1 h-4 w-4" />
                           </Link>
@@ -513,25 +589,43 @@ export default function TopPage() {
             <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
               <div className="grid gap-6 p-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
                 <div>
-                  <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">はじめての方へ</div>
-                  <h3 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">はじめての依頼でも、安心して相談できるように。</h3>
+                  <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
+                    はじめての方へ
+                  </div>
+                  <h3 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+                    はじめての依頼でも、安心して相談できるように。
+                  </h3>
                   <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
                     まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください。はじめての歌ってみたでも、流れが分かるように丁寧に案内します。
                   </p>
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                    <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                    <Button
+                      asChild
+                      className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]"
+                    >
                       <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
                         {contactActionLabels.primary}
                       </a>
                     </Button>
-                    <Button asChild variant="outline" className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45">
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                    >
                       <Link href={siteLinks.audioCheck}>音声データチェックを試す</Link>
                     </Button>
                   </div>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                  {["まず相談からでOK", "送ってほしいものが分かる", "FAQ で不安を整理できる"].map((item) => (
-                    <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-600">
+                  {[
+                    "まず相談からでOK",
+                    "送ってほしいものが分かる",
+                    "FAQで不安を整理できる",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-600"
+                    >
                       {item}
                     </div>
                   ))}
@@ -544,16 +638,27 @@ export default function TopPage() {
             <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <p className="text-sm font-medium text-sky-600">{contactPolicyCopy.eyebrow}</p>
-                <h4 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{contactPolicyCopy.title}</h4>
-                <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">{contactPolicyCopy.full}</p>
+                <h4 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
+                  {contactPolicyCopy.title}
+                </h4>
+                <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+                  {contactPolicyCopy.full}
+                </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button
+                  asChild
+                  className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]"
+                >
                   <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
                     {contactActionLabels.primary}
                   </a>
                 </Button>
-                <Button asChild variant="outline" className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                >
                   <a href={siteLinks.x} target="_blank" rel="noreferrer">
                     {contactActionLabels.secondary}
                   </a>
