@@ -336,9 +336,9 @@ export default function TopPage() {
                 <CardContent className="relative p-5 md:p-6">
                   <div className="mb-4 flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-slate-500">まず見てほしいこと</p>
+                      <p className="text-sm text-slate-500">まず確認できること</p>
                       <h3 className="text-lg font-semibold text-slate-900">
-                        相談しやすさと、作品の雰囲気を一緒に見られます
+                        相談のしやすさと、作品の雰囲気を見られます
                       </h3>
                     </div>
                     <motion.div
@@ -477,16 +477,13 @@ export default function TopPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="mb-6 flex items-end justify-between gap-4"
+            className="mb-6"
           >
             <div>
               <p className="text-sm font-medium text-sky-600">ページ一覧</p>
               <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
                 気になるページから、そのまま進めます
               </h3>
-            </div>
-            <div className="hidden text-sm text-slate-500 md:block">
-              依頼前の確認から作品チェックまで、必要な入口をまとめています
             </div>
           </motion.div>
 
