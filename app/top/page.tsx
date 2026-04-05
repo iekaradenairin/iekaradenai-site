@@ -472,7 +472,10 @@ export default function TopPage() {
           >
             <div>
               <p className="text-sm font-medium text-sky-600">ページ一覧</p>
-              </div>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
+                サービス・コンテンツ
+              </h2>
+            </div>
           </motion.div>
 
 
