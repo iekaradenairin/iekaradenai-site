@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 const featuredWorks = [
   { label: "注目作品", title: "花笑み、ひとひら", role: "作曲 / 編曲 / MIX", desc: "透明感と夏の空気を、まっすぐ閉じ込めた1曲。", url: "https://www.youtube.com/watch?v=BC8ZgzJWhX0", thumbnail: "https://i.ytimg.com/vi/BC8ZgzJWhX0/hqdefault.jpg" },
@@ -94,6 +95,7 @@ function ContactBlock({ useNextStep = false }: { useNextStep?: boolean }) {
 export default function WorksPage() {
   return (
     <PageFrame>
+      <SiteHeader currentLabel="作品展示" />
       <main className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pt-10">
         <section className="space-y-6">
           <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 p-6 backdrop-blur-xl">

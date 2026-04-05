@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 
 function GlassOrb({ className, delay = 0 }: { className?: string; delay?: number }) {
@@ -88,6 +89,7 @@ function ContactBlock({ useNextStep = false }: { useNextStep?: boolean }) {
 export default function InstrumentalsPage() {
   return (
     <PageFrame>
+      <SiteHeader currentLabel="オフボーカル配布" />
       <main className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pt-10">
         <section className="space-y-6">
           <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 p-6 backdrop-blur-xl">

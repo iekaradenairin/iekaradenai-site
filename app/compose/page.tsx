@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 const suitableCases = [
   "オリジナル曲を作ってみたい",
@@ -95,6 +96,7 @@ function ContactBlock({ useNextStep = false }: { useNextStep?: boolean }) {
 export default function ComposePage() {
   return (
     <PageFrame>
+      <SiteHeader currentLabel="作曲依頼" />
       <main className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pt-10">
         <section className="space-y-6">
           <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 p-6 backdrop-blur-xl">
