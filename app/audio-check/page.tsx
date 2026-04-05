@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
+import { AudioChecker } from "@/components/site/AudioChecker";
 import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 
@@ -243,6 +244,26 @@ export default function AudioCheckPage() {
                     );
                   })}
                 </div>
+              </div>
+            </AnimatedPanel>
+          </motion.div>
+
+          {/* Interactive audio checker */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.15 }}
+          >
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+              <div className="p-6">
+                <p className="text-sm font-medium text-sky-600">実際に確認してみる</p>
+                <h2 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">
+                  音声ファイルをここにドロップ
+                </h2>
+                <p className="mt-2 mb-5 text-sm leading-7 text-slate-600">
+                  ノイズ・音割れ・サンプルレートを自動で確認します。ファイルはブラウザ内で処理され、外部には送信されません。
+                </p>
+                <AudioChecker />
               </div>
             </AnimatedPanel>
           </motion.div>
