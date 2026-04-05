@@ -218,16 +218,16 @@ export default function TopPage() {
             transition={{ duration: 0.7, delay: 0.08 }}
             className="relative z-10 hidden items-center gap-6 text-sm text-slate-700 md:flex"
           >
-            <a href="#features" className="transition hover:text-slate-900">
+            <a href="#features" className="inline-flex min-h-[44px] items-center transition hover:text-slate-900">
               サービス
             </a>
             <Link
               href={siteLinks.guide}
-              className="rounded-full bg-white/60 px-3 py-1.5 text-slate-900 shadow-sm transition hover:bg-white/80"
+              className="inline-flex min-h-[44px] items-center rounded-full bg-white/60 px-3 text-slate-900 shadow-sm transition hover:bg-white/80"
             >
               はじめての方へ
             </Link>
-            <Link href={siteLinks.works} className="transition hover:text-slate-900">
+            <Link href={siteLinks.works} className="inline-flex min-h-[44px] items-center transition hover:text-slate-900">
               作品
             </Link>
           </motion.nav>
@@ -515,7 +515,7 @@ export default function TopPage() {
                           <p className="mt-3 text-sm leading-7 text-slate-600">{card.desc}</p>
                           <Link
                             href={card.href}
-                            className="mt-4 inline-flex items-center text-sm font-medium text-sky-600 transition hover:text-sky-700"
+                            className="mt-4 inline-flex min-h-[44px] items-center text-sm font-medium text-sky-600 transition hover:text-sky-700"
                           >
                             {card.linkText}
                             <ChevronRight className="ml-1 h-4 w-4" />
