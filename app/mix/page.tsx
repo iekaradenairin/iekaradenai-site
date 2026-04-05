@@ -211,9 +211,8 @@ export default function MixPage() {
                     <span>MIX依頼</span>
                   </motion.div>
 
-                  <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-                    声の魅力を大切にしながら、
-                    <br />
+                  <h1 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+                    声の魅力を大切にしながら、<br className="hidden md:inline" />
                     作品として自然に届くかたちへ整えます。
                   </h1>
 
