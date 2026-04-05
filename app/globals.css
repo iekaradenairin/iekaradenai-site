@@ -122,8 +122,14 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-size: 1rem; /* 16px base — overridden by text-sm/text-xs utilities where intentional */
   }
   html {
     @apply font-sans;
+  }
+  /* Ensure heading text wraps gracefully in CJK without mid-word breaks */
+  h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    word-break: auto-phrase;
   }
 }
