@@ -280,13 +280,7 @@ export default function MixPage() {
                 >
                   <AnimatedPanel className="h-full rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
                     <div className="p-5">
-                      <motion.div
-                        className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50"
-                        animate={{ rotate: [0, 2, -2, 0] }}
-                        transition={{ duration: 4 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
-                      >
-                        <Icon className="h-5 w-5 text-sky-500" />
-                      </motion.div>
+                      <Icon className="mb-4 h-6 w-6 text-sky-500" />
                       <h2 className="text-lg font-semibold text-slate-900">{item.title}</h2>
                       <p className="mt-3 text-sm leading-7 text-slate-600">{item.desc}</p>
                     </div>

@@ -143,9 +143,7 @@ export default function WorksPage() {
               const Icon = item.icon;
               return (
                 <AnimatedPanel key={item.title} className="rounded-[1.75rem] border border-white/70 bg-white/75 p-5 backdrop-blur">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50">
-                    <Icon className="h-5 w-5 text-sky-500" />
-                  </div>
+                  <Icon className="mb-4 h-6 w-6 text-sky-500" />
                   <h2 className="text-lg font-semibold text-slate-900">{item.title}</h2>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{item.desc}</p>
                 </AnimatedPanel>

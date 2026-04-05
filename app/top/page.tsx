@@ -496,17 +496,7 @@ export default function TopPage() {
                       <Card className="border-none bg-transparent shadow-none">
                         <CardContent className="p-5">
                           <div className="mb-4 flex items-center justify-between">
-                            <motion.div
-                              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50"
-                              animate={{ rotate: [0, 2, -2, 0] }}
-                              transition={{
-                                duration: 4 + i * 0.4,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                              }}
-                            >
-                              <Icon className="h-5 w-5 text-sky-500" />
-                            </motion.div>
+                            <Icon className="h-6 w-6 text-sky-500" />
                             <span className="rounded-full bg-slate-50 px-3 py-1 text-xs text-slate-500">
                               {card.badge}
                             </span>
