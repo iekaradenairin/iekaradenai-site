@@ -42,13 +42,27 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
         </Link>
       </motion.div>
 
-      <div className="flex items-center gap-3">
-        <Link
-          href={TOP_URL}
-          className="inline-flex rounded-full border border-white/70 bg-white/55 px-4 py-2 text-sm text-slate-800 shadow-sm backdrop-blur md:hidden"
-        >
-          TOPへ
-        </Link>
+      <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 md:hidden">
+          <Link
+            href={siteLinks.guide}
+            className="inline-flex rounded-full border border-white/70 bg-white/55 px-3 py-2 text-xs text-slate-800 shadow-sm backdrop-blur"
+          >
+            はじめての方へ
+          </Link>
+          <Link
+            href={siteLinks.works}
+            className="inline-flex rounded-full border border-white/70 bg-white/55 px-3 py-2 text-xs text-slate-800 shadow-sm backdrop-blur"
+          >
+            作品
+          </Link>
+          <Link
+            href={TOP_URL}
+            className="inline-flex rounded-full border border-white/70 bg-white/55 px-3 py-2 text-xs text-slate-800 shadow-sm backdrop-blur"
+          >
+            TOP
+          </Link>
+        </div>
 
         <motion.nav
           initial={{ opacity: 0, y: -16 }}
