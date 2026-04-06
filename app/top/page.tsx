@@ -55,7 +55,7 @@ const featureCards = [
   },
   {
     title: "オフボーカル配布",
-    desc: "歌ってみたに使えるオフボーカルを公開しています。気軽ご利用ください。曲の空気感や世界観も一緒に楽しんでもらえたらと思っています。",
+    desc: "歌ってみたに使えるオフボーカルを公開しています。気軽にご利用ください。曲の空気感や世界観も一緒に楽しんでもらえたらと思っています。",
     icon: Disc3,
     badge: "気軽に使ってOK",
     href: siteLinks.instrumentals,
@@ -274,7 +274,7 @@ export default function TopPage() {
               transition={{ duration: 0.75, delay: 0.14 }}
               className="mt-4 max-w-3xl text-base leading-8 text-slate-700 md:text-lg"
             >
-              声の良さを大切にしながら、聴きやすく自然な補正をベースに希望の世界観になるようできるだけ寄り添って制作します。はじめての依頼でもやり取りや相談しやすいよう十分に配慮し、必要があれば雰囲気づくりやオリジナルのアレンジやハモリも一緒に考えます。
+              声の良さを大切にしながら、聴きやすく自然な補正をベースに希望の世界観になるようできるだけ寄り添って制作します。はじめての依頼でもやり取りや相談がしやすいよう十分に配慮し、必要があれば雰囲気づくりやオリジナルのアレンジやハモリも一緒に考えます。
             </motion.p>
 
             <motion.div
@@ -383,7 +383,7 @@ export default function TopPage() {
                 <div className="relative mb-4 flex items-center justify-between gap-3">
                   <div className="min-w-0">
                     <p className="text-xs tracking-[0.2em] text-sky-200">作品展示</p>
-                    <h4 className="mt-2 text-xl font-semibold">音で空気/雰囲気も伝える</h4>
+                    <h4 className="mt-2 text-xl font-semibold">音で空気・雰囲気も伝える</h4>
                   </div>
                   <motion.div
                     className="shrink-0"
@@ -395,7 +395,7 @@ export default function TopPage() {
                 </div>
 
                 <p className="relative text-sm leading-7 text-slate-200">
-                  透明感や空気感、青春感のあるサウンドを中心に様々な作品を取り扱ってます。
+                  透明感や空気感、青春感のあるサウンドを中心に様々な作品を取り扱っています。
                 </p>
 
                 <div className="relative mt-4 grid gap-3">

@@ -192,7 +192,7 @@ export default function AudioCheckPage() {
                   <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
                     提出前に、
                     <br />
-                    このままで大丈夫そうかをやさしく確認できます。
+                    このままで大丈夫そうかをかんたんに確認できます。
                   </h1>
 
                   <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
@@ -299,7 +299,7 @@ export default function AudioCheckPage() {
               <div className="p-6">
                 <SectionHeader
                   eyebrow="チェック結果の見方"
-                  title="OK寄り / 注意寄り の目安をやさしく見ます"
+                  title="OK寄り / 注意寄り の目安を分かりやすく整理します"
                 />
 
                 <div className="grid gap-4 md:grid-cols-2">
