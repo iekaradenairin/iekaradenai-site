@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { WaveformHero } from "@/app/components/WaveformHero";
 
 const featureCards = [
   {
@@ -459,6 +460,8 @@ export default function TopPage() {
             </motion.div>
           </div>
         </div>
+
+        <WaveformHero className="absolute bottom-0 left-0 right-0 h-12 px-6 opacity-70 lg:px-10" />
       </section>
 
       <main className="mx-auto max-w-7xl px-6 pb-16 lg:px-10">
