@@ -2,13 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Sparkles, ChevronRight, Music4, Wand2, Disc3, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
-import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
+import { AnimatedPanel } from "@/components/site/AnimatedPanel";
+import { PageFrame } from "@/components/site/PageFrame";
+import { ContactBlock } from "@/components/site/ContactBlock";
 
 const suitableCases = [
   "オリジナル曲を作ってみたい",
@@ -18,80 +19,7 @@ const suitableCases = [
 ] as const;
 
 
-function GlassOrb({ className, delay = 0 }: { className?: string; delay?: number }) {
-  return (
-    <motion.div
-      className={`pointer-events-none absolute rounded-full blur-3xl opacity-55 ${className ?? ""}`}
-      animate={{ x: [0, 18, -10, 0], y: [0, -14, 8, 0], scale: [1, 1.04, 0.98, 1] }}
-      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay }}
-    />
-  );
-}
 
-function AnimatedPanel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return (
-    <motion.div
-      animate={{
-        boxShadow: [
-          "0 10px 24px rgba(148,163,184,0.10)",
-          "0 18px 34px rgba(148,163,184,0.14)",
-          "0 10px 24px rgba(148,163,184,0.10)",
-        ],
-      }}
-      transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-function PageFrame({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#f3fbff_0%,#e8f5ff_30%,#f8fcff_70%,#ffffff_100%)] text-slate-800">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <motion.div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.88),transparent_24%),radial-gradient(circle_at_top_right,rgba(191,219,254,0.32),transparent_30%),radial-gradient(circle_at_40%_18%,rgba(255,255,255,0.45),transparent_14%)]"
-          animate={{ opacity: [0.78, 1, 0.82] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <GlassOrb className="left-[-120px] top-[-40px] h-72 w-72 bg-gradient-to-br from-cyan-200/40 via-sky-200/30 to-transparent" delay={0.2} />
-        <GlassOrb className="right-[-80px] top-10 h-96 w-96 bg-gradient-to-br from-cyan-200/35 via-sky-200/25 to-transparent" delay={1.2} />
-      </div>
-      {children}
-    </div>
-  );
-}
-
-function ContactBlock({ useNextStep = false }: { useNextStep?: boolean }) {
-  return (
-    <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/82 backdrop-blur-xl">
-      <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
-        <div>
-          <p className="text-sm font-medium text-sky-600">{contactPolicyCopy.eyebrow}</p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
-            {useNextStep ? contactPolicyCopy.nextStepTitle : contactPolicyCopy.title}
-          </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-            {useNextStep ? contactPolicyCopy.nextStepBody : contactPolicyCopy.full}
-          </p>
-        </div>
-        <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-          <Button asChild className="h-12 rounded-full px-6">
-            <a href={siteLinks.googleFormCompose} target="_blank" rel="noreferrer">
-              {contactActionLabels.primary}
-            </a>
-          </Button>
-          <Button asChild variant="outline" className="h-12 rounded-full px-6">
-            <a href={siteLinks.x} target="_blank" rel="noreferrer">
-              {contactActionLabels.secondary}
-            </a>
-          </Button>
-        </div>
-      </div>
-    </AnimatedPanel>
-  );
-}
 
 export default function ComposePage() {
   return (
@@ -191,7 +119,7 @@ export default function ComposePage() {
             </div>
           </AnimatedPanel>
 
-          <ContactBlock />
+          <ContactBlock formUrl={siteLinks.googleFormCompose} />
         </section>
       </main>
       <SiteFooter />

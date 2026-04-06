@@ -20,6 +20,8 @@ import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { WaveformHero } from "@/app/components/WaveformHero";
+import { GlassOrb } from "@/components/site/GlassOrb";
+import { AnimatedPanel } from "@/components/site/AnimatedPanel";
 
 const featureCards = [
   {
@@ -100,47 +102,6 @@ const beginnerSteps = [
   "3. わからないところは、そのまま相談しながら進めてOK",
 ] as const;
 
-function GlassOrb({
-  className,
-  delay = 0,
-}: {
-  className?: string;
-  delay?: number;
-}) {
-  return (
-    <motion.div
-      className={`pointer-events-none absolute rounded-full blur-3xl opacity-55 ${className ?? ""}`}
-      animate={{ x: [0, 20, -12, 0], y: [0, -16, 10, 0], scale: [1, 1.05, 0.98, 1] }}
-      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay }}
-    />
-  );
-}
-
-function AnimatedPanel({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  return (
-    <motion.div
-      animate={{
-        boxShadow: [
-          "0 10px 24px rgba(148,163,184,0.10)",
-          "0 18px 34px rgba(148,163,184,0.14)",
-          "0 10px 24px rgba(148,163,184,0.10)",
-        ],
-      }}
-      transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 export default function TopPage() {
   return (
