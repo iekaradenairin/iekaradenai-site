@@ -464,7 +464,7 @@ export default function TopPage() {
         <WaveformHero className="absolute bottom-0 left-0 right-0 h-12 px-6 opacity-70 lg:px-10" />
       </section>
 
-      <main className="mx-auto max-w-7xl px-6 pb-16 lg:px-10">
+      <main className="mx-auto max-w-7xl px-6 pb-16 pt-12 lg:px-10">
         <section id="features">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
