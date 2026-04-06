@@ -78,7 +78,7 @@ function ContactBlock({ useNextStep = false }: { useNextStep?: boolean }) {
         </div>
         <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
           <Button asChild className="h-12 rounded-full px-6">
-            <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
+            <a href={siteLinks.googleFormCompose} target="_blank" rel="noreferrer">
               {contactActionLabels.primary}
             </a>
           </Button>
@@ -113,7 +113,7 @@ export default function ComposePage() {
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Button asChild className="h-12 rounded-full px-6">
-                    <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
+                    <a href={siteLinks.googleFormCompose} target="_blank" rel="noreferrer">
                       まず相談する
                       <ChevronRight className="ml-2 h-4 w-4" />
                     </a>
