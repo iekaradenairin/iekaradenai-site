@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Zen_Kaku_Gothic_New } from "next/font/google";
 import "./globals.css";
+import PageTransition from "./components/PageTransition";
 
 const zenKaku = Zen_Kaku_Gothic_New({
   variable: "--font-sans",
@@ -23,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${zenKaku.variable} antialiased`}>
-        {children}
+        <PageTransition>
+          {children}
+        </PageTransition>
       </body>
     </html>
   );
