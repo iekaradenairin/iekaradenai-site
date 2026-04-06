@@ -6,12 +6,27 @@ export type AnalysisDimension = {
   value?: string;
 };
 
+export type AudioMetrics = {
+  duration: number;         // 秒
+  peakLevel: number;        // dBFS
+  rmsLevel: number;         // dBFS
+  dynamicRange: number;     // dB
+  headSilence: number;      // 秒
+  tailSilence: number;      // 秒
+  sampleRate: number;
+  numChannels: number;
+  isEffectivelyMono: boolean; // ステレオだが実質モノラルか
+};
+
 export type AnalysisResult = {
   dimensions: AnalysisDimension[];
   overall: "ok" | "warning";
   overallCopy: string;
   waveformData: Float32Array;
+  metrics: AudioMetrics;
 };
+
+// ---- 計算ユーティリティ ----
 
 function rmsDb(samples: Float32Array): number {
   let sum = 0;
@@ -50,6 +65,65 @@ function peakClipCount(channelData: Float32Array): number {
   return count;
 }
 
+function peakLevelDb(channelData: Float32Array): number {
+  let peak = 0;
+  for (let i = 0; i < channelData.length; i++) {
+    const abs = Math.abs(channelData[i]);
+    if (abs > peak) peak = abs;
+  }
+  if (peak === 0) return -Infinity;
+  return 20 * Math.log10(peak);
+}
+
+function dynamicRangeDb(channelData: Float32Array, sampleRate: number): number {
+  const windowSize = Math.floor(sampleRate * 0.1); // 100ms ウィンドウ
+  const windows: number[] = [];
+
+  for (let i = 0; i + windowSize <= channelData.length; i += windowSize) {
+    const db = rmsDb(channelData.slice(i, i + windowSize));
+    if (db !== -Infinity) windows.push(db);
+  }
+
+  if (windows.length < 2) return 0;
+  windows.sort((a, b) => a - b);
+
+  const loud = windows[Math.floor(windows.length * 0.95)];
+  const quiet = windows[Math.floor(windows.length * 0.05)];
+  return Math.max(0, loud - quiet);
+}
+
+function measureHeadSilence(channelData: Float32Array, sampleRate: number): number {
+  const threshold = 0.001; // -60dBFS 相当
+  for (let i = 0; i < channelData.length; i++) {
+    if (Math.abs(channelData[i]) > threshold) {
+      return i / sampleRate;
+    }
+  }
+  return channelData.length / sampleRate;
+}
+
+function measureTailSilence(channelData: Float32Array, sampleRate: number): number {
+  const threshold = 0.001;
+  for (let i = channelData.length - 1; i >= 0; i--) {
+    if (Math.abs(channelData[i]) > threshold) {
+      return (channelData.length - 1 - i) / sampleRate;
+    }
+  }
+  return channelData.length / sampleRate;
+}
+
+function checkEffectivelyMono(buffer: AudioBuffer): boolean {
+  if (buffer.numberOfChannels < 2) return false;
+  const ch0 = buffer.getChannelData(0);
+  const ch1 = buffer.getChannelData(1);
+  const sampleCount = Math.min(ch0.length, 8000);
+  let sumDiff = 0;
+  for (let i = 0; i < sampleCount; i++) {
+    sumDiff += Math.abs(ch0[i] - ch1[i]);
+  }
+  return sumDiff / sampleCount < 0.001;
+}
+
 function downsampleWaveform(channelData: Float32Array, targetPoints: number): Float32Array {
   const result = new Float32Array(targetPoints);
   const step = channelData.length / targetPoints;
@@ -64,6 +138,8 @@ function downsampleWaveform(channelData: Float32Array, targetPoints: number): Fl
   }
   return result;
 }
+
+// ---- メイン分析 ----
 
 export function analyzeAudioBuffer(buffer: AudioBuffer): AnalysisResult {
   const channelData = buffer.getChannelData(0);
@@ -121,6 +197,7 @@ export function analyzeAudioBuffer(buffer: AudioBuffer): AnalysisResult {
   });
 
   // Channel count
+  const isEffectivelyMono = checkEffectivelyMono(buffer);
   const monoOk = numChannels === 1;
   dimensions.push({
     id: "channels",
@@ -128,7 +205,9 @@ export function analyzeAudioBuffer(buffer: AudioBuffer): AnalysisResult {
     status: monoOk ? "ok" : "warning",
     copy: monoOk
       ? "モノラルです（推奨）"
-      : "ステレオです。モノラル推奨ですが、このまま提出しても大丈夫です",
+      : isEffectivelyMono
+        ? "ステレオですが、左右がほぼ同一です。モノラルに変換してから提出すると理想的です"
+        : "ステレオです。モノラル推奨ですが、このまま提出しても大丈夫です",
     value: numChannels === 1 ? "モノラル" : `ステレオ (${numChannels}ch)`,
   });
 
@@ -140,5 +219,18 @@ export function analyzeAudioBuffer(buffer: AudioBuffer): AnalysisResult {
 
   const waveformData = downsampleWaveform(channelData, 600);
 
-  return { dimensions, overall, overallCopy, waveformData };
+  // 詳細メトリクス
+  const metrics: AudioMetrics = {
+    duration: buffer.duration,
+    peakLevel: peakLevelDb(channelData),
+    rmsLevel: rmsDb(channelData),
+    dynamicRange: dynamicRangeDb(channelData, sampleRate),
+    headSilence: measureHeadSilence(channelData, sampleRate),
+    tailSilence: measureTailSilence(channelData, sampleRate),
+    sampleRate,
+    numChannels,
+    isEffectivelyMono,
+  };
+
+  return { dimensions, overall, overallCopy, waveformData, metrics };
 }

@@ -2,13 +2,14 @@
 
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, CheckCircle2, AlertCircle, Loader2, ChevronRight } from "lucide-react";
+import { Upload, CheckCircle2, AlertCircle, Loader2, ChevronRight, FileDown, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
-import { analyzeAudioBuffer, type AnalysisResult } from "@/lib/audioAnalysis";
+import { analyzeAudioBuffer, type AnalysisResult, type AudioMetrics } from "@/lib/audioAnalysis";
+import { generateMarkdownReport, downloadMarkdownReport } from "@/lib/generateReport";
 
-const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
-const MOBILE_WARN_SIZE = 30 * 1024 * 1024; // 30MB
+const MAX_FILE_SIZE = 100 * 1024 * 1024;
+const MOBILE_WARN_SIZE = 30 * 1024 * 1024;
 
 const ACCEPTED_TYPES = new Set([
   "audio/wav",
@@ -52,7 +53,7 @@ function WaveformCanvas({ data }: { data: Float32Array }) {
     const step = data.length / w;
 
     ctx.beginPath();
-    ctx.strokeStyle = "rgb(14, 165, 233)"; // sky-500
+    ctx.strokeStyle = "rgb(14, 165, 233)";
     ctx.lineWidth = 1.5;
 
     for (let x = 0; x < w; x++) {
@@ -86,6 +87,103 @@ function WaveformCanvas({ data }: { data: Float32Array }) {
       className="h-16 w-full rounded-2xl border border-sky-100 bg-sky-50/50"
       style={{ display: "block" }}
     />
+  );
+}
+
+function formatDuration(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+function formatDb(db: number): string {
+  if (!isFinite(db)) return "-∞";
+  return `${db.toFixed(1)} dB`;
+}
+
+function formatSeconds(sec: number): string {
+  if (sec < 0.05) return "なし";
+  return `${sec.toFixed(2)}s`;
+}
+
+function MetricChip({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col gap-0.5 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2">
+      <span className="text-[10px] text-slate-400">{label}</span>
+      <span className="text-xs font-medium text-slate-700">{value}</span>
+    </div>
+  );
+}
+
+function DetailMetrics({ metrics }: { metrics: AudioMetrics }) {
+  const channelLabel =
+    metrics.numChannels === 1
+      ? "モノラル"
+      : metrics.isEffectivelyMono
+        ? `ステレオ (実質モノ)`
+        : `ステレオ (${metrics.numChannels}ch)`;
+
+  return (
+    <div className="space-y-2">
+      <p className="text-[11px] font-medium tracking-wide text-slate-400">詳細データ</p>
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <MetricChip label="再生時間" value={formatDuration(metrics.duration)} />
+        <MetricChip label="ピーク" value={formatDb(metrics.peakLevel)} />
+        <MetricChip label="RMS" value={formatDb(metrics.rmsLevel)} />
+        <MetricChip label="ダイナミックレンジ" value={`${metrics.dynamicRange.toFixed(1)} dB`} />
+        <MetricChip label="頭の無音" value={formatSeconds(metrics.headSilence)} />
+        <MetricChip label="末尾の無音" value={formatSeconds(metrics.tailSilence)} />
+        <MetricChip label="サンプルレート" value={`${(metrics.sampleRate / 1000).toFixed(1)} kHz`} />
+        <MetricChip label="チャンネル" value={channelLabel} />
+      </div>
+    </div>
+  );
+}
+
+function ReportSection({ result, fileName }: { result: AnalysisResult; fileName: string }) {
+  const [open, setOpen] = useState(false);
+  const mdText = open ? generateMarkdownReport(result, fileName) : "";
+
+  return (
+    <div className="rounded-[1.5rem] border border-slate-200 bg-white/60">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between px-5 py-4 text-left"
+      >
+        <div className="flex items-center gap-2">
+          <FileDown className="h-4 w-4 text-slate-500" />
+          <span className="text-sm font-medium text-slate-700">レポートを確認する</span>
+        </div>
+        <ChevronDown
+          className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden"
+          >
+            <div className="border-t border-slate-200 px-5 pb-5 pt-4 space-y-3">
+              <pre className="max-h-72 overflow-y-auto rounded-xl bg-slate-50 p-4 text-[11px] leading-relaxed text-slate-600 whitespace-pre-wrap font-mono">
+                {mdText}
+              </pre>
+              <button
+                onClick={() => downloadMarkdownReport(result, fileName)}
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
+              >
+                <FileDown className="h-3.5 w-3.5" />
+                .md ファイルをダウンロード
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -284,6 +382,9 @@ export function AudioChecker() {
               ))}
             </div>
 
+            {/* 詳細データ */}
+            <DetailMetrics metrics={state.result.metrics} />
+
             {/* Overall + CTA */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
@@ -308,6 +409,9 @@ export function AudioChecker() {
                 </Button>
               </div>
             </motion.div>
+
+            {/* レポート */}
+            <ReportSection result={state.result} fileName={state.fileName} />
           </motion.div>
         )}
       </AnimatePresence>
