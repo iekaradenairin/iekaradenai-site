@@ -15,12 +15,13 @@ const pageLinks = [
   { label: "作品展示", href: siteLinks.works },
   { label: "オフボーカル配布", href: siteLinks.instrumentals },
   { label: "作曲依頼", href: siteLinks.compose },
+  { label: "log", href: siteLinks.log },
 ] as const;
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-white/70 bg-[linear-gradient(180deg,rgba(248,252,255,0.82),rgba(255,255,255,0.96))]">
-      <div className="mx-auto max-w-7xl px-6 pb-6 pt-10 lg:px-10">
+      <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
         <motion.div
           animate={{
             boxShadow: [
@@ -106,11 +107,6 @@ export function SiteFooter() {
             </div>
           </div>
         </motion.div>
-        <div className="mt-4 text-right">
-          <Link href={siteLinks.log} className="text-xs text-slate-300 hover:text-slate-400 transition">
-            log
-          </Link>
-        </div>
       </div>
     </footer>
   );
