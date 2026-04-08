@@ -45,44 +45,78 @@ function buildElement(title) {
       width: 1200,
       height: 630,
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
+      alignItems: 'center',
       justifyContent: 'center',
-      padding: '0 80px',
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+      padding: '0 72px',
+      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 60%, #f8fafc 100%)',
       fontFamily: '"Noto Sans JP"',
       position: 'relative',
     },
   },
+    // 装飾: 右上の円
     h('div', {
       style: {
         position: 'absolute',
-        top: 52,
-        left: 80,
-        fontSize: 22,
-        fontWeight: 700,
-        color: '#38bdf8',
-        letterSpacing: '0.05em',
+        top: -120,
+        right: -120,
+        width: 480,
+        height: 480,
+        borderRadius: '50%',
+        background: 'rgba(186, 230, 253, 0.45)',
       },
-    }, '家から出ない倫　/ Rin'),
-    h('div', {
-      style: {
-        fontSize: 58,
-        fontWeight: 700,
-        color: '#ffffff',
-        lineHeight: 1.5,
-        maxWidth: 1000,
-      },
-    }, title),
+    }),
+    // 装飾: 左下の円
     h('div', {
       style: {
         position: 'absolute',
-        bottom: 52,
-        right: 80,
-        fontSize: 20,
-        color: '#64748b',
+        bottom: -100,
+        left: -100,
+        width: 360,
+        height: 360,
+        borderRadius: '50%',
+        background: 'rgba(224, 242, 254, 0.6)',
       },
-    }, 'iekaradenai.work'),
+    }),
+    // ガラスカード
+    h('div', {
+      style: {
+        position: 'relative',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '52px 64px',
+        borderRadius: '28px',
+        background: 'rgba(255, 255, 255, 0.72)',
+        border: '1.5px solid rgba(255, 255, 255, 0.9)',
+      },
+    },
+      // サイト名
+      h('div', {
+        style: {
+          fontSize: 22,
+          fontWeight: 700,
+          color: '#0284c7',
+          marginBottom: 28,
+        },
+      }, '家から出ない倫 / Rin'),
+      // タイトル
+      h('div', {
+        style: {
+          fontSize: 52,
+          fontWeight: 700,
+          color: '#0f172a',
+          lineHeight: 1.55,
+        },
+      }, title),
+      // URL
+      h('div', {
+        style: {
+          fontSize: 18,
+          color: '#94a3b8',
+          marginTop: 36,
+        },
+      }, 'iekaradenai.work'),
+    ),
   )
 }
 
