@@ -116,7 +116,7 @@ export function getAllPosts(): LogPostMeta[] {
 
   return fs
     .readdirSync(LOG_DIR)
-    .filter((f) => f.endsWith('.md'))
+    .filter((f) => f.endsWith('.md') && !f.startsWith('_'))
     .map((filename) => {
       const slug = filename.replace(/\.md$/, '')
       const raw = fs.readFileSync(path.join(LOG_DIR, filename), 'utf-8')
