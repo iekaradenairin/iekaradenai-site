@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
-import { marked } from 'marked'
 import Link from 'next/link'
-import { getAllPosts, getPost } from '@/lib/log'
+import { getAllPosts, getPost, renderMarkdown } from '@/lib/log'
 import { PageFrame } from '@/components/site/PageFrame'
 import { SiteHeader } from '@/components/site/SiteHeader'
 import { SiteFooter } from '@/components/site/SiteFooter'
@@ -24,7 +23,7 @@ export default async function LogPostPage({ params }: { params: Promise<{ slug: 
   const post = getPost(slug)
   if (!post) notFound()
 
-  const html = marked(post.content)
+  const html = renderMarkdown(post.content)
 
   return (
     <PageFrame>
