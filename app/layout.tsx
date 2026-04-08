@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     siteName: '家から出ない倫 / Rin',
     images: [{ url: '/og/default.png', width: 1200, height: 630 }],
   },
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 export default function RootLayout({
