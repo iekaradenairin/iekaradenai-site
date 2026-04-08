@@ -15,7 +15,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const post = getPost(slug)
   if (!post) return {}
-  return { title: `${post.title} — log` }
+  return {
+    title: `${post.title} — log`,
+    openGraph: {
+      images: [{ url: `/og/log-${slug}.png`, width: 1200, height: 630 }],
+    },
+  }
 }
 
 export default async function LogPostPage({ params }: { params: Promise<{ slug: string }> }) {

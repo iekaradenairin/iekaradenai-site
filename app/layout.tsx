@@ -14,6 +14,11 @@ const zenKaku = Zen_Kaku_Gothic_New({
 export const metadata: Metadata = {
   title: "倫 / Rin music works — MIX・作曲依頼",
   description: "透明感のある音づくりと作品の世界観を大切にしながら、MIX・作曲・編曲のご相談を受けています。",
+  metadataBase: new URL('https://iekaradenai.work'),
+  openGraph: {
+    siteName: '家から出ない倫 / Rin',
+    images: [{ url: '/og/default.png', width: 1200, height: 630 }],
+  },
 };
 
 export default function RootLayout({

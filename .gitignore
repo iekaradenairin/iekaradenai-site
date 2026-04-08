@@ -39,6 +39,9 @@ yarn-error.log*
 # local-only content (templates, drafts)
 content/log/_*
 
+# generated OGP images (created at build time)
+/public/og/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
