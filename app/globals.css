@@ -116,6 +116,79 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* log markdown styles */
+.log-content {
+  color: oklch(0.36 0 0);
+  line-height: 1.85;
+  font-size: 0.9375rem;
+}
+.log-content h1, .log-content h2, .log-content h3, .log-content h4 {
+  color: oklch(0.145 0 0);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.log-content h1 { font-size: 1.5rem; }
+.log-content h2 { font-size: 1.25rem; border-bottom: 1px solid oklch(0.922 0 0); padding-bottom: 0.4rem; }
+.log-content h3 { font-size: 1.1rem; }
+.log-content p { margin-top: 0; margin-bottom: 1.1rem; }
+.log-content a { color: oklch(0.6 0.18 240); text-decoration: none; }
+.log-content a:hover { text-decoration: underline; }
+.log-content ul, .log-content ol { padding-left: 1.5rem; margin-bottom: 1.1rem; }
+.log-content li { margin-bottom: 0.3rem; }
+.log-content blockquote {
+  border-left: 3px solid oklch(0.75 0.1 240);
+  margin: 1.2rem 0;
+  padding: 0.4rem 1rem;
+  color: oklch(0.5 0 0);
+  background: oklch(0.97 0.01 240 / 50%);
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+.log-content code {
+  background: oklch(0.96 0 0);
+  color: oklch(0.35 0 0);
+  border-radius: 0.3rem;
+  padding: 0.15em 0.4em;
+  font-size: 0.875em;
+}
+.log-content pre {
+  background: oklch(0.18 0 0);
+  color: oklch(0.9 0 0);
+  border-radius: 1rem;
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.2rem;
+}
+.log-content pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: 0.875rem;
+}
+.log-content img {
+  border-radius: 1rem;
+  max-width: 100%;
+  margin: 1rem 0;
+}
+.log-content hr {
+  border: none;
+  border-top: 1px solid oklch(0.922 0 0);
+  margin: 2rem 0;
+}
+.log-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.2rem;
+  font-size: 0.875rem;
+}
+.log-content th, .log-content td {
+  border: 1px solid oklch(0.9 0 0);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.log-content th { background: oklch(0.97 0 0); font-weight: 600; }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

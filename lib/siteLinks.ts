@@ -13,4 +13,5 @@ export const siteLinks = {
   piapro: "https://piapro.jp/iekaradenairin",
   x: "https://x.com/iekaradenai_Rin",
   domain: "https://iekaradenai.work",
+  log: "/log",
 } as const;
