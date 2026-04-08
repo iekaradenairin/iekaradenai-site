@@ -4,6 +4,8 @@ import { PageFrame } from '@/components/site/PageFrame'
 import { SiteHeader } from '@/components/site/SiteHeader'
 import { SiteFooter } from '@/components/site/SiteFooter'
 
+export const dynamic = 'force-static'
+
 export const metadata = {
   title: 'log — 倫 / Rin',
 }

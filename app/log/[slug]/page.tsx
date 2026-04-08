@@ -6,6 +6,8 @@ import { PageFrame } from '@/components/site/PageFrame'
 import { SiteHeader } from '@/components/site/SiteHeader'
 import { SiteFooter } from '@/components/site/SiteFooter'
 
+export const dynamic = 'force-static'
+
 export async function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }))
 }
