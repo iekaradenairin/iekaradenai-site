@@ -45,3 +45,7 @@ https://worklog.iekaradenai.work/
 ぼちぼち自分でも使いながら育てていくつもりです。
 
 「作業時間の記録、やりたかったけどちょうどいいツールが見つからなかった」という方がいれば、ぜひ使ってみてください。フィードバックもお気軽にどうぞ。
+
+ソースコードはGitHubにも公開しています。
+
+https://github.com/iekaradenairin/worklog-iekaradenai
