@@ -68,6 +68,15 @@ const featureCards = [
 
 const works = [
   {
+    label: "MIX参考",
+    title: "藍空をなぞって",
+    role: "MIX / ハモリ提案",
+    desc: "夜の感情を丁寧にすくい取るような、余韻を大切にしたMIX。",
+    tags: ["エモーショナル", "夜", "余韻"],
+    url: "https://youtu.be/sepS54VqbnQ",
+    thumbnail: "https://i.ytimg.com/vi/sepS54VqbnQ/hqdefault.jpg",
+  },
+  {
     label: "注目作品",
     title: "花笑み、ひとひら",
     role: "作曲 / 編曲 / MIX",
@@ -84,15 +93,6 @@ const works = [
     tags: ["爽やか", "瑞々しさ", "ほのかなエモーショナルさ"],
     url: "https://www.youtube.com/watch?v=wfamkctKfUw",
     thumbnail: "https://i.ytimg.com/vi/wfamkctKfUw/hqdefault.jpg",
-  },
-  {
-    label: "MIX参考",
-    title: "紫色のひまわり",
-    role: "MIX / ハモリ提案",
-    desc: "夜の感情を丁寧にすくい取るような、余韻を大切にしたMIX。",
-    tags: ["エモーショナル", "夜", "余韻"],
-    url: "https://www.youtube.com/watch?v=yu2VQvv9l5s",
-    thumbnail: "https://i.ytimg.com/vi/yu2VQvv9l5s/hqdefault.jpg",
   },
 ] as const;
 
