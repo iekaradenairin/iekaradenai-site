@@ -12,7 +12,7 @@ import { PageFrame } from "@/components/site/PageFrame";
 import { ContactBlock } from "@/components/site/ContactBlock";
 
 const featuredWorks = [
-  { label: "MIX参考", title: "藍空をなぞって", role: "MIX / ハモリ提案", desc: "夜の感情を丁寧にすくい取るような、余韻を大切にしたMIX。", url: "https://youtu.be/sepS54VqbnQ", thumbnail: "https://i.ytimg.com/vi/sepS54VqbnQ/hqdefault.jpg" },
+  { label: "一番の自信作", title: "藍空をなぞって", role: "作曲 / 編曲 / MIX", desc: "夏だけの命を生きた少女との別れを描いた、和ロックの物語。", url: "https://youtu.be/sepS54VqbnQ", thumbnail: "https://i.ytimg.com/vi/sepS54VqbnQ/hqdefault.jpg" },
   { label: "注目作品", title: "花笑み、ひとひら", role: "作曲 / 編曲 / MIX", desc: "透明感と夏の空気を、まっすぐ閉じ込めた1曲。", url: "https://www.youtube.com/watch?v=BC8ZgzJWhX0", thumbnail: "https://i.ytimg.com/vi/BC8ZgzJWhX0/hqdefault.jpg" },
   { label: "透明感の軸", title: "水星巡航トリップ", role: "作曲 / 編曲 / 作詞 / 仕上げ", desc: "瑞々しさと爽やかさの中に、ほのかなエモーショナルさがにじむ1曲。", url: "https://www.youtube.com/watch?v=wfamkctKfUw&pp=0gcJCcUKAYcqIYzv", thumbnail: "https://i.ytimg.com/vi/wfamkctKfUw/hqdefault.jpg" },
 ] as const;

@@ -68,11 +68,11 @@ const featureCards = [
 
 const works = [
   {
-    label: "MIX参考",
+    label: "一番の自信作",
     title: "藍空をなぞって",
-    role: "MIX / ハモリ提案",
-    desc: "夜の感情を丁寧にすくい取るような、余韻を大切にしたMIX。",
-    tags: ["エモーショナル", "夜", "余韻"],
+    role: "作曲 / 編曲 / MIX",
+    desc: "夏だけの命を生きた少女との別れを描いた、和ロックの物語。",
+    tags: ["和ロック", "切なさ", "夏の終わり"],
     url: "https://youtu.be/sepS54VqbnQ",
     thumbnail: "https://i.ytimg.com/vi/sepS54VqbnQ/hqdefault.jpg",
   },
