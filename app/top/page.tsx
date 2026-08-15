@@ -88,7 +88,7 @@ const works = [
   {
     label: "透明感",
     title: "水星巡航トリップ",
-    role: "作曲 / 編曲 / ボーカルディレクション / MIX",
+    role: "作詞 / 作曲 / 編曲 / ボーカルディレクション / MIX",
     desc: "瑞々しさと爽やかさの中に、ほのかなエモーショナルさがにじむ1曲。",
     tags: ["爽やか", "瑞々しさ", "ほのかなエモーショナルさ"],
     url: "https://www.youtube.com/watch?v=wfamkctKfUw",

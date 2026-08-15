@@ -14,7 +14,7 @@ import { ContactBlock } from "@/components/site/ContactBlock";
 const featuredWorks = [
   { label: "和ロック", title: "藍空をなぞって", role: "作曲 / 編曲 / ボーカルディレクション / MIX", desc: "夏だけの命を生きた少女との別れを描いた、和ロックの物語。", url: "https://youtu.be/sepS54VqbnQ", thumbnail: "https://i.ytimg.com/vi/sepS54VqbnQ/hqdefault.jpg" },
   { label: "夏・青春", title: "花笑み、ひとひら", role: "作曲 / 編曲 / MIX", desc: "透明感と夏の空気を、まっすぐ閉じ込めた1曲。", url: "https://www.youtube.com/watch?v=BC8ZgzJWhX0", thumbnail: "https://i.ytimg.com/vi/BC8ZgzJWhX0/hqdefault.jpg" },
-  { label: "透明感", title: "水星巡航トリップ", role: "作曲 / 編曲 / ボーカルディレクション / MIX", desc: "瑞々しさと爽やかさの中に、ほのかなエモーショナルさがにじむ1曲。", url: "https://www.youtube.com/watch?v=wfamkctKfUw&pp=0gcJCcUKAYcqIYzv", thumbnail: "https://i.ytimg.com/vi/wfamkctKfUw/hqdefault.jpg" },
+  { label: "透明感", title: "水星巡航トリップ", role: "作詞 / 作曲 / 編曲 / ボーカルディレクション / MIX", desc: "瑞々しさと爽やかさの中に、ほのかなエモーショナルさがにじむ1曲。", url: "https://www.youtube.com/watch?v=wfamkctKfUw&pp=0gcJCcUKAYcqIYzv", thumbnail: "https://i.ytimg.com/vi/wfamkctKfUw/hqdefault.jpg" },
 ] as const;
 
 
