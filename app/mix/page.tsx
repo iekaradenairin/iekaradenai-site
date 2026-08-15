@@ -218,8 +218,6 @@ export default function MixPage() {
                 <SectionHeader eyebrow="対応内容" title="MIXで対応できること" />
                 <div className="grid gap-3 md:grid-cols-2">
                   {[
-                    "自然なピッチ補正 / タイミング補正",
-                    "声に合わせた音づくり",
                     "空間処理 / バランス調整",
                     "マスタリング込み",
                     "mp3 / wav 納品",
