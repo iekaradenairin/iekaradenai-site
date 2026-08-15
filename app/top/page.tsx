@@ -42,7 +42,7 @@ const featureCards = [
   },
   {
     title: "作品展示",
-    desc: "作品や関与実績を記載しています。私の作品の空気感、世界観のある音づくりを感じてもらえるとうれしいです。",
+    desc: "これまでに手がけた作品をまとめています。作品の空気感や、世界観のある音づくりを感じてもらえるとうれしいです。",
     icon: PlayCircle,
     badge: "作品を見る",
     href: siteLinks.works,
@@ -70,7 +70,7 @@ const works = [
   {
     label: "一番の自信作",
     title: "藍空をなぞって",
-    role: "作曲 / 編曲 / MIX",
+    role: "作曲 / 編曲 / ボーカルディレクション / MIX",
     desc: "夏だけの命を生きた少女との別れを描いた、和ロックの物語。",
     tags: ["和ロック", "切なさ", "夏の終わり"],
     url: "https://youtu.be/sepS54VqbnQ",
@@ -99,7 +99,7 @@ const works = [
 const beginnerSteps = [
   "1. はじめての方へ で、依頼の流れと必要なものを確認",
   "2. 音声データチェックで、提出前の不安をかんたん確認",
-  "3. わからないところは、そのまま相談しながら進めてOK",
+  "3. わからないところは、そのままご相談いただきながら進められます",
 ] as const;
 
 
@@ -249,31 +249,29 @@ export default function TopPage() {
                 animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
                 transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
               >
-                <a href={siteLinks.guide}>
-                  <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                  <Link href={siteLinks.guide}>
                     はじめての方へ
                     <ChevronRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </a>
+                  </Link>
+                </Button>
               </motion.div>
 
-              <a href={siteLinks.mix}>
-                <Button
-                  variant="outline"
-                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                >
-                  MIX依頼を見る
-                </Button>
-              </a>
+              <Button
+                asChild
+                variant="outline"
+                className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+              >
+                <Link href={siteLinks.mix}>MIX依頼を見る</Link>
+              </Button>
 
-              <a href={siteLinks.audioCheck}>
-                <Button
-                  variant="outline"
-                  className="h-12 rounded-full border-sky-100 bg-sky-50/70 px-6 text-sm text-sky-700 shadow-sm hover:bg-sky-100"
-                >
-                  音声データチェックを試す
-                </Button>
-              </a>
+              <Button
+                asChild
+                variant="outline"
+                className="h-12 rounded-full border-sky-100 bg-sky-50/70 px-6 text-sm text-sky-700 shadow-sm hover:bg-sky-100"
+              >
+                <Link href={siteLinks.audioCheck}>音声データチェックを試す</Link>
+              </Button>
             </motion.div>
 
             <motion.div
@@ -410,13 +408,13 @@ export default function TopPage() {
                   ))}
                 </div>
 
-                <a
+                <Link
                   href={siteLinks.works}
                   className="relative mt-4 inline-flex items-center text-sm font-medium text-sky-200 transition hover:text-white"
                 >
                   作品展示ページへ
                   <ChevronRight className="ml-1 h-4 w-4" />
-                </a>
+                </Link>
               </AnimatedPanel>
             </motion.div>
           </div>
@@ -501,7 +499,7 @@ export default function TopPage() {
                     はじめての依頼でも、安心して相談できるように。
                   </h3>
                   <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-                    まだ迷っていても大丈夫です。ざっくりした費用感だけでも、まずは気軽に相談してください！はじめての歌ってみたでも、流れが分かるように丁寧に案内します。
+                    まだ迷っている段階でも大丈夫です。ざっくりした費用感だけでも、まずはお気軽にご相談ください。はじめての歌ってみたでも、流れが分かるように丁寧にご案内します。
                   </p>
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                     <Button
@@ -523,7 +521,7 @@ export default function TopPage() {
                 </div>
                 <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
                   {[
-                    "まず相談からでOK",
+                    "まずご相談からでも大丈夫",
                     "送ってほしいものが分かる",
                     "FAQで不安を整理できる",
                   ].map((item) => (

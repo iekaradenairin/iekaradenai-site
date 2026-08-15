@@ -1,9 +1,7 @@
-'use client'
-import { useEffect } from 'react'
+import { redirect } from "next/navigation";
+
+import { siteLinks } from "@/lib/siteLinks";
 
 export default function LinksPage() {
-  useEffect(() => {
-    window.location.replace('https://x.com/iekaradenai_Rin')
-  }, [])
-  return null
+  redirect(siteLinks.x);
 }

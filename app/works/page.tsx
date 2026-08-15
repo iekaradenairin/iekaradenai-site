@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { PlayCircle, Sparkles, Music4, Mic2, Wand2, ExternalLink } from "lucide-react";
+import { Sparkles, Music4, Mic2, Wand2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -12,7 +12,7 @@ import { PageFrame } from "@/components/site/PageFrame";
 import { ContactBlock } from "@/components/site/ContactBlock";
 
 const featuredWorks = [
-  { label: "一番の自信作", title: "藍空をなぞって", role: "作曲 / 編曲 / MIX", desc: "夏だけの命を生きた少女との別れを描いた、和ロックの物語。", url: "https://youtu.be/sepS54VqbnQ", thumbnail: "https://i.ytimg.com/vi/sepS54VqbnQ/hqdefault.jpg" },
+  { label: "一番の自信作", title: "藍空をなぞって", role: "作曲 / 編曲 / ボーカルディレクション / MIX", desc: "夏だけの命を生きた少女との別れを描いた、和ロックの物語。", url: "https://youtu.be/sepS54VqbnQ", thumbnail: "https://i.ytimg.com/vi/sepS54VqbnQ/hqdefault.jpg" },
   { label: "注目作品", title: "花笑み、ひとひら", role: "作曲 / 編曲 / MIX", desc: "透明感と夏の空気を、まっすぐ閉じ込めた1曲。", url: "https://www.youtube.com/watch?v=BC8ZgzJWhX0", thumbnail: "https://i.ytimg.com/vi/BC8ZgzJWhX0/hqdefault.jpg" },
   { label: "透明感の軸", title: "水星巡航トリップ", role: "作曲 / 編曲 / 作詞 / 仕上げ", desc: "瑞々しさと爽やかさの中に、ほのかなエモーショナルさがにじむ1曲。", url: "https://www.youtube.com/watch?v=wfamkctKfUw&pp=0gcJCcUKAYcqIYzv", thumbnail: "https://i.ytimg.com/vi/wfamkctKfUw/hqdefault.jpg" },
 ] as const;
@@ -35,7 +35,7 @@ export default function WorksPage() {
                   作品として見てもらえるように。
                 </h1>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-                  透明感や空気感、爽やかさ、少しのエモーショナルさ。そうした質感がどう作品に乗るかを、まとめて見てもらえるページです。
+                  透明感や空気感、爽やかさ、少しのエモーショナルさ。そうした質感がどう作品に乗るかを、まとめてご覧いただけるページです。
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Button asChild className="h-12 rounded-full px-6">
@@ -55,7 +55,7 @@ export default function WorksPage() {
                   <Wand2 className="h-4 w-4" />
                   <p className="text-sm font-medium">Sound Direction</p>
                 </div>
-                <h2 className="mt-3 text-2xl font-semibold tracking-tight">声の魅力と、作品の世界観が両方見えるように</h2>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight">声の魅力と、作品の世界観がどちらも伝わるように</h2>
                 <p className="mt-3 text-sm leading-7 text-slate-200">
                   ただ整えるだけでなく、その作品が持っている空気を崩さないことを大切にしています。
                 </p>
@@ -67,7 +67,7 @@ export default function WorksPage() {
             {[
               { icon: Sparkles, title: "透明感のある音づくり", desc: "声の魅力を残しながら、透明感や空気感が自然に伝わる仕上がりを大切にしています。" },
               { icon: Music4, title: "世界観ごとの整え方", desc: "爽やかさ、青春感、少しのエモーショナルさなど、作品ごとの空気を崩さずにまとめていきます。" },
-              { icon: Mic2, title: "歌ってみたに強い距離感", desc: "歌ってみたの中で気持ちよく届くバランス感を意識しています。" },
+              { icon: Mic2, title: "歌ってみたに寄り添う距離感", desc: "歌ってみたの中で気持ちよく届くバランス感を意識しています。" },
             ].map((item) => {
               const Icon = item.icon;
               return (
@@ -82,7 +82,9 @@ export default function WorksPage() {
 
           <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/82 p-6 backdrop-blur-xl">
             <p className="text-sm font-medium text-sky-600">代表作品</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">まず見てほしい3作品</h2>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
+              まず見てほしい{featuredWorks.length}作品
+            </h2>
             <div className="mt-5 grid gap-4 xl:grid-cols-3">
               {featuredWorks.map((work) => (
                 <a key={work.title} href={work.url} target="_blank" rel="noreferrer" className="group rounded-[1.5rem] border border-slate-200 bg-white/70 p-4 transition hover:-translate-y-1 hover:border-slate-300 hover:bg-white">

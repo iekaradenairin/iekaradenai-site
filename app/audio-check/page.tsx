@@ -5,13 +5,10 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Sparkles,
-  FileAudio,
   CheckCircle2,
   AlertCircle,
   SlidersHorizontal,
-  ChevronRight,
   CircleHelp,
-  ShieldCheck,
   AudioLines,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -70,7 +67,7 @@ const faqItems = [
   },
   {
     q: "このページだけで合否が決まりますか？",
-    a: "最終判断を断定するためというより、提出前の不安を減らすための簡易チェックです。迷う場合は、そのまま相談してもらえれば大丈夫です。",
+    a: "最終判断を断定するためというより、提出前の不安を減らすための簡易チェックです。迷う場合は、そのままご相談いただければ大丈夫です。",
   },
   {
     q: "録り直しが必要なケースはありますか？",
@@ -129,21 +126,20 @@ export default function AudioCheckPage() {
                       animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
                       transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
-                        <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
-                          相談へ進む
-                        </Button>
-                      </a>
+                      <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                        <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
+                          {contactActionLabels.primary}
+                        </a>
+                      </Button>
                     </motion.div>
 
-                    <Link href={siteLinks.mix}>
-                      <Button
-                        variant="outline"
-                        className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                      >
-                        MIX依頼ページを見る
-                      </Button>
-                    </Link>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                    >
+                      <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
+                    </Button>
                   </div>
                 </div>
 
@@ -275,7 +271,7 @@ export default function AudioCheckPage() {
                 </div>
 
                 <p className="mt-4 text-sm leading-7 text-slate-600">
-                  理想的な形はありますが、最初から完璧でなくても問題ありません。状態に迷う場合は、そのまま相談してもらっても大丈夫です。
+                  理想的な形はありますが、最初から完璧でなくても問題ありません。状態に迷う場合は、そのままご相談いただいても大丈夫です。
                 </p>
               </div>
             </AnimatedPanel>
@@ -335,25 +331,26 @@ export default function AudioCheckPage() {
                 <SectionHeader
                   eyebrow={contactPolicyCopy.eyebrow}
                   title={contactPolicyCopy.title}
-                  body="音源状態に不安がある場合も、そのままご相談いただいて大丈夫です。大きな問題がなさそうかを確認したうえで、必要なら次の進め方も一緒に整理できます。"
+                  body={`音源状態に不安がある場合も、そのままご相談いただいて大丈夫です。大きな問題がなさそうかを確認したうえで、必要なら次の進め方も一緒に整理できます。${contactPolicyCopy.full}`}
                 />
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
-                  <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
                     {contactActionLabels.primary}
-                  </Button>
-                </a>
+                  </a>
+                </Button>
 
-                <a href={siteLinks.x} target="_blank" rel="noreferrer">
-                  <Button
-                    variant="outline"
-                    className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                  >
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                >
+                  <a href={siteLinks.x} target="_blank" rel="noreferrer">
                     {contactActionLabels.secondary}
-                  </Button>
-                </a>
+                  </a>
+                </Button>
               </div>
             </div>
           </AnimatedPanel>
@@ -369,20 +366,17 @@ export default function AudioCheckPage() {
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Link href={siteLinks.mix}>
-                  <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
-                    MIX依頼ページへ
-                  </Button>
-                </Link>
+                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                  <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
+                </Button>
 
-                <Link href={siteLinks.guide}>
-                  <Button
-                    variant="outline"
-                    className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                  >
-                    はじめての方へ
-                  </Button>
-                </Link>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                >
+                  <Link href={siteLinks.guide}>はじめての方へ</Link>
+                </Button>
               </div>
             </div>
           </AnimatedPanel>

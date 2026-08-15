@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Sparkles, ChevronRight, Music4, Wand2, Disc3, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
+import { contactActionLabels } from "@/lib/contactPolicy";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { AnimatedPanel } from "@/components/site/AnimatedPanel";
@@ -18,8 +19,24 @@ const suitableCases = [
   "参考曲はあるけれど、どう伝えればいいか分からない",
 ] as const;
 
-
-
+const faqs = [
+  {
+    q: "まだイメージがまとまっていません",
+    a: "参考曲や、好きな雰囲気の言葉が少しあるだけでも大丈夫です。",
+  },
+  {
+    q: "歌詞がなくても相談できますか？",
+    a: "先に曲の方向を考える形でも進められます。",
+  },
+  {
+    q: "MIX依頼の延長で作曲も相談できますか？",
+    a: "可能です。世界観づくりから相談したい場合にも対応できます。",
+  },
+  {
+    q: "料金はどれくらいですか？",
+    a: "内容や規模によって変わるため、ご相談の内容をうかがったうえでお見積もりをご案内しています。",
+  },
+] as const;
 
 export default function ComposePage() {
   return (
@@ -37,12 +54,12 @@ export default function ComposePage() {
                   ていねいに形にしていきます。
                 </h1>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-                  透明感や空気感、少しのエモーショナルさを大切にしながら、活動や作品の雰囲気に合う楽曲を一緒に整えていきます。
+                  透明感や空気感、少しのエモーショナルさを大切にしながら、活動や作品の雰囲気に合う楽曲を一緒につくっていきます。
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Button asChild className="h-12 rounded-full px-6">
                     <a href={siteLinks.googleFormCompose} target="_blank" rel="noreferrer">
-                      まず相談する
+                      {contactActionLabels.primary}
                       <ChevronRight className="ml-2 h-4 w-4" />
                     </a>
                   </Button>
@@ -55,11 +72,11 @@ export default function ComposePage() {
               <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.94),rgba(30,41,59,0.92))] p-5 text-white">
                 <div className="flex items-center gap-2 text-sky-200">
                   <Wand2 className="h-4 w-4" />
-                  <p className="text-sm font-medium">Sound / Direction</p>
+                  <p className="text-sm font-medium">Sound Direction</p>
                 </div>
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight">透明感や空気感が自然に残る、まっすぐ届く音づくり</h2>
                 <p className="mt-3 text-sm leading-7 text-slate-200">
-                  爽やかさ、瑞々しさ、少しのエモーショナルさ。そうした空気を大切にしながら、作品全体の雰囲気まで含めて整えていきます。
+                  爽やかさ、瑞々しさ、少しのエモーショナルさ。そうした空気を大切にしながら、作品全体の雰囲気まで含めて組み立てていきます。
                 </p>
               </AnimatedPanel>
             </div>
@@ -105,15 +122,10 @@ export default function ComposePage() {
           <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/78 p-6 backdrop-blur-xl">
             <h2 className="text-2xl font-semibold tracking-tight text-slate-900">ご相談前によくいただくご質問</h2>
             <div className="mt-5 grid gap-3 md:grid-cols-2">
-              {[
-                ["まだイメージがまとまっていません", "参考曲や、好きな雰囲気の言葉が少しあるだけでも大丈夫です。"],
-                ["歌詞がなくても相談できますか？", "先に曲の方向を考える形でも進められます。"],
-                ["MIX依頼の延長で作曲も相談できますか？", "可能です。世界観づくりから相談したい場合にも対応できます。"],
-                ["料金はどれくらいですか？", "内容によって変わるため、まずは相談内容を見ながらご案内しています。"],
-              ].map(([q, a]) => (
-                <div key={q} className="rounded-[1.2rem] border border-slate-200 bg-slate-50/75 p-4">
-                  <div className="text-sm font-medium text-slate-900">Q. {q}</div>
-                  <div className="mt-2 text-sm leading-7 text-slate-600">{a}</div>
+              {faqs.map((item) => (
+                <div key={item.q} className="rounded-[1.2rem] border border-slate-200 bg-slate-50/75 p-4">
+                  <div className="text-sm font-medium text-slate-900">Q. {item.q}</div>
+                  <div className="mt-2 text-sm leading-7 text-slate-600">{item.a}</div>
                 </div>
               ))}
             </div>

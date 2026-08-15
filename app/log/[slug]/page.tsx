@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = getPost(slug)
   if (!post) return {}
   return {
-    title: `${post.title} — log`,
+    title: `${post.title} — log — 倫 / Rin music works`,
     openGraph: {
       images: [{ url: `/og/log-${slug}.png`, width: 1200, height: 630 }],
     },

@@ -11,6 +11,21 @@ import { AnimatedPanel } from "@/components/site/AnimatedPanel";
 import { PageFrame } from "@/components/site/PageFrame";
 import { ContactBlock } from "@/components/site/ContactBlock";
 
+const usagePolicy = [
+  {
+    title: "まずはピアプロの内容をご確認ください",
+    body: "配布中の音源や利用条件は、ピアプロ側でご確認ください。",
+  },
+  {
+    title: "歌ってみた用途を中心に想定しています",
+    body: "用途に迷う場合は、無理に判断せず一度ご相談ください。",
+  },
+  {
+    title: "不明点は相談ベースで大丈夫です",
+    body: "細かいケースで判断に迷う場合は、そのままご相談ください。",
+  },
+] as const;
+
 export default function InstrumentalsPage() {
   return (
     <PageFrame>
@@ -27,7 +42,7 @@ export default function InstrumentalsPage() {
                   ピアプロにまとめています。
                 </h1>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-                  このページでは、配布音源の一覧をサイト内に持たず、配布先への導線だけを整理しています。歌ってみたに使いたい方は、ピアプロ側からご覧ください。
+                  配布中の音源と利用条件は、すべてピアプロにまとめています。歌ってみたに使いたい方は、そのままピアプロ側からご覧ください。
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Button asChild className="h-12 rounded-full px-6">
@@ -49,7 +64,7 @@ export default function InstrumentalsPage() {
                 </div>
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight">必要な情報は、できるだけシンプルに</h2>
                 <p className="mt-3 text-sm leading-7 text-slate-200">
-                  オフボーカル配布ページは、導線を増やしすぎず、必要な人が迷わず配布先へ進めることを大切にしています。
+                  迷わず配布先までたどり着けるように、必要な案内だけを置いています。
                 </p>
               </AnimatedPanel>
             </div>
@@ -58,8 +73,8 @@ export default function InstrumentalsPage() {
           <div className="grid gap-4 xl:grid-cols-3">
             {[
               { icon: Disc3, title: "配布先はピアプロに統一", desc: "サイト内に曲一覧は持たず、配布音源はピアプロにまとめています。" },
-              { icon: Music4, title: "歌ってみたで使いやすい形", desc: "必要な導線をできるだけ分かりやすくしています。" },
-              { icon: Sparkles, title: "世界観ごと楽しんでもらえるとうれしい", desc: "曲の空気感や世界観もあわせて楽しんでもらえたらと思っています。" },
+              { icon: Music4, title: "歌ってみたで使いやすい形", desc: "必要な案内をできるだけ分かりやすくまとめています。" },
+              { icon: Sparkles, title: "曲の世界観もあわせて", desc: "曲の空気感や世界観もあわせて楽しんでもらえたらと思っています。" },
             ].map((item) => {
               const Icon = item.icon;
               return (
@@ -80,14 +95,10 @@ export default function InstrumentalsPage() {
               </div>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">まずはこの方針で見てもらえれば大丈夫です</h2>
               <div className="mt-5 grid gap-3">
-                {[
-                  ["まずはピアプロの内容をご確認ください", "配布中の音源や利用条件は、ピアプロ側でご確認ください。"],
-                  ["歌ってみた用途を中心に想定しています", "用途に迷う場合は、無理に判断せず一度ご相談ください。"],
-                  ["不明点は相談ベースで大丈夫です", "細かいケースで判断に迷う場合は、そのままご相談ください。"],
-                ].map(([title, body]) => (
-                  <div key={title} className="rounded-[1.25rem] border border-slate-200 bg-slate-50/75 p-4">
-                    <div className="text-sm font-medium text-slate-900">{title}</div>
-                    <div className="mt-2 text-sm leading-7 text-slate-600">{body}</div>
+                {usagePolicy.map((item) => (
+                  <div key={item.title} className="rounded-[1.25rem] border border-slate-200 bg-slate-50/75 p-4">
+                    <div className="text-sm font-medium text-slate-900">{item.title}</div>
+                    <div className="mt-2 text-sm leading-7 text-slate-600">{item.body}</div>
                   </div>
                 ))}
               </div>
@@ -95,7 +106,7 @@ export default function InstrumentalsPage() {
 
             <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/82 p-6 backdrop-blur-xl">
               <p className="text-sm font-medium text-sky-600">こんなときに使いやすいページです</p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">必要な導線だけ、静かにまとめています</h2>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">必要なことだけ、静かにまとめています</h2>
               <div className="mt-5 space-y-3 text-sm text-slate-600">
                 {[
                   "歌ってみたに使いたい",

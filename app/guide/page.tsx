@@ -8,10 +8,8 @@ import {
   ChevronRight,
   ListChecks,
   FileAudio,
-  MessagesSquare,
   FolderInput,
   CircleHelp,
-  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -26,17 +24,17 @@ const flowSteps = [
   {
     step: "STEP 1",
     title: "まず相談する",
-    desc: "まだ迷っていても大丈夫です。費用感だけ知りたい場合や、自分の音源で進められるか不安な場合も、まずは気軽に相談してください。",
+    desc: "まだ迷っている段階でも大丈夫です。何から決めればよいか分からない場合や、お手元の音源で進められるか不安な場合も、まずはお気軽にご相談ください。",
   },
   {
     step: "STEP 2",
     title: "必要なものを準備する",
-    desc: "まずはボーカル音源とオケがあれば大丈夫です。参考曲や希望の雰囲気があると、方向性をより合わせやすくなります。",
+    desc: "まずはボーカル音源とオケがあれば大丈夫です。ご希望の雰囲気が伝わる材料があると、方向性をより合わせやすくなります。",
   },
   {
     step: "STEP 3",
     title: "制作・確認・納品",
-    desc: "やり取りをしながら、できるだけ希望に寄り添って進めます。修正も内容を確認しながら丁寧に対応します。",
+    desc: "やり取りをしながら、できるだけご希望に寄り添って進めます。修正も内容を確認しながら丁寧に対応します。",
   },
 ] as const;
 
@@ -69,11 +67,15 @@ const faqs = [
   },
   {
     q: "何を渡せばいいか分かりません",
-    a: "まずはボーカル音源とオケがあれば大丈夫です。参考曲や希望の雰囲気があると、方向性を合わせやすくなります。",
+    a: "このページの「送ってほしいもの」に必須と、あると助かるものをまとめています。すべて揃っていなくても、その時点でお持ちのものからご相談いただけます。",
   },
   {
     q: "納期はどれくらいですか？",
-    a: "基本は、すべてのデータ受領後から1ヶ月程度が目安です。お急ぎの場合も、まずは一度ご相談ください。",
+    a: "基本は、すべてのデータ受領後から1ヶ月程度を目安としています。お急ぎの場合も、まずは一度ご相談ください。",
+  },
+  {
+    q: "料金はどれくらいですか？",
+    a: "歌ってみたのMIXは MIX依頼ページ に目安を掲載しています。作曲は内容によって変わるため、ご相談内容を見ながらご案内しています。",
   },
 ] as const;
 
@@ -124,21 +126,20 @@ export default function GuidePage() {
                       animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
                       transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
-                        <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                      <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                        <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
                           {contactActionLabels.primary}
-                        </Button>
-                      </a>
+                        </a>
+                      </Button>
                     </motion.div>
 
-                    <Link href={siteLinks.audioCheck}>
-                      <Button
-                        variant="outline"
-                        className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                      >
-                        音声データチェックを試す
-                      </Button>
-                    </Link>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                    >
+                      <Link href={siteLinks.audioCheck}>音声データチェックを試す</Link>
+                    </Button>
                   </div>
                 </div>
 
@@ -253,7 +254,7 @@ export default function GuidePage() {
                 </div>
 
                 <div className="mt-4 rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4 text-sm leading-7 text-slate-600">
-                  キー変更を希望する場合は、相談の段階で先に教えてください。変更後のオケがあるとスムーズですが、手元にない場合もまずは相談してもらえれば大丈夫です。
+                  キー変更をご希望の場合は、ご相談の段階であらかじめお知らせください。変更後のオケがあるとスムーズですが、お手元にない場合も、まずは一度ご相談ください。
                 </div>
               </div>
             </AnimatedPanel>
@@ -312,25 +313,26 @@ export default function GuidePage() {
                 <SectionHeader
                   eyebrow={contactPolicyCopy.eyebrow}
                   title={contactPolicyCopy.title}
-                  body="まだご依頼を迷っている段階でも問題ありません。費用感だけを知りたい場合や、現在の音源で進められるか確認したい場合など、事前のご相談から歓迎しています。ご相談の入口は Googleフォーム を基本に、軽いご連絡は X からでも大丈夫です。やり取りが進んだあとは Discord で進める想定です。"
+                  body={`まだご依頼を迷っている段階でも問題ありません。費用感だけを知りたい場合や、現在の音源で進められるか確認したい場合など、事前のご相談から歓迎しています。${contactPolicyCopy.full}`}
                 />
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
-                  <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
                     {contactActionLabels.primary}
-                  </Button>
-                </a>
+                  </a>
+                </Button>
 
-                <a href={siteLinks.x} target="_blank" rel="noreferrer">
-                  <Button
-                    variant="outline"
-                    className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                  >
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                >
+                  <a href={siteLinks.x} target="_blank" rel="noreferrer">
                     {contactActionLabels.secondary}
-                  </Button>
-                </a>
+                  </a>
+                </Button>
               </div>
             </div>
           </AnimatedPanel>
@@ -341,25 +343,22 @@ export default function GuidePage() {
                 <SectionHeader
                   eyebrow="次に進む"
                   title="必要に応じて、こちらも確認できます"
-                  body="依頼内容が固まってきたら MIX依頼ページへ、音源状態に不安がある場合は 音声データチェックページへ進んでください。"
+                  body="歌ってみたのMIXをご希望の場合は MIX依頼ページへ、オリジナル曲をつくりたい場合は 作曲依頼ページへ進んでください。どちらも料金や進め方の目安をまとめています。"
                 />
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Link href={siteLinks.mix}>
-                  <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
-                    MIX依頼ページへ
-                  </Button>
-                </Link>
+                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                  <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
+                </Button>
 
-                <Link href={siteLinks.audioCheck}>
-                  <Button
-                    variant="outline"
-                    className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                  >
-                    音声データチェックページへ
-                  </Button>
-                </Link>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                >
+                  <Link href={siteLinks.compose}>作曲依頼ページへ</Link>
+                </Button>
               </div>
             </div>
           </AnimatedPanel>

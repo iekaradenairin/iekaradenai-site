@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  ChevronRight,
   Waves,
   Headphones,
   Music4,
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { siteLinks } from "@/lib/siteLinks";
+import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 import { AnimatedPanel } from "@/components/site/AnimatedPanel";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { PageFrame } from "@/components/site/PageFrame";
@@ -25,14 +25,14 @@ const X_URL = siteLinks.x;
 
 const pricing = [
   { label: "ボーカルMIX", value: "15,000円", note: "自然な補正 / マスタリング込み" },
-  { label: "ハモリ提案込み", value: "20,000円", note: "雰囲気に合わせた提案込み" },
+  { label: "ボーカルMIX + ハモリ提案", value: "20,000円", note: "雰囲気に合わせたハモリの提案込み" },
   { label: "追加対応", value: "内容に応じてご相談", note: "コラボ・特殊処理・特急対応など" },
 ] as const;
 
 const capabilities = [
   {
     icon: Waves,
-    title: "自然な補正 / タイミング補正",
+    title: "ピッチ・タイミングの自然な補正",
     desc: "違和感を抑えながら、聴きやすく気持ちよく届く形へ整えます。",
   },
   {
@@ -48,7 +48,7 @@ const capabilities = [
 ] as const;
 
 const suitableFor = [
-  "はじめて歌ってみたを投稿する",
+  "はじめて歌ってみたを投稿したい",
   "自然で聴きやすいMIXにしたい",
   "透明感や空気感を大切にしたい",
   "何を準備すればいいか分からない",
@@ -91,12 +91,12 @@ const faqs = [
     a: "不安がある場合は、まず音声データチェックをご利用ください。それでも判断しにくい部分は、ご相談をいただきながら確認していけます。",
   },
   {
-    q: "修正ってお願いできますか？",
+    q: "修正はお願いできますか？",
     a: "対応可能です。内容を確認しながら、できる範囲で丁寧に調整いたします。",
   },
   {
     q: "ハモリも相談できますか？",
-    a: "対応可能です。本家の雰囲気に寄せるだけでなく、曲に合うかたちを一緒に考えることもあります。",
+    a: "対応可能です。すでにイメージがある場合はそれに沿って、迷っている場合はご一緒に考えるところから進められます。",
   },
   {
     q: "納期はどれくらいですか？",
@@ -135,7 +135,7 @@ export default function MixPage() {
                     <span>MIX依頼</span>
                   </motion.div>
 
-                  <h1 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+                  <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
                     声の魅力を大切にしながら、<br className="hidden md:inline" />
                     作品として自然に届くかたちへ整えます。
                   </h1>
@@ -150,21 +150,20 @@ export default function MixPage() {
                       animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
                       transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <a href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer">
-                        <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
-                          Googleフォームから相談する
-                        </Button>
-                      </a>
+                      <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                        <a href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer">
+                          {contactActionLabels.primary}
+                        </a>
+                      </Button>
                     </motion.div>
 
-                    <Link href={BEGINNER_URL}>
-                      <Button
-                        variant="outline"
-                        className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                      >
-                        はじめての方へ
-                      </Button>
-                    </Link>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                    >
+                      <Link href={BEGINNER_URL}>はじめての方へ</Link>
+                    </Button>
                   </div>
                 </div>
 
@@ -315,14 +314,6 @@ export default function MixPage() {
                 <div className="mt-4 rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4 text-sm leading-7 text-slate-600">
                   キー変更をご希望の場合は、ご相談の段階であらかじめお知らせください。変更後のオケがあるとスムーズですが、お手元にない場合も、まずは一度ご相談ください。
                 </div>
-
-                <Link
-                  href={AUDIO_CHECK_URL}
-                  className="mt-4 inline-flex items-center text-sm font-medium text-sky-600 transition hover:text-sky-700"
-                >
-                  音声データチェックページへ
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </Link>
               </div>
             </AnimatedPanel>
           </div>
@@ -370,27 +361,28 @@ export default function MixPage() {
             <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <SectionHeader
-                  eyebrow="ご相談はこちら"
-                  title="まずは、気軽にご相談ください"
-                  body="まだご依頼を迷っている段階でも問題ありません。費用感だけを知りたい場合や、現在の音源で進められるか確認したい場合など、事前のご相談から歓迎しています。ご相談の入口は Googleフォーム を基本に、軽いご連絡は X からでも大丈夫です。やり取りが進んだあとは Discord で進める想定です。"
+                  eyebrow={contactPolicyCopy.eyebrow}
+                  title={contactPolicyCopy.title}
+                  body={`まだご依頼を迷っている段階でも問題ありません。費用感だけを知りたい場合や、現在の音源で進められるか確認したい場合など、事前のご相談から歓迎しています。${contactPolicyCopy.full}`}
                 />
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <a href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer">
-                  <Button className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
-                    Googleフォームから相談する
-                  </Button>
-                </a>
+                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                  <a href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer">
+                    {contactActionLabels.primary}
+                  </a>
+                </Button>
 
-                <a href={X_URL} target="_blank" rel="noreferrer">
-                  <Button
-                    variant="outline"
-                    className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
-                  >
-                    Xで相談する
-                  </Button>
-                </a>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                >
+                  <a href={X_URL} target="_blank" rel="noreferrer">
+                    {contactActionLabels.secondary}
+                  </a>
+                </Button>
               </div>
             </div>
           </AnimatedPanel>
