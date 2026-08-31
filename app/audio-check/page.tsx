@@ -143,24 +143,17 @@ export default function AudioCheckPage() {
                   </div>
                 </div>
 
-                <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-1">
-                  {quickChecks.map((item, i) => {
+                <div className="grid gap-4">
+                  {quickChecks.map((item) => {
                     const Icon = item.icon;
                     return (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, y: 18 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.45, delay: 0.12 + i * 0.08 }}
-                        whileHover={{ y: -4 }}
-                        className="rounded-[1.3rem] border border-white/10 bg-shinkai-900/40 p-4"
-                      >
-                        <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-shinkai-700 shadow-sm">
-                          <Icon className="h-5 w-5 text-sheen" />
+                      <div key={item.title} className="flex items-start gap-3">
+                        <Icon className="mt-0.5 h-4 w-4 shrink-0 text-sheen" />
+                        <div>
+                          <div className="text-sm font-semibold text-shinkai-100">{item.title}</div>
+                          <div className="mt-1 text-sm leading-6 text-shinkai-200">{item.desc}</div>
                         </div>
-                        <div className="text-base font-semibold text-shinkai-100">{item.title}</div>
-                        <div className="mt-2 text-sm leading-7 text-shinkai-200">{item.desc}</div>
-                      </motion.div>
+                      </div>
                     );
                   })}
                 </div>

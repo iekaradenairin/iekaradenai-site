@@ -187,27 +187,19 @@ export default function MixPage() {
             </AnimatedPanel>
           </motion.div>
 
-          <div className="grid gap-4 xl:grid-cols-3">
-            {capabilities.map((item, i) => {
+          <div className="grid gap-6 border-t border-white/10 pt-6 sm:grid-cols-3">
+            {capabilities.map((item) => {
               const Icon = item.icon;
 
               return (
-                <motion.div
+                <div
                   key={item.title}
-                  initial={{ opacity: 0, y: 20, scale: 0.98 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
-                  whileHover={{ y: -5 }}
+                  className="sm:border-l sm:border-white/10 sm:pl-6 sm:first:border-l-0 sm:first:pl-0"
                 >
-                  <AnimatedPanel className="h-full rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
-                    <div className="p-5">
-                      <Icon className="mb-4 h-6 w-6 text-sheen" />
-                      <h2 className="text-lg font-semibold text-shinkai-100">{item.title}</h2>
-                      <p className="mt-3 text-sm leading-7 text-shinkai-100">{item.desc}</p>
-                    </div>
-                  </AnimatedPanel>
-                </motion.div>
+                  <Icon className="h-5 w-5 text-sheen" />
+                  <h2 className="mt-3 text-base font-semibold text-shinkai-100">{item.title}</h2>
+                  <p className="mt-2 text-sm leading-7 text-shinkai-100">{item.desc}</p>
+                </div>
               );
             })}
           </div>

@@ -123,41 +123,37 @@ export default function InstrumentalsPage() {
             </div>
           </AnimatedPanel>
 
-          <div className="grid gap-4 xl:grid-cols-3">
+          <div className="grid gap-6 border-t border-white/10 pt-6 sm:grid-cols-3">
             {steps.map((item) => {
               const Icon = item.icon;
               return (
-                <AnimatedPanel
+                <div
                   key={item.step}
-                  className="h-full rounded-[1.75rem] border border-white/10 bg-shinkai-800/70 p-5 backdrop-blur"
+                  className="sm:border-l sm:border-white/10 sm:pl-6 sm:first:border-l-0 sm:first:pl-0"
                 >
-                  <div className="mb-4 flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-shinkai-800/60">
-                      <Icon className="h-5 w-5 text-sheen" />
-                    </div>
-                    <div className="inline-flex rounded-full bg-shinkai-800/60 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-sheen">
-                      {item.step}
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <Icon className="h-4 w-4 text-sheen" />
+                    <span className="text-xs font-medium tracking-[0.14em] text-sheen">{item.step}</span>
                   </div>
-                  <h2 className="text-lg font-semibold text-shinkai-100">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-shinkai-200">{item.desc}</p>
-                </AnimatedPanel>
+                  <h2 className="mt-3 text-lg font-semibold text-shinkai-100">{item.title}</h2>
+                  <p className="mt-2 text-sm leading-7 text-shinkai-200">{item.desc}</p>
+                </div>
               );
             })}
           </div>
 
-          <div className="grid gap-4 xl:grid-cols-3">
+          <div className="grid gap-6 border-t border-white/10 pt-6 sm:grid-cols-3">
             {highlights.map((item) => {
               const Icon = item.icon;
               return (
-                <AnimatedPanel
+                <div
                   key={item.title}
-                  className="rounded-[1.75rem] border border-white/10 bg-shinkai-800/70 p-5 backdrop-blur"
+                  className="sm:border-l sm:border-white/10 sm:pl-6 sm:first:border-l-0 sm:first:pl-0"
                 >
-                  <Icon className="mb-4 h-6 w-6 text-sheen" />
-                  <h2 className="text-lg font-semibold text-shinkai-100">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-shinkai-200">{item.desc}</p>
-                </AnimatedPanel>
+                  <Icon className="h-5 w-5 text-sheen" />
+                  <h2 className="mt-3 text-lg font-semibold text-shinkai-100">{item.title}</h2>
+                  <p className="mt-2 text-sm leading-7 text-shinkai-200">{item.desc}</p>
+                </div>
               );
             })}
           </div>

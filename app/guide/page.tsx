@@ -143,7 +143,7 @@ export default function GuidePage() {
                   </div>
                 </div>
 
-                <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-1">
+                <div className="grid gap-4">
                   {[
                     {
                       icon: ListChecks,
@@ -160,24 +160,17 @@ export default function GuidePage() {
                       title: "不安を先に減らせる",
                       desc: "音源の状態が気になる場合は提出前に確認できます。",
                     },
-                  ].map((item, i) => {
+                  ].map((item) => {
                     const Icon = item.icon;
 
                     return (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, y: 18 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.45, delay: 0.12 + i * 0.08 }}
-                        whileHover={{ y: -4 }}
-                        className="rounded-[1.3rem] border border-white/10 bg-shinkai-900/40 p-4"
-                      >
-                        <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-shinkai-700 shadow-sm">
-                          <Icon className="h-5 w-5 text-sheen" />
+                      <div key={item.title} className="flex items-start gap-3">
+                        <Icon className="mt-0.5 h-4 w-4 shrink-0 text-sheen" />
+                        <div>
+                          <div className="text-sm font-semibold text-shinkai-100">{item.title}</div>
+                          <div className="mt-1 text-sm leading-6 text-shinkai-200">{item.desc}</div>
                         </div>
-                        <div className="text-base font-semibold text-shinkai-100">{item.title}</div>
-                        <div className="mt-2 text-sm leading-7 text-shinkai-200">{item.desc}</div>
-                      </motion.div>
+                      </div>
                     );
                   })}
                 </div>
@@ -185,25 +178,16 @@ export default function GuidePage() {
             </AnimatedPanel>
           </motion.div>
 
-          <div className="grid gap-4 xl:grid-cols-3">
-            {flowSteps.map((item, i) => (
-              <motion.div
+          <div className="grid gap-6 border-t border-white/10 pt-6 sm:grid-cols-3">
+            {flowSteps.map((item) => (
+              <div
                 key={item.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="sm:border-l sm:border-white/10 sm:pl-6 sm:first:border-l-0 sm:first:pl-0"
               >
-                <AnimatedPanel className="h-full rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
-                  <div className="p-5">
-                    <div className="inline-flex rounded-full bg-shinkai-800/60 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-sheen">
-                      {item.step}
-                    </div>
-                    <h2 className="mt-3 text-xl font-semibold text-shinkai-100">{item.title}</h2>
-                    <p className="mt-3 text-sm leading-7 text-shinkai-100">{item.desc}</p>
-                  </div>
-                </AnimatedPanel>
-              </motion.div>
+                <div className="text-xs font-medium tracking-[0.14em] text-sheen">{item.step}</div>
+                <h2 className="mt-2 text-xl font-semibold text-shinkai-100">{item.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-shinkai-100">{item.desc}</p>
+              </div>
             ))}
           </div>
 
