@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Radio,
   Sparkles,
   ChevronRight,
   Mic2,
@@ -19,8 +18,9 @@ import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { PageFrame } from "@/components/site/PageFrame";
 import { WaveformHero } from "@/app/components/WaveformHero";
-import { GlassOrb } from "@/components/site/GlassOrb";
 import { AnimatedPanel } from "@/components/site/AnimatedPanel";
 
 const featureCards = [
@@ -105,37 +105,7 @@ const beginnerSteps = [
 
 export default function TopPage() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#f3fbff_0%,#e8f5ff_32%,#f8fcff_70%,#ffffff_100%)] text-slate-800">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <motion.div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.88),transparent_24%),radial-gradient(circle_at_top_right,rgba(191,219,254,0.34),transparent_30%),radial-gradient(circle_at_40%_18%,rgba(255,255,255,0.48),transparent_14%)]"
-          animate={{ opacity: [0.78, 1, 0.82] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute inset-0 opacity-45"
-          animate={{ backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"] }}
-          transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
-          style={{
-            backgroundImage:
-              "linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.24) 18%, rgba(255,255,255,0) 38%)",
-            backgroundSize: "220% 100%",
-          }}
-        />
-        <GlassOrb
-          className="left-[-120px] top-[-40px] h-72 w-72 bg-gradient-to-br from-cyan-200/40 via-sky-200/30 to-transparent"
-          delay={0.2}
-        />
-        <GlassOrb
-          className="right-[-80px] top-10 h-96 w-96 bg-gradient-to-br from-cyan-200/35 via-sky-200/25 to-transparent"
-          delay={1.2}
-        />
-        <GlassOrb
-          className="left-[36%] top-[8%] h-48 w-48 bg-gradient-to-br from-white/50 via-cyan-100/25 to-transparent"
-          delay={2.1}
-        />
-      </div>
-
+    <PageFrame>
       <section className="relative overflow-hidden">
         <motion.div
           className="pointer-events-none absolute left-[5%] top-10 h-24 w-24 rounded-full border border-white/45 bg-white/10 backdrop-blur-xl"
@@ -148,69 +118,7 @@ export default function TopPage() {
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
         />
 
-        <header className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-5 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="relative z-10 flex min-w-0 shrink items-center gap-2.5 sm:gap-3"
-          >
-            <motion.div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/70 bg-white/35 shadow-[0_12px_32px_rgba(148,163,184,0.14)] ring-1 ring-white/50 backdrop-blur-2xl sm:h-11 sm:w-11"
-              animate={{
-                boxShadow: [
-                  "0 12px 32px rgba(148,163,184,0.14)",
-                  "0 18px 42px rgba(56,189,248,0.18)",
-                  "0 12px 32px rgba(148,163,184,0.14)",
-                ],
-              }}
-              transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <Radio className="h-5 w-5 text-sky-500" />
-            </motion.div>
-            <div className="min-w-0">
-              <p className="whitespace-nowrap text-xs font-medium text-sky-700 sm:text-sm">music works</p>
-              <h1 className="whitespace-nowrap text-sm font-semibold tracking-wide text-slate-900 sm:text-base">
-                倫 / Rin
-              </h1>
-            </div>
-          </motion.div>
-
-          <div className="relative z-10 flex shrink-0 items-center gap-1.5 md:hidden">
-            <Link
-              href={siteLinks.guide}
-              className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/70 bg-white/55 px-2.5 py-1.5 text-[11px] text-slate-800 shadow-sm backdrop-blur"
-            >
-              はじめての方へ
-            </Link>
-            <Link
-              href={siteLinks.works}
-              className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/70 bg-white/55 px-2.5 py-1.5 text-[11px] text-slate-800 shadow-sm backdrop-blur"
-            >
-              作品
-            </Link>
-          </div>
-
-          <motion.nav
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.08 }}
-            className="relative z-10 hidden shrink-0 items-center gap-4 whitespace-nowrap text-sm text-slate-700 md:flex lg:gap-6"
-          >
-            <a href="#features" className="inline-flex min-h-[44px] items-center transition hover:text-slate-900">
-              サービス
-            </a>
-            <Link
-              href={siteLinks.guide}
-              className="inline-flex min-h-[44px] items-center rounded-full bg-white/60 px-3 text-slate-900 shadow-sm transition hover:bg-white/80"
-            >
-              はじめての方へ
-            </Link>
-            <Link href={siteLinks.works} className="inline-flex min-h-[44px] items-center transition hover:text-slate-900">
-              作品
-            </Link>
-          </motion.nav>
-        </header>
+        <SiteHeader />
 
         <div className="mx-auto grid max-w-7xl gap-6 px-6 pb-16 pt-4 lg:px-10 xl:grid-cols-[minmax(0,1fr)_minmax(400px,520px)] xl:gap-8 2xl:pb-20 2xl:pt-8">
           <div className="relative z-10 flex min-w-0 flex-col justify-center">
@@ -590,6 +498,6 @@ export default function TopPage() {
       </main>
 
       <SiteFooter />
-    </div>
+    </PageFrame>
   );
 }
