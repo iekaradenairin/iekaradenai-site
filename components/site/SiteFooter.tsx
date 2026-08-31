@@ -8,14 +8,18 @@ import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 
-const pageLinks = [
-  { label: "はじめての方へ", href: siteLinks.guide },
+const workLinks = [
+  { label: "作品", href: siteLinks.works },
+  { label: "世界観", href: siteLinks.about },
+  { label: "log", href: siteLinks.log },
+] as const;
+
+const requestLinks = [
   { label: "MIX依頼", href: siteLinks.mix },
   { label: "音声データチェック", href: siteLinks.audioCheck },
-  { label: "作品展示", href: siteLinks.works },
-  { label: "オフボーカル配布", href: siteLinks.instrumentals },
   { label: "作曲依頼", href: siteLinks.compose },
-  { label: "log", href: siteLinks.log },
+  { label: "オフボーカル配布", href: siteLinks.instrumentals },
+  { label: "はじめての方へ", href: siteLinks.guide },
 ] as const;
 
 export function SiteFooter() {
@@ -40,13 +44,13 @@ export function SiteFooter() {
                   <Radio className="h-5 w-5 text-sky-500" />
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-sky-700">倫 / Rin</div>
+                  <div className="text-sm font-medium text-sky-700">家から出ない倫</div>
                   <div className="text-sm text-slate-500">music works</div>
                 </div>
               </Link>
 
               <p className="mt-5 text-sm leading-7 text-slate-600">
-                透明感のある音づくりと作品の世界観を大切にしながら、MIX・作曲・編曲のご相談を受けています。
+                和ロックとポップスのあいだで、情景に感情を託して曲を作っています。よければ、覗いていってください。
               </p>
 
               <div className="mt-5 rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4 text-sm leading-7 text-slate-600">
@@ -67,11 +71,26 @@ export function SiteFooter() {
               </div>
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               <div>
-                <div className="text-xs tracking-[0.16em] text-slate-500">ページ一覧</div>
+                <div className="text-xs tracking-[0.16em] text-slate-500">作品</div>
                 <div className="mt-4 grid gap-2">
-                  {pageLinks.map((item) => (
+                  {workLinks.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="text-xs tracking-[0.16em] text-slate-500">ご依頼について</div>
+                <div className="mt-4 grid gap-2">
+                  {requestLinks.map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
@@ -86,20 +105,28 @@ export function SiteFooter() {
               <div>
                 <div className="text-xs tracking-[0.16em] text-slate-500">外部リンク</div>
                 <div className="mt-4 grid gap-2">
-                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
-                    <span>Googleフォーム</span>
+                  <a href={siteLinks.youtubeChannel} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                    <span>YouTube</span>
+                    <ExternalLink className="h-4 w-4 text-slate-400" />
+                  </a>
+                  <a href={siteLinks.youtubePlaylist} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                    <span>全曲プレイリスト</span>
+                    <ExternalLink className="h-4 w-4 text-slate-400" />
+                  </a>
+                  <a href={siteLinks.niconico} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                    <span>ニコニコ動画</span>
+                    <ExternalLink className="h-4 w-4 text-slate-400" />
+                  </a>
+                  <a href={siteLinks.piapro} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                    <span>ピアプロ</span>
                     <ExternalLink className="h-4 w-4 text-slate-400" />
                   </a>
                   <a href={siteLinks.x} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
                     <span>Xで相談する</span>
                     <ExternalLink className="h-4 w-4 text-slate-400" />
                   </a>
-                  <a href={siteLinks.youtubeChannel} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
-                    <span>YouTube</span>
-                    <ExternalLink className="h-4 w-4 text-slate-400" />
-                  </a>
-                  <a href={siteLinks.piapro} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
-                    <span>ピアプロ</span>
+                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                    <span>Googleフォーム</span>
                     <ExternalLink className="h-4 w-4 text-slate-400" />
                   </a>
                 </div>

@@ -98,7 +98,7 @@ function buildElement(title) {
           color: '#0284c7',
           marginBottom: 28,
         },
-      }, '家から出ない倫 / Rin'),
+      }, '家から出ない倫'),
       // タイトル
       h('div', {
         style: {

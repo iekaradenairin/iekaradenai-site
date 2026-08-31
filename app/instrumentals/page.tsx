@@ -40,8 +40,8 @@ const highlights = [
   },
   {
     icon: Sparkles,
-    title: "透明感や空気感のある曲が中心",
-    desc: "爽やかさ、青春感、少しのエモーショナルさ。そうした質感の曲が多めです。",
+    title: "情景を書いた曲が中心",
+    desc: "屋上や神社の階段、湖や桜。情景に感情を託した曲が多めです。",
   },
   {
     icon: Mic2,
@@ -83,7 +83,7 @@ export default function InstrumentalsPage() {
                   ピアプロで配布しています。
                 </h1>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-                  曲の一覧・音源のダウンロード・利用条件は、すべてピアプロにまとめています。気になる曲があれば、そのままダウンロードしてご利用いただけます。
+                  配布している音源は、すべて作品として公開している楽曲のインストです。曲の一覧・音源のダウンロード・利用条件は、すべてピアプロにまとめています。
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Button asChild className="h-12 rounded-full px-6">

@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
+import { works } from "@/lib/works";
 
 export const metadata: Metadata = {
-  title: "倫 / Rin music works — MIX・作曲依頼",
-  description: "透明感のある音づくりと作品の世界観を大切にしながら、MIX・作曲・編曲のご相談を受けています。はじめての歌ってみたから、こだわりの1曲まで。",
+  title: "家から出ない倫 — 和ロック×ポップスのオリジナル曲",
+  description: `SynthesizerVでオリジナル曲を作っています。和ロックとポップスのあいだで、情景に感情を託して曲を作るボカロP「家から出ない倫」の作品と世界観。オリジナル曲${works.length}曲を公開中。`,
   openGraph: {
-    title: "倫 / Rin music works — MIX・作曲依頼",
-    description: "透明感のある音づくりと作品の世界観を大切にしながら、MIX・作曲・編曲のご相談を受けています。",
+    title: "家から出ない倫 — 和ロック×ポップスのオリジナル曲",
+    description: "SynthesizerVでオリジナル曲を作っています。和ロックとポップスのあいだで、情景に感情を託して曲を作っています。",
     url: "https://iekaradenai.work/top",
-    siteName: "倫 / Rin music works",
+    siteName: "家から出ない倫",
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "倫 / Rin music works — MIX・作曲依頼",
-    description: "透明感のある音づくりと作品の世界観を大切にしながら、MIX・作曲・編曲のご相談を受けています。",
+    title: "家から出ない倫 — 和ロック×ポップスのオリジナル曲",
+    description: "SynthesizerVでオリジナル曲を作っています。和ロックとポップスのあいだで、情景に感情を託して曲を作っています。",
   },
 };
 

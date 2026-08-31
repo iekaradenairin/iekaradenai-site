@@ -38,7 +38,7 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
           <div className="min-w-0">
             <p className="whitespace-nowrap text-xs font-medium text-sky-700 sm:text-sm">music works</p>
             <div className="whitespace-nowrap text-sm font-semibold tracking-wide text-slate-900 sm:text-base">
-              倫 / Rin
+              家から出ない倫
             </div>
           </div>
         </Link>
@@ -47,16 +47,16 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
       <div className="flex shrink-0 items-center gap-2">
         <div className="flex shrink-0 items-center gap-1.5 md:hidden">
           <Link
-            href={siteLinks.guide}
-            className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/70 bg-white/55 px-2.5 py-1.5 text-[11px] text-slate-800 shadow-sm backdrop-blur"
-          >
-            はじめての方へ
-          </Link>
-          <Link
             href={siteLinks.works}
             className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/70 bg-white/55 px-2.5 py-1.5 text-[11px] text-slate-800 shadow-sm backdrop-blur"
           >
             作品
+          </Link>
+          <Link
+            href={siteLinks.about}
+            className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/70 bg-white/55 px-2.5 py-1.5 text-[11px] text-slate-800 shadow-sm backdrop-blur"
+          >
+            世界観
           </Link>
         </div>
 
@@ -66,17 +66,20 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
           transition={{ duration: 0.7, delay: 0.08 }}
           className="hidden shrink-0 items-center gap-4 whitespace-nowrap text-sm text-slate-700 md:flex lg:gap-6"
         >
-          <Link href={TOP_URL} className="transition hover:text-slate-900">
-            TOP
-          </Link>
           <Link
-            href={siteLinks.guide}
+            href={siteLinks.works}
             className="rounded-full bg-white/60 px-3 py-1.5 text-slate-900 shadow-sm transition hover:bg-white/80"
           >
-            はじめての方へ
-          </Link>
-          <Link href={siteLinks.works} className="transition hover:text-slate-900">
             作品
+          </Link>
+          <Link href={siteLinks.about} className="transition hover:text-slate-900">
+            世界観
+          </Link>
+          <Link href={siteLinks.log} className="transition hover:text-slate-900">
+            log
+          </Link>
+          <Link href={siteLinks.mix} className="text-xs text-slate-500 transition hover:text-slate-700">
+            依頼
           </Link>
         </motion.nav>
 

@@ -7,7 +7,7 @@ import { SiteFooter } from '@/components/site/SiteFooter'
 export const dynamic = 'force-static'
 
 export const metadata = {
-  title: 'log — 倫 / Rin music works',
+  title: 'log — 家から出ない倫',
   description: '制作まわりのメモ・ブログ・備忘録をまとめています。',
 }
 

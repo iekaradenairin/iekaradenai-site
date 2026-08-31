@@ -16,7 +16,7 @@ export default function NotFound() {
           </div>
           <div>
             <p className="text-sm font-medium text-sky-700">music works</p>
-            <div className="text-base font-semibold tracking-wide text-slate-900">倫 / Rin</div>
+            <div className="text-base font-semibold tracking-wide text-slate-900">家から出ない倫</div>
           </div>
         </Link>
       </header>

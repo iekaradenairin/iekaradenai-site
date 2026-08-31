@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Zen_Kaku_Gothic_New } from "next/font/google";
 import "./globals.css";
 import PageTransition from "./components/PageTransition";
+import { works } from "@/lib/works";
 
 const zenKaku = Zen_Kaku_Gothic_New({
   variable: "--font-sans",
@@ -12,11 +13,11 @@ const zenKaku = Zen_Kaku_Gothic_New({
 });
 
 export const metadata: Metadata = {
-  title: "倫 / Rin music works — MIX・作曲依頼",
-  description: "透明感のある音づくりと作品の世界観を大切にしながら、MIX・作曲・編曲のご相談を受けています。",
+  title: "家から出ない倫 — 和ロック×ポップスのオリジナル曲",
+  description: `SynthesizerVでオリジナル曲を作っています。和ロックとポップスのあいだで、情景に感情を託して曲を作るボカロP「家から出ない倫」の作品と世界観。オリジナル曲${works.length}曲を公開中。`,
   metadataBase: new URL('https://iekaradenai.work'),
   openGraph: {
-    siteName: '家から出ない倫 / Rin',
+    siteName: '家から出ない倫',
     images: [{ url: '/og/default.png', width: 1200, height: 630 }],
   },
   twitter: {
