@@ -24,36 +24,36 @@ const requestLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/70 bg-[linear-gradient(180deg,rgba(248,252,255,0.82),rgba(255,255,255,0.96))]">
+    <footer className="border-t border-white/10 bg-[linear-gradient(180deg,rgba(13,25,32,0.3),rgba(13,25,32,0.6))]">
       <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
         <motion.div
           animate={{
             boxShadow: [
-              "0 10px 24px rgba(148,163,184,0.08)",
-              "0 16px 30px rgba(148,163,184,0.11)",
-              "0 10px 24px rgba(148,163,184,0.08)",
+              "0 10px 24px rgba(13,25,32,0.3)",
+              "0 16px 30px rgba(13,25,32,0.4)",
+              "0 10px 24px rgba(13,25,32,0.3)",
             ],
           }}
           transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut" }}
-          className="rounded-[2rem] border border-white/70 bg-white/70 p-6 backdrop-blur-2xl"
+          className="rounded-[2rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-2xl"
         >
           <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
               <Link href={siteLinks.home} className="inline-flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/70 bg-white/45">
-                  <Radio className="h-5 w-5 text-sky-500" />
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-shinkai-700/60">
+                  <Radio className="h-5 w-5 text-sheen" />
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-sky-700">家から出ない倫</div>
-                  <div className="text-sm text-slate-500">music works</div>
+                  <div className="text-sm font-medium text-shinkai-100">家から出ない倫</div>
+                  <div className="text-sm text-shinkai-300">music works</div>
                 </div>
               </Link>
 
-              <p className="mt-5 text-sm leading-7 text-slate-600">
+              <p className="mt-5 text-sm leading-7 text-shinkai-200">
                 和ロックとポップスのあいだで、情景に感情を託して曲を作っています。よければ、覗いていってください。
               </p>
 
-              <div className="mt-5 rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4 text-sm leading-7 text-slate-600">
+              <div className="mt-5 rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4 text-sm leading-7 text-shinkai-200">
                 {contactPolicyCopy.footerBody}
               </div>
 
@@ -73,13 +73,13 @@ export function SiteFooter() {
 
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               <div>
-                <div className="text-xs tracking-[0.16em] text-slate-500">作品</div>
+                <div className="text-xs tracking-[0.16em] text-shinkai-300">作品</div>
                 <div className="mt-4 grid gap-2">
                   {workLinks.map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white"
+                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50"
                     >
                       {item.label}
                     </Link>
@@ -88,13 +88,13 @@ export function SiteFooter() {
               </div>
 
               <div>
-                <div className="text-xs tracking-[0.16em] text-slate-500">ご依頼について</div>
+                <div className="text-xs tracking-[0.16em] text-shinkai-300">ご依頼について</div>
                 <div className="mt-4 grid gap-2">
                   {requestLinks.map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white"
+                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50"
                     >
                       {item.label}
                     </Link>
@@ -103,31 +103,31 @@ export function SiteFooter() {
               </div>
 
               <div>
-                <div className="text-xs tracking-[0.16em] text-slate-500">外部リンク</div>
+                <div className="text-xs tracking-[0.16em] text-shinkai-300">外部リンク</div>
                 <div className="mt-4 grid gap-2">
-                  <a href={siteLinks.youtubeChannel} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                  <a href={siteLinks.youtubeChannel} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
                     <span>YouTube</span>
-                    <ExternalLink className="h-4 w-4 text-slate-400" />
+                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
                   </a>
-                  <a href={siteLinks.youtubePlaylist} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                  <a href={siteLinks.youtubePlaylist} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
                     <span>全曲プレイリスト</span>
-                    <ExternalLink className="h-4 w-4 text-slate-400" />
+                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
                   </a>
-                  <a href={siteLinks.niconico} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                  <a href={siteLinks.niconico} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
                     <span>ニコニコ動画</span>
-                    <ExternalLink className="h-4 w-4 text-slate-400" />
+                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
                   </a>
-                  <a href={siteLinks.piapro} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                  <a href={siteLinks.piapro} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
                     <span>ピアプロ</span>
-                    <ExternalLink className="h-4 w-4 text-slate-400" />
+                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
                   </a>
-                  <a href={siteLinks.x} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                  <a href={siteLinks.x} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
                     <span>Xで相談する</span>
-                    <ExternalLink className="h-4 w-4 text-slate-400" />
+                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
                   </a>
-                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white/55 px-4 py-3 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-white">
+                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
                     <span>Googleフォーム</span>
-                    <ExternalLink className="h-4 w-4 text-slate-400" />
+                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
                   </a>
                 </div>
               </div>
