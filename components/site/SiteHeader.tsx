@@ -22,7 +22,7 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
       >
         <Link href={TOP_URL} className="flex min-w-0 items-center gap-2.5 sm:gap-3">
           <motion.div
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-shinkai-800/70 shadow-[0_12px_32px_rgba(13,25,32,0.4)] ring-1 ring-white/10 backdrop-blur-2xl sm:h-11 sm:w-11"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-shinkai-800/70 shadow-[0_12px_32px_rgba(13,25,32,0.4)] ring-1 ring-white/10 backdrop-blur-2xl"
             animate={{
               boxShadow: [
                 "0 12px 32px rgba(13,25,32,0.4)",
@@ -48,13 +48,13 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
         <div className="flex shrink-0 items-center gap-1.5 md:hidden">
           <Link
             href={siteLinks.works}
-            className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/10 bg-shinkai-800/70 px-2.5 py-1.5 text-[11px] text-shinkai-200 shadow-sm backdrop-blur"
+            className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full border border-white/10 bg-shinkai-800/70 px-3 text-[11px] text-shinkai-200 shadow-sm backdrop-blur"
           >
             作品
           </Link>
           <Link
             href={siteLinks.about}
-            className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/10 bg-shinkai-800/70 px-2.5 py-1.5 text-[11px] text-shinkai-200 shadow-sm backdrop-blur"
+            className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full border border-white/10 bg-shinkai-800/70 px-3 text-[11px] text-shinkai-200 shadow-sm backdrop-blur"
           >
             世界観
           </Link>
@@ -68,17 +68,17 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
         >
           <Link
             href={siteLinks.works}
-            className="rounded-full bg-shinkai-700/80 px-3 py-1.5 text-shinkai-100 shadow-sm transition hover:bg-shinkai-700"
+            className="inline-flex min-h-11 items-center rounded-full bg-shinkai-700/80 px-3 text-shinkai-100 shadow-sm transition hover:bg-shinkai-700"
           >
             作品
           </Link>
-          <Link href={siteLinks.about} className="transition hover:text-shinkai-100">
+          <Link href={siteLinks.about} className="inline-flex min-h-11 items-center transition hover:text-shinkai-100">
             世界観
           </Link>
-          <Link href={siteLinks.log} className="transition hover:text-shinkai-100">
+          <Link href={siteLinks.log} className="inline-flex min-h-11 items-center transition hover:text-shinkai-100">
             log
           </Link>
-          <Link href={siteLinks.mix} className="text-xs text-shinkai-300 transition hover:text-shinkai-100">
+          <Link href={siteLinks.mix} className="inline-flex min-h-11 items-center text-xs text-shinkai-300 transition hover:text-shinkai-100">
             依頼
           </Link>
         </motion.nav>

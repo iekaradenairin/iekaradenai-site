@@ -155,7 +155,7 @@ export default function TopPage() {
 
                 <Link
                   href={siteLinks.works}
-                  className="relative mt-4 inline-flex items-center text-sm font-medium text-sheen transition hover:text-shinkai-100"
+                  className="relative mt-4 inline-flex min-h-11 items-center text-sm font-medium text-sheen transition hover:text-shinkai-100"
                 >
                   すべての作品を見る
                   <ChevronRight className="ml-1 h-4 w-4" />
