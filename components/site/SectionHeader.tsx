@@ -11,11 +11,11 @@ export function SectionHeader({ eyebrow, title, body }: { eyebrow: string; title
       transition={{ duration: 0.55 }}
       className="mb-5"
     >
-      <p className="text-sm font-medium text-sky-600">{eyebrow}</p>
-      <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 md:text-[2rem]">
+      <p className="text-sm font-medium text-sheen">{eyebrow}</p>
+      <h2 className="mt-2 text-2xl font-semibold tracking-tight text-shinkai-100 md:text-[2rem]">
         {title}
       </h2>
-      {body ? <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">{body}</p> : null}
+      {body ? <p className="mt-3 max-w-3xl text-sm leading-7 text-shinkai-200">{body}</p> : null}
     </motion.div>
   )
 }
