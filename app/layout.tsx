@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Zen_Kaku_Gothic_New } from "next/font/google";
+import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import PageTransition from "./components/PageTransition";
 import { works } from "@/lib/works";
@@ -33,9 +34,11 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${zenKaku.variable} antialiased`}>
-        <PageTransition>
-          {children}
-        </PageTransition>
+        <MotionConfig reducedMotion="user">
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </MotionConfig>
       </body>
     </html>
   );
