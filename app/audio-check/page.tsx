@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Sparkles,
   CheckCircle2,
   AlertCircle,
   SlidersHorizontal,
@@ -101,12 +100,6 @@ export default function AudioCheckPage() {
                     transition={{ duration: 0.55 }}
                     className="inline-flex items-center gap-2 rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen"
                   >
-                    <motion.div
-                      animate={{ rotate: [0, 8, -5, 0], scale: [1, 1.08, 1] }}
-                      transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <Sparkles className="h-3.5 w-3.5" />
-                    </motion.div>
                     <span>音声データチェック</span>
                   </motion.div>
 

@@ -7,7 +7,6 @@ import {
   Waves,
   Headphones,
   Music4,
-  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -126,12 +125,6 @@ export default function MixPage() {
                     transition={{ duration: 0.55 }}
                     className="inline-flex items-center gap-2 rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen"
                   >
-                    <motion.div
-                      animate={{ rotate: [0, 8, -5, 0], scale: [1, 1.08, 1] }}
-                      transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <Sparkles className="h-3.5 w-3.5" />
-                    </motion.div>
                     <span>MIX依頼</span>
                   </motion.div>
 

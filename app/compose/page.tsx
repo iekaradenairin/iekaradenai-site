@@ -84,10 +84,7 @@ export default function ComposePage() {
 
           <div className="grid gap-4 xl:grid-cols-[0.98fr_1.02fr]">
             <AnimatedPanel className="rounded-[1.75rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-sheen" />
-                <p className="text-sm font-medium text-sheen">こんな相談に向いています</p>
-              </div>
+              <p className="text-sm font-medium text-sheen">こんな相談に向いています</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight text-shinkai-100">世界観の相談から始めたい方へ</h2>
               <div className="mt-5 space-y-3 text-sm text-shinkai-200">
                 {suitableCases.map((item) => (

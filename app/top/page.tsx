@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sparkles, ChevronRight, PlayCircle } from "lucide-react";
+import { ChevronRight, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteLinks } from "@/lib/siteLinks";
 import { contactPolicyCopy } from "@/lib/contactPolicy";
@@ -38,12 +38,6 @@ export default function TopPage() {
               transition={{ duration: 0.65 }}
               className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-shinkai-800/70 px-4 py-2 text-sm text-shinkai-200 shadow-[0_10px_30px_rgba(13,25,32,0.3)] ring-1 ring-white/10 backdrop-blur-xl"
             >
-              <motion.div
-                animate={{ rotate: [0, 8, -5, 0], scale: [1, 1.08, 1] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <Sparkles className="h-4 w-4 text-sheen" />
-              </motion.div>
               <span>家から出ない倫 ・ SynthesizerVでオリジナル曲を作っています ・ {works.length}曲</span>
             </motion.div>
 
