@@ -133,6 +133,7 @@ export default function TopPage() {
                   className="group relative mt-3 block overflow-hidden rounded-2xl ring-1 ring-white/10"
                 >
                   <div className="relative aspect-video">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- external YouTube thumbnail (i.ytimg.com), not an optimizable local/remote-configured asset */}
                     <img
                       src={youtubeThumbnailUrl(heroWork.youtubeId, "hqdefault")}
                       alt={heroWork.title}

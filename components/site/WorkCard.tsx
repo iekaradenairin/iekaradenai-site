@@ -52,6 +52,7 @@ export function WorkCard({ work, activeId, onActivate }: WorkCardProps) {
             <span className="text-sm font-medium text-shinkai-100">{work.title}</span>
           </div>
         ) : (
+          // eslint-disable-next-line @next/next/no-img-element -- external YouTube thumbnail with a maxresdefault->hqdefault runtime fallback (onLoad/onError below); next/image's optimizer doesn't fit that fallback logic
           <img
             src={youtubeThumbnailUrl(selected.youtubeId, thumbQuality)}
             alt={work.title}
