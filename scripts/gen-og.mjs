@@ -25,17 +25,18 @@ function parseFrontmatter(raw) {
   return data
 }
 
-// --- Google Fonts から Noto Sans JP Bold を全セグメント取得 ---
-async function fetchFont() {
-  console.log('  Fetching Noto Sans JP from Google Fonts...')
-  const css = await fetch(
-    'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700',
-    { headers: { 'User-Agent': 'Mozilla/5.0' } }
-  ).then(r => r.text())
-
-  const urls = [...css.matchAll(/url\(([^)]+)\)/g)].map(m => m[1])
-  console.log(`  Downloading ${urls.length} font segment(s)...`)
-  return Promise.all(urls.map(u => fetch(u).then(r => r.arrayBuffer())))
+// --- フォントはリポジトリ同梱（scripts/fonts/）から読む ---
+// 以前は Google Fonts を毎ビルド fetch していたため、Google Fonts が数分
+// 不調なだけで曲のリリース(ビルド)がブロックされていた。ネットワーク依存を排除。
+const FONT_PATH = path.join(ROOT, 'scripts', 'fonts', 'NotoSansJP-Bold.ttf')
+function loadFont() {
+  if (!fs.existsSync(FONT_PATH)) {
+    throw new Error(
+      `フォントファイルが見つかりません: ${FONT_PATH}\n` +
+      `scripts/fonts/NotoSansJP-Bold.ttf をリポジトリに同梱してください。`
+    )
+  }
+  return [fs.readFileSync(FONT_PATH)]
 }
 
 // --- OGP要素構築 ---
@@ -48,9 +49,11 @@ function buildElement(title) {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '0 72px',
-      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 60%, #f8fafc 100%)',
+      background: 'linear-gradient(135deg, #122430 0%, #0D1920 100%)',
       fontFamily: '"Noto Sans JP"',
       position: 'relative',
+      // X のダークモード(#000000)上でも輪郭が消えないように外周を1本入れる
+      border: '2px solid rgba(95, 168, 199, 0.35)',
     },
   },
     // 装飾: 右上の円
@@ -62,7 +65,7 @@ function buildElement(title) {
         width: 480,
         height: 480,
         borderRadius: '50%',
-        background: 'rgba(186, 230, 253, 0.45)',
+        background: 'rgba(95, 168, 199, 0.18)',
       },
     }),
     // 装飾: 左下の円
@@ -74,7 +77,7 @@ function buildElement(title) {
         width: 360,
         height: 360,
         borderRadius: '50%',
-        background: 'rgba(224, 242, 254, 0.6)',
+        background: 'rgba(95, 168, 199, 0.12)',
       },
     }),
     // ガラスカード
@@ -86,8 +89,8 @@ function buildElement(title) {
         flexDirection: 'column',
         padding: '52px 64px',
         borderRadius: '28px',
-        background: 'rgba(255, 255, 255, 0.72)',
-        border: '1.5px solid rgba(255, 255, 255, 0.9)',
+        background: 'rgba(35, 65, 82, 0.85)',
+        border: '1.5px solid rgba(255, 255, 255, 0.14)',
       },
     },
       // サイト名
@@ -95,7 +98,7 @@ function buildElement(title) {
         style: {
           fontSize: 22,
           fontWeight: 700,
-          color: '#0284c7',
+          color: '#5FA8C7',
           marginBottom: 28,
         },
       }, '家から出ない倫'),
@@ -104,7 +107,7 @@ function buildElement(title) {
         style: {
           fontSize: 52,
           fontWeight: 700,
-          color: '#0f172a',
+          color: '#DAE8EF',
           lineHeight: 1.55,
         },
       }, title),
@@ -112,7 +115,7 @@ function buildElement(title) {
       h('div', {
         style: {
           fontSize: 18,
-          color: '#94a3b8',
+          color: '#86AEC1',
           marginTop: 36,
         },
       }, 'iekaradenai.work'),
@@ -139,13 +142,20 @@ async function generatePng(title, fonts) {
 async function main() {
   fs.mkdirSync(OG_DIR, { recursive: true })
 
-  const fonts = await fetchFont()
+  const fonts = loadFont()
 
   // デフォルトOGP（トップ・その他ページ用）
   console.log('  Generating: default')
   fs.writeFileSync(
     path.join(OG_DIR, 'default.png'),
-    await generatePng('MIX・作曲依頼', fonts)
+    await generatePng('和ロック×ポップスのオリジナル曲', fonts)
+  )
+
+  // /about 専用OGP
+  console.log('  Generating: about')
+  fs.writeFileSync(
+    path.join(OG_DIR, 'about.png'),
+    await generatePng('言えなかった言葉のことを、ずっと書いています。', fonts)
   )
 
   // log記事ごとのOGP

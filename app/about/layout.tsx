@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     siteName: "家から出ない倫",
     locale: "ja_JP",
     type: "website",
+    images: [{ url: "/og/about.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
