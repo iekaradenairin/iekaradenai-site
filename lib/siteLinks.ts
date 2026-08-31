@@ -1,5 +1,6 @@
 export const siteLinks = {
   home: "/top",
+  about: "/about",
   guide: "/guide",
   mix: "/mix",
   audioCheck: "/audio-check",
