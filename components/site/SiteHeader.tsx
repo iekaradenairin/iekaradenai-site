@@ -22,22 +22,22 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
       >
         <Link href={TOP_URL} className="flex min-w-0 items-center gap-2.5 sm:gap-3">
           <motion.div
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/70 bg-white/35 shadow-[0_12px_32px_rgba(148,163,184,0.14)] ring-1 ring-white/50 backdrop-blur-2xl sm:h-11 sm:w-11"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-shinkai-800/70 shadow-[0_12px_32px_rgba(13,25,32,0.4)] ring-1 ring-white/10 backdrop-blur-2xl sm:h-11 sm:w-11"
             animate={{
               boxShadow: [
-                "0 12px 32px rgba(148,163,184,0.14)",
-                "0 18px 42px rgba(56,189,248,0.18)",
-                "0 12px 32px rgba(148,163,184,0.14)",
+                "0 12px 32px rgba(13,25,32,0.4)",
+                "0 18px 42px rgba(95,168,199,0.22)",
+                "0 12px 32px rgba(13,25,32,0.4)",
               ],
             }}
             transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Radio className="h-5 w-5 text-sky-500" />
+            <Radio className="h-5 w-5 text-sheen" />
           </motion.div>
 
           <div className="min-w-0">
-            <p className="whitespace-nowrap text-xs font-medium text-sky-700 sm:text-sm">music works</p>
-            <div className="whitespace-nowrap text-sm font-semibold tracking-wide text-slate-900 sm:text-base">
+            <p className="whitespace-nowrap text-xs font-medium text-shinkai-300 sm:text-sm">music works</p>
+            <div className="whitespace-nowrap text-sm font-semibold tracking-wide text-shinkai-100 sm:text-base">
               家から出ない倫
             </div>
           </div>
@@ -48,13 +48,13 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
         <div className="flex shrink-0 items-center gap-1.5 md:hidden">
           <Link
             href={siteLinks.works}
-            className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/70 bg-white/55 px-2.5 py-1.5 text-[11px] text-slate-800 shadow-sm backdrop-blur"
+            className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/10 bg-shinkai-800/70 px-2.5 py-1.5 text-[11px] text-shinkai-200 shadow-sm backdrop-blur"
           >
             作品
           </Link>
           <Link
             href={siteLinks.about}
-            className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/70 bg-white/55 px-2.5 py-1.5 text-[11px] text-slate-800 shadow-sm backdrop-blur"
+            className="inline-flex shrink-0 whitespace-nowrap rounded-full border border-white/10 bg-shinkai-800/70 px-2.5 py-1.5 text-[11px] text-shinkai-200 shadow-sm backdrop-blur"
           >
             世界観
           </Link>
@@ -64,27 +64,27 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.08 }}
-          className="hidden shrink-0 items-center gap-4 whitespace-nowrap text-sm text-slate-700 md:flex lg:gap-6"
+          className="hidden shrink-0 items-center gap-4 whitespace-nowrap text-sm text-shinkai-300 md:flex lg:gap-6"
         >
           <Link
             href={siteLinks.works}
-            className="rounded-full bg-white/60 px-3 py-1.5 text-slate-900 shadow-sm transition hover:bg-white/80"
+            className="rounded-full bg-shinkai-700/80 px-3 py-1.5 text-shinkai-100 shadow-sm transition hover:bg-shinkai-700"
           >
             作品
           </Link>
-          <Link href={siteLinks.about} className="transition hover:text-slate-900">
+          <Link href={siteLinks.about} className="transition hover:text-shinkai-100">
             世界観
           </Link>
-          <Link href={siteLinks.log} className="transition hover:text-slate-900">
+          <Link href={siteLinks.log} className="transition hover:text-shinkai-100">
             log
           </Link>
-          <Link href={siteLinks.mix} className="text-xs text-slate-500 transition hover:text-slate-700">
+          <Link href={siteLinks.mix} className="text-xs text-shinkai-300 transition hover:text-shinkai-100">
             依頼
           </Link>
         </motion.nav>
 
         {currentLabel ? (
-          <div className="hidden shrink-0 whitespace-nowrap rounded-full border border-sky-100 bg-sky-50/80 px-3 py-1 text-xs font-medium text-sky-700 lg:inline-flex">
+          <div className="hidden shrink-0 whitespace-nowrap rounded-full border border-sheen/25 bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen lg:inline-flex">
             {currentLabel}
           </div>
         ) : null}

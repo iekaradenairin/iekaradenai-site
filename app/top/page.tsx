@@ -18,12 +18,12 @@ export default function TopPage() {
     <PageFrame>
       <section className="relative overflow-hidden">
         <motion.div
-          className="pointer-events-none absolute left-[5%] top-10 h-24 w-24 rounded-full border border-white/45 bg-white/10 backdrop-blur-xl"
+          className="pointer-events-none absolute left-[5%] top-10 h-24 w-24 rounded-full border border-sheen/20 bg-sheen/5 backdrop-blur-xl"
           animate={{ y: [0, -8, 0], rotate: [0, 6, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="pointer-events-none absolute right-[8%] top-28 h-16 w-16 rounded-full border border-white/40 bg-white/10 backdrop-blur-xl"
+          className="pointer-events-none absolute right-[8%] top-28 h-16 w-16 rounded-full border border-sheen/15 bg-sheen/5 backdrop-blur-xl"
           animate={{ y: [0, 10, 0], rotate: [0, -8, 0] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
         />
@@ -36,13 +36,13 @@ export default function TopPage() {
               initial={{ opacity: 0, y: 20, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.65 }}
-              className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 py-2 text-sm text-slate-800 shadow-[0_10px_30px_rgba(148,163,184,0.10)] ring-1 ring-white/60 backdrop-blur-xl"
+              className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-shinkai-800/70 px-4 py-2 text-sm text-shinkai-200 shadow-[0_10px_30px_rgba(13,25,32,0.3)] ring-1 ring-white/10 backdrop-blur-xl"
             >
               <motion.div
                 animate={{ rotate: [0, 8, -5, 0], scale: [1, 1.08, 1] }}
                 transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
               >
-                <Sparkles className="h-4 w-4 text-sky-500" />
+                <Sparkles className="h-4 w-4 text-sheen" />
               </motion.div>
               <span>家から出ない倫 ・ SynthesizerVでオリジナル曲を作っています ・ {works.length}曲</span>
             </motion.div>
@@ -52,13 +52,13 @@ export default function TopPage() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.06 }}
-                className="max-w-4xl whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-slate-950 md:text-5xl xl:text-6xl"
+                className="max-w-4xl whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-shinkai-100 md:text-5xl xl:text-6xl"
               >
                 {`言えなかった言葉のことを、
 ずっと書いています。`}
               </motion.h1>
               <motion.div
-                className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-[linear-gradient(120deg,rgba(255,255,255,0),rgba(255,255,255,0.7),rgba(255,255,255,0))] mix-blend-screen"
+                className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-[linear-gradient(120deg,rgba(95,168,199,0),rgba(95,168,199,0.35),rgba(95,168,199,0))] mix-blend-screen"
                 animate={{ x: ["-10%", "320%"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.6 }}
               />
@@ -68,7 +68,7 @@ export default function TopPage() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.14 }}
-              className="mt-4 max-w-3xl text-base leading-8 text-slate-700 md:text-lg"
+              className="mt-4 max-w-3xl text-base leading-8 text-shinkai-200 md:text-lg"
             >
               和ロックとポップスのあいだで、屋上や神社の階段、湖や桜――情景に感情を託して曲を作っています。
             </motion.p>
@@ -83,7 +83,7 @@ export default function TopPage() {
                 animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
                 transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
               >
-                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
                   <Link href={siteLinks.works}>
                     作品を見る
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -94,7 +94,7 @@ export default function TopPage() {
               <Button
                 asChild
                 variant="outline"
-                className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-200 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
               >
                 <Link href={siteLinks.about}>世界観を見る</Link>
               </Button>
@@ -103,7 +103,7 @@ export default function TopPage() {
 
           <div className="relative z-10 min-w-0 xl:justify-self-end xl:w-full xl:max-w-[520px] xl:pt-4">
             <motion.div
-              className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/70 via-cyan-100/40 to-sky-200/30 blur-2xl"
+              className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-sheen/25 via-shinkai-400/15 to-transparent blur-2xl"
               animate={{ opacity: [0.72, 1, 0.76], scale: [1, 1.03, 1] }}
               transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -112,7 +112,7 @@ export default function TopPage() {
               animate={{ y: [0, -2, 0] }}
               transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <AnimatedPanel className="relative overflow-hidden rounded-[1.9rem] bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.94))] p-5 text-white shadow-[0_30px_80px_rgba(148,163,184,0.18)]">
+              <AnimatedPanel className="relative overflow-hidden rounded-[1.9rem] border border-white/14 bg-shinkai-700/80 p-5 text-shinkai-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_30px_80px_rgba(13,25,32,0.4)]">
                 <motion.div
                   className="pointer-events-none absolute inset-0 opacity-50"
                   animate={{ backgroundPosition: ["0% 0%", "120% 0%"] }}
@@ -124,7 +124,7 @@ export default function TopPage() {
                   }}
                 />
 
-                <p className="relative text-xs tracking-[0.2em] text-sky-200">最新作</p>
+                <p className="relative text-xs tracking-[0.2em] text-sheen">最新作</p>
 
                 <a
                   href={`https://youtu.be/${heroWork.youtubeId}`}
@@ -147,12 +147,12 @@ export default function TopPage() {
                 </a>
 
                 <div className="relative mt-4 min-w-0">
-                  <div className="text-xl font-semibold tracking-tight text-white">{heroWork.title}</div>
+                  <div className="text-xl font-semibold tracking-tight text-shinkai-100">{heroWork.title}</div>
                   {heroWork.scene ? (
-                    <p className="mt-2 text-sm leading-7 text-slate-300">{heroWork.scene}</p>
+                    <p className="mt-2 text-sm leading-7 text-shinkai-200">{heroWork.scene}</p>
                   ) : null}
                   {heroWork.moods || heroWork.vocal ? (
-                    <p className="mt-3 text-xs leading-6 text-sky-100/70">
+                    <p className="mt-3 text-xs leading-6 text-shinkai-300">
                       {[heroWork.moods?.join(" / "), heroWork.vocal].filter(Boolean).join(" ・ ")}
                     </p>
                   ) : null}
@@ -160,7 +160,7 @@ export default function TopPage() {
 
                 <Link
                   href={siteLinks.works}
-                  className="relative mt-4 inline-flex items-center text-sm font-medium text-sky-200 transition hover:text-white"
+                  className="relative mt-4 inline-flex items-center text-sm font-medium text-sheen transition hover:text-shinkai-100"
                 >
                   すべての作品を見る
                   <ChevronRight className="ml-1 h-4 w-4" />
@@ -174,27 +174,27 @@ export default function TopPage() {
       </section>
 
       <main className="mx-auto max-w-7xl px-6 pb-16 pt-6 lg:px-10">
-        <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+        <AnimatedPanel className="rounded-[1.9rem] border border-white/10 bg-shinkai-800/70 backdrop-blur-xl">
           <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <p className="text-sm font-medium text-sky-600">MIX・作曲のご依頼をご検討の方へ</p>
-              <h2 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">
+              <p className="text-sm font-medium text-sheen">MIX・作曲のご依頼をご検討の方へ</p>
+              <h2 className="mt-2 text-xl font-semibold tracking-tight text-shinkai-100">
                 {contactPolicyCopy.title}
               </h2>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">{contactPolicyCopy.full}</p>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-shinkai-200">{contactPolicyCopy.full}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <Button
                 asChild
                 variant="outline"
-                className="h-11 rounded-full border-white/75 bg-white/40 px-6 text-sm text-slate-700 shadow-sm hover:bg-white/60"
+                className="h-11 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-200 shadow-sm hover:bg-shinkai-700/60"
               >
                 <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
-                className="h-11 rounded-full border-white/75 bg-white/40 px-6 text-sm text-slate-700 shadow-sm hover:bg-white/60"
+                className="h-11 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-200 shadow-sm hover:bg-shinkai-700/60"
               >
                 <Link href={siteLinks.compose}>作曲依頼ページへ</Link>
               </Button>
