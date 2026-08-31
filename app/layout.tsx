@@ -24,6 +24,10 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
   },
+  robots:
+    process.env.CF_PAGES_BRANCH === 'main'
+      ? undefined
+      : { index: false, follow: false },
 };
 
 export default function RootLayout({

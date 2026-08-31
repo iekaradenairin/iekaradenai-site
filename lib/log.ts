@@ -33,6 +33,22 @@ function parseFrontmatter(raw: string): { data: Record<string, unknown>; content
   return { data, content: match[2] }
 }
 
+// --- HTML/URL escaping ---
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+// Only allow schemes/forms that can't execute script (blocks javascript:, data:, vbscript:, ...)
+const SAFE_URL = /^(https?:|mailto:|\/|\.\/|\.\.\/|#)/i
+function safeUrl(url: string): string {
+  return SAFE_URL.test(url) ? url : '#'
+}
+
 // --- minimal markdown → HTML ---
 export function renderMarkdown(md: string): string {
   const lines = md.split('\n')
@@ -42,9 +58,9 @@ export function renderMarkdown(md: string): string {
   let listTag = ''
 
   const inline = (s: string) =>
-    s
-      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img alt="$1" src="$2">')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    escapeHtml(s)
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_m, alt: string, url: string) => `<img alt="${alt}" src="${safeUrl(url)}">`)
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m, text: string, url: string) => `<a href="${safeUrl(url)}">${text}</a>`)
       .replace(/`([^`]+)`/g, '<code>$1</code>')
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/\*([^*]+)\*/g, '<em>$1</em>')
