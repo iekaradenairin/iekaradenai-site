@@ -8,14 +8,14 @@ import { AnimatedPanel } from './AnimatedPanel'
 export function ContactBlock({ useNextStep = false, formUrl }: { useNextStep?: boolean; formUrl?: string }) {
   const href = formUrl ?? siteLinks.googleForm
   return (
-    <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/82 backdrop-blur-xl">
+    <AnimatedPanel className="rounded-[1.9rem] border border-white/10 bg-shinkai-800/70 backdrop-blur-xl">
       <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
-          <p className="text-sm font-medium text-sky-600">{contactPolicyCopy.eyebrow}</p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
+          <p className="text-sm font-medium text-sheen">{contactPolicyCopy.eyebrow}</p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-shinkai-100">
             {useNextStep ? contactPolicyCopy.nextStepTitle : contactPolicyCopy.title}
           </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-shinkai-200">
             {useNextStep ? contactPolicyCopy.nextStepBody : contactPolicyCopy.full}
           </p>
         </div>

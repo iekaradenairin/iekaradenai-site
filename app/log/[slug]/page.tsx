@@ -36,24 +36,24 @@ export default async function LogPostPage({ params }: { params: Promise<{ slug: 
       <main className="mx-auto max-w-3xl px-6 pb-20 pt-8 lg:px-10">
         <Link
           href="/log"
-          className="mb-6 inline-flex items-center gap-1 text-sm text-sky-600 hover:text-sky-700"
+          className="mb-6 inline-flex items-center gap-1 text-sm text-sheen hover:text-shinkai-100"
         >
           ← log 一覧
         </Link>
 
         <article>
           <header className="mb-8">
-            <h1 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
+            <h1 className="text-2xl font-semibold tracking-tight text-shinkai-100 md:text-3xl">
               {post.title}
             </h1>
             <div className="mt-3 flex flex-wrap items-center gap-3">
               {post.date && (
-                <time className="text-sm text-slate-400">{post.date}</time>
+                <time className="text-sm text-shinkai-300">{post.date}</time>
               )}
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-sky-50 px-2.5 py-0.5 text-xs text-sky-600"
+                  className="rounded-full bg-shinkai-800/60 px-2.5 py-0.5 text-xs text-sheen"
                 >
                   {tag}
                 </span>

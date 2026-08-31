@@ -46,14 +46,14 @@ function WaveformCanvas({ data }: { data: Float32Array }) {
     canvas.height = h;
 
     ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = "rgba(240, 249, 255, 0.6)";
+    ctx.fillStyle = "rgba(26, 49, 64, 0.6)";
     ctx.fillRect(0, 0, w, h);
 
     const mid = h / 2;
     const step = data.length / w;
 
     ctx.beginPath();
-    ctx.strokeStyle = "rgb(14, 165, 233)";
+    ctx.strokeStyle = "rgb(95, 168, 199)";
     ctx.lineWidth = 1.5;
 
     for (let x = 0; x < w; x++) {
@@ -68,7 +68,7 @@ function WaveformCanvas({ data }: { data: Float32Array }) {
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(14, 165, 233, 0.45)";
+    ctx.strokeStyle = "rgba(95, 168, 199, 0.45)";
     for (let x = 0; x < w; x++) {
       const idx = Math.floor(x * step);
       const amp = (data[idx] ?? 0) * mid * 0.85;
@@ -84,7 +84,7 @@ function WaveformCanvas({ data }: { data: Float32Array }) {
   return (
     <canvas
       ref={canvasRef}
-      className="h-16 w-full rounded-2xl border border-sky-100 bg-sky-50/50"
+      className="h-16 w-full rounded-2xl border border-white/10 bg-shinkai-900/40"
       style={{ display: "block" }}
     />
   );
@@ -108,9 +108,9 @@ function formatSeconds(sec: number): string {
 
 function MetricChip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2">
-      <span className="text-[10px] text-slate-400">{label}</span>
-      <span className="text-xs font-medium text-slate-700">{value}</span>
+    <div className="flex flex-col gap-0.5 rounded-xl border border-white/10 bg-shinkai-900/40 px-3 py-2">
+      <span className="text-[10px] text-shinkai-300">{label}</span>
+      <span className="text-xs font-medium text-shinkai-100">{value}</span>
     </div>
   );
 }
@@ -125,7 +125,7 @@ function DetailMetrics({ metrics }: { metrics: AudioMetrics }) {
 
   return (
     <div className="space-y-2">
-      <p className="text-[11px] font-medium tracking-wide text-slate-400">詳細データ</p>
+      <p className="text-[11px] font-medium tracking-wide text-shinkai-300">詳細データ</p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <MetricChip label="再生時間" value={formatDuration(metrics.duration)} />
         <MetricChip label="ピーク" value={formatDb(metrics.peakLevel)} />
@@ -145,17 +145,17 @@ function ReportSection({ result, fileName }: { result: AnalysisResult; fileName:
   const mdText = open ? generateMarkdownReport(result, fileName) : "";
 
   return (
-    <div className="rounded-[1.5rem] border border-slate-200 bg-white/60">
+    <div className="rounded-[1.5rem] border border-white/10 bg-shinkai-800/70">
       <button
         onClick={() => setOpen((v) => !v)}
         className="flex w-full items-center justify-between px-5 py-4 text-left"
       >
         <div className="flex items-center gap-2">
-          <FileDown className="h-4 w-4 text-slate-500" />
-          <span className="text-sm font-medium text-slate-700">レポートを確認する</span>
+          <FileDown className="h-4 w-4 text-shinkai-300" />
+          <span className="text-sm font-medium text-shinkai-100">レポートを確認する</span>
         </div>
         <ChevronDown
-          className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          className={`h-4 w-4 text-shinkai-300 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
@@ -168,13 +168,13 @@ function ReportSection({ result, fileName }: { result: AnalysisResult; fileName:
             transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <div className="border-t border-slate-200 px-5 pb-5 pt-4 space-y-3">
-              <pre className="max-h-72 overflow-y-auto rounded-xl bg-slate-50 p-4 text-[11px] leading-relaxed text-slate-600 whitespace-pre-wrap font-mono">
+            <div className="border-t border-white/10 px-5 pb-5 pt-4 space-y-3">
+              <pre className="max-h-72 overflow-y-auto rounded-xl bg-shinkai-950 p-4 text-[11px] leading-relaxed text-shinkai-200 whitespace-pre-wrap font-mono">
                 {mdText}
               </pre>
               <button
                 onClick={() => downloadMarkdownReport(result, fileName)}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-shinkai-700 px-4 py-2 text-xs font-medium text-shinkai-100 transition hover:bg-shinkai-700/70"
               >
                 <FileDown className="h-3.5 w-3.5" />
                 .md ファイルをダウンロード
@@ -277,10 +277,10 @@ export function AudioChecker() {
             onClick={() => !isLoading && inputRef.current?.click()}
             className={`flex min-h-[160px] cursor-pointer flex-col items-center justify-center gap-3 rounded-[1.75rem] border-2 border-dashed p-6 text-center transition-colors ${
               isHover
-                ? "border-sky-400 bg-sky-50/60"
+                ? "border-sheen bg-sheen/10"
                 : isLoading
-                  ? "border-slate-200 bg-slate-50/40 cursor-default"
-                  : "border-sky-200/70 bg-white/50 hover:border-sky-300 hover:bg-sky-50/40"
+                  ? "border-white/10 bg-shinkai-900/40 cursor-default"
+                  : "border-sheen/30 bg-shinkai-900/30 hover:border-sheen/50 hover:bg-shinkai-800/40"
             }`}
           >
             <input
@@ -293,26 +293,26 @@ export function AudioChecker() {
 
             {isLoading ? (
               <>
-                <Loader2 className="h-8 w-8 animate-spin text-sky-400" />
-                <p className="text-sm text-slate-500">解析中...</p>
+                <Loader2 className="h-8 w-8 animate-spin text-sheen" />
+                <p className="text-sm text-shinkai-300">解析中...</p>
                 {state.mobileWarning && (
-                  <p className="text-xs text-amber-600">大きいファイルです。処理に時間がかかることがあります。</p>
+                  <p className="text-xs text-amber-300">大きいファイルです。処理に時間がかかることがあります。</p>
                 )}
               </>
             ) : state.kind === "error" ? (
               <>
                 <AlertCircle className="h-8 w-8 text-amber-400" />
-                <p className="text-sm font-medium text-slate-700">{state.message}</p>
-                <p className="text-xs text-slate-500">クリックして別のファイルを選択</p>
+                <p className="text-sm font-medium text-shinkai-100">{state.message}</p>
+                <p className="text-xs text-shinkai-300">クリックして別のファイルを選択</p>
               </>
             ) : (
               <>
-                <Upload className={`h-8 w-8 transition-colors ${isHover ? "text-sky-500" : "text-sky-400"}`} />
+                <Upload className={`h-8 w-8 transition-colors ${isHover ? "text-shinkai-100" : "text-sheen"}`} />
                 <div>
-                  <p className="text-sm font-medium text-slate-700">
+                  <p className="text-sm font-medium text-shinkai-100">
                     音声ファイルをドラッグ＆ドロップ
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">またはクリックして選択 · WAV / MP3 / OGG · 100MB以下</p>
+                  <p className="mt-1 text-xs text-shinkai-300">またはクリックして選択 · WAV / MP3 / OGG · 100MB以下</p>
                 </div>
               </>
             )}
@@ -333,13 +333,13 @@ export function AudioChecker() {
           >
             {/* Re-check button + filename */}
             <div className="flex items-center justify-between gap-3">
-              <p className="truncate text-xs text-slate-500">{state.fileName}</p>
+              <p className="truncate text-xs text-shinkai-300">{state.fileName}</p>
               <button
                 onClick={() => {
                   setState({ kind: "idle" });
                   inputRef.current?.click();
                 }}
-                className="shrink-0 rounded-full border border-slate-200 bg-white/60 px-3 py-1.5 text-xs text-slate-600 transition hover:bg-white"
+                className="shrink-0 rounded-full border border-white/10 bg-shinkai-800/60 px-3 py-1.5 text-xs text-shinkai-200 transition hover:bg-shinkai-700/60"
               >
                 別のファイルをチェック
               </button>
@@ -358,24 +358,24 @@ export function AudioChecker() {
                   transition={{ duration: 0.3 }}
                   className={`rounded-2xl border p-4 ${
                     dim.status === "ok"
-                      ? "border-sky-200 bg-sky-50/70"
-                      : "border-amber-200 bg-amber-50/70"
+                      ? "border-sheen/25 bg-shinkai-800/60"
+                      : "border-amber-400/25 bg-amber-500/10"
                   }`}
                 >
                   <div className="flex items-start gap-2">
                     {dim.status === "ok" ? (
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sky-500" />
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sheen" />
                     ) : (
-                      <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+                      <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
                     )}
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-slate-500">{dim.label}</span>
+                        <span className="text-xs font-medium text-shinkai-300">{dim.label}</span>
                         {dim.value && (
-                          <span className="text-xs text-slate-400">{dim.value}</span>
+                          <span className="text-xs text-shinkai-300">{dim.value}</span>
                         )}
                       </div>
-                      <p className="mt-1 text-sm leading-6 text-slate-700">{dim.copy}</p>
+                      <p className="mt-1 text-sm leading-6 text-shinkai-100">{dim.copy}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -392,11 +392,11 @@ export function AudioChecker() {
               transition={{ duration: 0.35, delay: 0.15 }}
               className={`rounded-[1.75rem] border p-5 ${
                 state.result.overall === "ok"
-                  ? "border-sky-200 bg-sky-50/80"
-                  : "border-amber-200 bg-amber-50/80"
+                  ? "border-sheen/25 bg-shinkai-800/70"
+                  : "border-amber-400/25 bg-amber-500/10"
               }`}
             >
-              <p className="text-sm font-medium text-slate-800">{state.result.overallCopy}</p>
+              <p className="text-sm font-medium text-shinkai-100">{state.result.overallCopy}</p>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                 <Button asChild className="h-11 rounded-full px-6 text-sm">
                   <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">

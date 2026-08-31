@@ -8,15 +8,15 @@ import { siteLinks } from "@/lib/siteLinks";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#f3fbff_0%,#e8f5ff_30%,#f8fcff_70%,#ffffff_100%)] text-slate-800">
+    <div className="min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#122430_0%,#0D1920_100%)] text-shinkai-200">
       <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         <Link href={siteLinks.home} className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/70 bg-white/35 backdrop-blur-2xl">
-            <Radio className="h-5 w-5 text-sky-500" />
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-shinkai-800/70 backdrop-blur-2xl">
+            <Radio className="h-5 w-5 text-sheen" />
           </div>
           <div>
-            <p className="text-sm font-medium text-sky-700">music works</p>
-            <div className="text-base font-semibold tracking-wide text-slate-900">家から出ない倫</div>
+            <p className="text-sm font-medium text-sheen">music works</p>
+            <div className="text-base font-semibold tracking-wide text-shinkai-100">家から出ない倫</div>
           </div>
         </Link>
       </header>
@@ -26,13 +26,13 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
-          className="rounded-[2rem] border border-white/70 bg-white/80 p-10 backdrop-blur-xl shadow-[0_10px_40px_rgba(148,163,184,0.12)] max-w-lg w-full"
+          className="rounded-[2rem] border border-white/10 bg-shinkai-800/70 p-10 backdrop-blur-xl shadow-[0_10px_40px_rgba(13,25,32,0.4)] max-w-lg w-full"
         >
-          <p className="text-sm font-medium text-sky-600">404</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
+          <p className="text-sm font-medium text-sheen">404</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100">
             ページが見つかりません
           </h1>
-          <p className="mt-4 text-sm leading-7 text-slate-600">
+          <p className="mt-4 text-sm leading-7 text-shinkai-200">
             お探しのページは存在しないか、移動した可能性があります。
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">

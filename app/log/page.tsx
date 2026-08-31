@@ -19,25 +19,25 @@ export default function LogPage() {
       <SiteHeader currentLabel="log" />
       <main className="mx-auto max-w-3xl px-6 pb-20 pt-8 lg:px-10">
         <div className="mb-8">
-          <p className="text-sm font-medium text-sky-600">log</p>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
+          <p className="text-sm font-medium text-sheen">log</p>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-shinkai-100">
             メモ・ブログ・備忘録
           </h1>
         </div>
 
         {posts.length === 0 ? (
-          <p className="text-sm text-slate-500">まだ記事がありません。</p>
+          <p className="text-sm text-shinkai-300">まだ記事がありません。</p>
         ) : (
           <div className="grid gap-3">
             {posts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/log/${post.slug}`}
-                className="group rounded-[1.5rem] border border-white/70 bg-white/75 p-5 backdrop-blur transition hover:border-white/90 hover:bg-white/90"
+                className="group rounded-[1.5rem] border border-white/10 bg-shinkai-800/70 p-5 backdrop-blur transition hover:border-white/20 hover:bg-shinkai-700/60"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="font-medium text-slate-900 group-hover:text-sky-700 transition">
+                    <p className="font-medium text-shinkai-100 group-hover:text-sheen transition">
                       {post.title}
                     </p>
                     {post.tags.length > 0 && (
@@ -45,7 +45,7 @@ export default function LogPage() {
                         {post.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full bg-sky-50 px-2.5 py-0.5 text-xs text-sky-600"
+                            className="rounded-full bg-shinkai-800/60 px-2.5 py-0.5 text-xs text-sheen"
                           >
                             {tag}
                           </span>
@@ -54,7 +54,7 @@ export default function LogPage() {
                     )}
                   </div>
                   {post.date && (
-                    <time className="shrink-0 text-xs text-slate-400">{post.date}</time>
+                    <time className="shrink-0 text-xs text-shinkai-300">{post.date}</time>
                   )}
                 </div>
               </Link>

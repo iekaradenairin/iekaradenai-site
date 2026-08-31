@@ -92,14 +92,14 @@ export default function AudioCheckPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+            <AnimatedPanel className="rounded-[2rem] border border-white/12 bg-shinkai-800/80 backdrop-blur-xl">
               <div className="grid gap-6 p-6 md:p-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
                 <div>
                   <motion.div
                     initial={{ opacity: 0, y: 20, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 0.55 }}
-                    className="inline-flex items-center gap-2 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700"
+                    className="inline-flex items-center gap-2 rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen"
                   >
                     <motion.div
                       animate={{ rotate: [0, 8, -5, 0], scale: [1, 1.08, 1] }}
@@ -110,13 +110,13 @@ export default function AudioCheckPage() {
                     <span>音声データチェック</span>
                   </motion.div>
 
-                  <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+                  <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100 md:text-5xl">
                     提出前に、
                     <br />
                     このままで大丈夫そうかをかんたんに確認できます。
                   </h1>
 
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-shinkai-100 md:text-base">
                     難しい専門用語だけで終わらず、いまの音源状態で大きな問題がなさそうかを確認するための入口です。
                     はじめての依頼で不安なときに、まず軽く状態を整理してから相談に進めるようにしています。
                   </p>
@@ -126,7 +126,7 @@ export default function AudioCheckPage() {
                       animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
                       transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                      <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
                         <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
                           {contactActionLabels.primary}
                         </a>
@@ -136,7 +136,7 @@ export default function AudioCheckPage() {
                     <Button
                       asChild
                       variant="outline"
-                      className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                      className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                     >
                       <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
                     </Button>
@@ -153,13 +153,13 @@ export default function AudioCheckPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.45, delay: 0.12 + i * 0.08 }}
                         whileHover={{ y: -4 }}
-                        className="rounded-[1.3rem] border border-slate-200 bg-slate-50/70 p-4"
+                        className="rounded-[1.3rem] border border-white/10 bg-shinkai-900/40 p-4"
                       >
-                        <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm">
-                          <Icon className="h-5 w-5 text-sky-500" />
+                        <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-shinkai-700 shadow-sm">
+                          <Icon className="h-5 w-5 text-sheen" />
                         </div>
-                        <div className="text-base font-semibold text-slate-900">{item.title}</div>
-                        <div className="mt-2 text-sm leading-7 text-slate-500">{item.desc}</div>
+                        <div className="text-base font-semibold text-shinkai-100">{item.title}</div>
+                        <div className="mt-2 text-sm leading-7 text-shinkai-200">{item.desc}</div>
                       </motion.div>
                     );
                   })}
@@ -174,13 +174,13 @@ export default function AudioCheckPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.15 }}
           >
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur-xl">
               <div className="p-6">
-                <p className="text-sm font-medium text-sky-600">実際に確認してみる</p>
-                <h2 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">
+                <p className="text-sm font-medium text-sheen">実際に確認してみる</p>
+                <h2 className="mt-2 text-xl font-semibold tracking-tight text-shinkai-100">
                   音声ファイルをここにドロップ
                 </h2>
-                <p className="mt-2 mb-5 text-sm leading-7 text-slate-600">
+                <p className="mt-2 mb-5 text-sm leading-7 text-shinkai-100">
                   ノイズ・音割れ・サンプルレートを自動で確認します。ファイルはブラウザ内で処理され、外部には送信されません。
                 </p>
                 <AudioChecker />
@@ -189,7 +189,7 @@ export default function AudioCheckPage() {
           </motion.div>
 
           <div className="grid gap-4 xl:grid-cols-[1.02fr_0.98fr]">
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader
                   eyebrow="このページで分かること"
@@ -206,7 +206,7 @@ export default function AudioCheckPage() {
                   ].map((item) => (
                     <div
                       key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-700"
+                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-100"
                     >
                       {item}
                     </div>
@@ -215,7 +215,7 @@ export default function AudioCheckPage() {
               </div>
             </AnimatedPanel>
 
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader
                   eyebrow="チェック結果の見方"
@@ -223,24 +223,24 @@ export default function AudioCheckPage() {
                 />
 
                 <div className="grid gap-4 md:grid-cols-2">
-                  <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4">
-                    <div className="mb-3 flex items-center gap-2 text-sm font-medium text-slate-900">
-                      <CheckCircle2 className="h-4 w-4 text-sky-500" />
+                  <div className="rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4">
+                    <div className="mb-3 flex items-center gap-2 text-sm font-medium text-shinkai-100">
+                      <CheckCircle2 className="h-4 w-4 text-sheen" />
                       そのまま相談しやすい例
                     </div>
-                    <div className="space-y-2 text-sm leading-7 text-slate-600">
+                    <div className="space-y-2 text-sm leading-7 text-shinkai-100">
                       {okayExamples.map((item) => (
                         <div key={item}>・{item}</div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4">
-                    <div className="mb-3 flex items-center gap-2 text-sm font-medium text-slate-900">
-                      <AlertCircle className="h-4 w-4 text-sky-500" />
+                  <div className="rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4">
+                    <div className="mb-3 flex items-center gap-2 text-sm font-medium text-shinkai-100">
+                      <AlertCircle className="h-4 w-4 text-sheen" />
                       先に見直したい例
                     </div>
-                    <div className="space-y-2 text-sm leading-7 text-slate-600">
+                    <div className="space-y-2 text-sm leading-7 text-shinkai-100">
                       {cautionExamples.map((item) => (
                         <div key={item}>・{item}</div>
                       ))}
@@ -252,45 +252,45 @@ export default function AudioCheckPage() {
           </div>
 
           <div className="grid gap-4 xl:grid-cols-[1.04fr_0.96fr]">
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader
                   eyebrow="提出前の目安"
                   title="このような形ですと、よりスムーズに進められます"
                 />
 
-                <div className="grid gap-3 text-sm text-slate-600">
+                <div className="grid gap-3 text-sm text-shinkai-100">
                   {beforeSubmit.map((item) => (
                     <div
                       key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3"
+                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3"
                     >
                       {item}
                     </div>
                   ))}
                 </div>
 
-                <p className="mt-4 text-sm leading-7 text-slate-600">
+                <p className="mt-4 text-sm leading-7 text-shinkai-100">
                   理想的な形はありますが、最初から完璧でなくても問題ありません。状態に迷う場合は、そのままご相談いただいても大丈夫です。
                 </p>
               </div>
             </AnimatedPanel>
 
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader
                   eyebrow="次に進む目安"
                   title="判断に迷ったら、そのまま相談へ進んで大丈夫です"
                 />
 
-                <div className="space-y-3 text-sm text-slate-600">
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                <div className="space-y-3 text-sm text-shinkai-100">
+                  <div className="rounded-2xl border border-white/10 bg-shinkai-900/40 p-4">
                     ・大きな音割れやノイズがなければ、そのまま相談しながら進められることが多いです。
                   </div>
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                  <div className="rounded-2xl border border-white/10 bg-shinkai-900/40 p-4">
                     ・録り直しが必要そうな場合でも、どこが気になるかを整理して次に進みやすくします。
                   </div>
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                  <div className="rounded-2xl border border-white/10 bg-shinkai-900/40 p-4">
                     ・状態に不安が残る場合は、GoogleフォームやXからそのまま相談してください。
                   </div>
                 </div>
@@ -298,7 +298,7 @@ export default function AudioCheckPage() {
             </AnimatedPanel>
           </div>
 
-          <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+          <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
             <div className="p-6">
               <SectionHeader eyebrow="よくある質問" title="提出前に不安になりやすい点を先に整理したい方へ" />
 
@@ -310,13 +310,13 @@ export default function AudioCheckPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.45 }}
-                    className="rounded-[1.2rem] border border-slate-200 bg-slate-50/70 p-4"
+                    className="rounded-[1.2rem] border border-white/10 bg-shinkai-900/40 p-4"
                   >
                     <div className="flex items-start gap-3">
-                      <CircleHelp className="mt-0.5 h-4 w-4 shrink-0 text-sky-500" />
+                      <CircleHelp className="mt-0.5 h-4 w-4 shrink-0 text-sheen" />
                       <div className="min-w-0">
-                        <div className="text-sm font-medium text-slate-900">Q. {item.q}</div>
-                        <div className="mt-2 text-sm leading-7 text-slate-600">{item.a}</div>
+                        <div className="text-sm font-medium text-shinkai-100">Q. {item.q}</div>
+                        <div className="mt-2 text-sm leading-7 text-shinkai-100">{item.a}</div>
                       </div>
                     </div>
                   </motion.div>
@@ -325,7 +325,7 @@ export default function AudioCheckPage() {
             </div>
           </AnimatedPanel>
 
-          <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+          <AnimatedPanel className="rounded-[1.9rem] border border-white/12 bg-shinkai-800/80 backdrop-blur-xl">
             <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <SectionHeader
@@ -336,7 +336,7 @@ export default function AudioCheckPage() {
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
                   <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
                     {contactActionLabels.primary}
                   </a>
@@ -345,7 +345,7 @@ export default function AudioCheckPage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                  className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                 >
                   <a href={siteLinks.x} target="_blank" rel="noreferrer">
                     {contactActionLabels.secondary}
@@ -355,7 +355,7 @@ export default function AudioCheckPage() {
             </div>
           </AnimatedPanel>
 
-          <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+          <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
             <div className="grid gap-5 p-6 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
                 <SectionHeader
@@ -366,14 +366,14 @@ export default function AudioCheckPage() {
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
                   <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
                 </Button>
 
                 <Button
                   asChild
                   variant="outline"
-                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                  className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                 >
                   <Link href={siteLinks.guide}>はじめての方へ</Link>
                 </Button>

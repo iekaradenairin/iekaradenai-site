@@ -71,18 +71,18 @@ export default function InstrumentalsPage() {
       <SiteHeader currentLabel="オフボーカル配布" />
       <main className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pt-10">
         <section className="space-y-6">
-          <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 p-6 backdrop-blur-xl">
+          <AnimatedPanel className="rounded-[2rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
             <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
               <div>
-                <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
+                <div className="inline-flex rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen">
                   オフボーカル配布
                 </div>
-                <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+                <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100 md:text-5xl">
                   歌ってみたに使えるオフボーカルを、
                   <br />
                   ピアプロで配布しています。
                 </h1>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-shinkai-200 md:text-base">
                   配布している音源は、すべて作品として公開している楽曲のインストです。曲の一覧・音源のダウンロード・利用条件は、すべてピアプロにまとめています。
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -98,21 +98,21 @@ export default function InstrumentalsPage() {
                 </div>
               </div>
 
-              <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.94),rgba(30,41,59,0.92))] p-5 text-white">
-                <div className="flex items-center gap-2 text-sky-200">
+              <AnimatedPanel className="rounded-[1.75rem] border border-white/10 bg-shinkai-700/80 p-5 text-shinkai-100">
+                <div className="flex items-center gap-2 text-sheen">
                   <Disc3 className="h-4 w-4" />
                   <p className="text-sm font-medium">Piapro</p>
                 </div>
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight">
                   ダウンロードはピアプロから
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-slate-200">
+                <p className="mt-3 text-sm leading-7 text-shinkai-200">
                   ピアプロはクリプトン・フューチャー・メディアが運営する創作物の投稿サイトです。音源はそちらに置いているので、下のボタンからそのまま進んでください。
                 </p>
                 <Button
                   asChild
                   variant="outline"
-                  className="mt-5 h-11 w-full rounded-full border-white/30 bg-white px-6 text-slate-900 hover:bg-white/90 hover:text-slate-900"
+                  className="mt-5 h-11 w-full rounded-full border-sheen/40 bg-sheen px-6 text-shinkai-950 hover:bg-sheen/90"
                 >
                   <a href={siteLinks.piapro} target="_blank" rel="noreferrer">
                     ピアプロのページを開く
@@ -129,18 +129,18 @@ export default function InstrumentalsPage() {
               return (
                 <AnimatedPanel
                   key={item.step}
-                  className="h-full rounded-[1.75rem] border border-white/70 bg-white/75 p-5 backdrop-blur"
+                  className="h-full rounded-[1.75rem] border border-white/10 bg-shinkai-800/70 p-5 backdrop-blur"
                 >
                   <div className="mb-4 flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-50">
-                      <Icon className="h-5 w-5 text-sky-500" />
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-shinkai-800/60">
+                      <Icon className="h-5 w-5 text-sheen" />
                     </div>
-                    <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-sky-700">
+                    <div className="inline-flex rounded-full bg-shinkai-800/60 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-sheen">
                       {item.step}
                     </div>
                   </div>
-                  <h2 className="text-lg font-semibold text-slate-900">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.desc}</p>
+                  <h2 className="text-lg font-semibold text-shinkai-100">{item.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-shinkai-200">{item.desc}</p>
                 </AnimatedPanel>
               );
             })}
@@ -152,45 +152,45 @@ export default function InstrumentalsPage() {
               return (
                 <AnimatedPanel
                   key={item.title}
-                  className="rounded-[1.75rem] border border-white/70 bg-white/75 p-5 backdrop-blur"
+                  className="rounded-[1.75rem] border border-white/10 bg-shinkai-800/70 p-5 backdrop-blur"
                 >
-                  <Icon className="mb-4 h-6 w-6 text-sky-500" />
-                  <h2 className="text-lg font-semibold text-slate-900">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.desc}</p>
+                  <Icon className="mb-4 h-6 w-6 text-sheen" />
+                  <h2 className="text-lg font-semibold text-shinkai-100">{item.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-shinkai-200">{item.desc}</p>
                 </AnimatedPanel>
               );
             })}
           </div>
 
-          <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/82 p-6 backdrop-blur-xl">
+          <AnimatedPanel className="rounded-[1.9rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-sky-600" />
-              <p className="text-sm font-medium text-sky-600">利用について</p>
+              <ShieldCheck className="h-4 w-4 text-sheen" />
+              <p className="text-sm font-medium text-sheen">利用について</p>
             </div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-shinkai-100">
               まずはこの方針でご確認いただければ大丈夫です
             </h2>
             <div className="mt-5 grid gap-3 md:grid-cols-3">
               {usagePolicy.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-[1.25rem] border border-slate-200 bg-slate-50/75 p-4"
+                  className="rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4"
                 >
-                  <div className="text-sm font-medium text-slate-900">{item.title}</div>
-                  <div className="mt-2 text-sm leading-7 text-slate-600">{item.body}</div>
+                  <div className="text-sm font-medium text-shinkai-100">{item.title}</div>
+                  <div className="mt-2 text-sm leading-7 text-shinkai-200">{item.body}</div>
                 </div>
               ))}
             </div>
           </AnimatedPanel>
 
-          <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/82 p-6 backdrop-blur-xl">
+          <AnimatedPanel className="rounded-[1.9rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
             <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
-                <p className="text-sm font-medium text-sky-600">配布ページへ</p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
+                <p className="text-sm font-medium text-sheen">配布ページへ</p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-shinkai-100">
                   気になる曲があれば、そのまま使ってください
                 </h2>
-                <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+                <p className="mt-3 max-w-3xl text-sm leading-7 text-shinkai-200">
                   配布中の音源はピアプロにまとめています。歌ってみたに使いたい方は、こちらからご覧ください。MIXまで含めて相談したい場合は、MIX依頼ページもあわせてどうぞ。
                 </p>
               </div>

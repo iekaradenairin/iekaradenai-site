@@ -92,14 +92,14 @@ export default function GuidePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+            <AnimatedPanel className="rounded-[2rem] border border-white/12 bg-shinkai-800/80 backdrop-blur-xl">
               <div className="grid gap-6 p-6 md:p-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
                 <div>
                   <motion.div
                     initial={{ opacity: 0, y: 20, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 0.55 }}
-                    className="inline-flex items-center gap-2 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700"
+                    className="inline-flex items-center gap-2 rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen"
                   >
                     <motion.div
                       animate={{ rotate: [0, 8, -5, 0], scale: [1, 1.08, 1] }}
@@ -110,13 +110,13 @@ export default function GuidePage() {
                     <span>はじめての方へ</span>
                   </motion.div>
 
-                  <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+                  <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100 md:text-5xl">
                     はじめての依頼でも、
                     <br />
                     安心して相談できるように。
                   </h1>
 
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-shinkai-100 md:text-base">
                     まだ迷っている段階でも大丈夫です。何を準備すればいいのか、どこまで相談してよいのか、
                     そういった最初の不安をできるだけ減らせるように、流れや必要なものを分かりやすくまとめています。
                   </p>
@@ -126,7 +126,7 @@ export default function GuidePage() {
                       animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
                       transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                      <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
                         <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
                           {contactActionLabels.primary}
                         </a>
@@ -136,7 +136,7 @@ export default function GuidePage() {
                     <Button
                       asChild
                       variant="outline"
-                      className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                      className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                     >
                       <Link href={siteLinks.audioCheck}>音声データチェックを試す</Link>
                     </Button>
@@ -170,13 +170,13 @@ export default function GuidePage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.45, delay: 0.12 + i * 0.08 }}
                         whileHover={{ y: -4 }}
-                        className="rounded-[1.3rem] border border-slate-200 bg-slate-50/70 p-4"
+                        className="rounded-[1.3rem] border border-white/10 bg-shinkai-900/40 p-4"
                       >
-                        <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm">
-                          <Icon className="h-5 w-5 text-sky-500" />
+                        <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-shinkai-700 shadow-sm">
+                          <Icon className="h-5 w-5 text-sheen" />
                         </div>
-                        <div className="text-base font-semibold text-slate-900">{item.title}</div>
-                        <div className="mt-2 text-sm leading-7 text-slate-500">{item.desc}</div>
+                        <div className="text-base font-semibold text-shinkai-100">{item.title}</div>
+                        <div className="mt-2 text-sm leading-7 text-shinkai-200">{item.desc}</div>
                       </motion.div>
                     );
                   })}
@@ -194,13 +194,13 @@ export default function GuidePage() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
               >
-                <AnimatedPanel className="h-full rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+                <AnimatedPanel className="h-full rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
                   <div className="p-5">
-                    <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-sky-700">
+                    <div className="inline-flex rounded-full bg-shinkai-800/60 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-sheen">
                       {item.step}
                     </div>
-                    <h2 className="mt-3 text-xl font-semibold text-slate-900">{item.title}</h2>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">{item.desc}</p>
+                    <h2 className="mt-3 text-xl font-semibold text-shinkai-100">{item.title}</h2>
+                    <p className="mt-3 text-sm leading-7 text-shinkai-100">{item.desc}</p>
                   </div>
                 </AnimatedPanel>
               </motion.div>
@@ -208,23 +208,23 @@ export default function GuidePage() {
           </div>
 
           <div className="grid gap-4 xl:grid-cols-[1.04fr_0.96fr]">
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader eyebrow="送ってほしいもの" title="まずは、この内容が分かれば大丈夫です" />
 
                 <div className="grid gap-4 md:grid-cols-2">
-                  <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4">
-                    <div className="text-sm font-medium text-slate-900">必須</div>
-                    <ul className="mt-3 space-y-2 text-sm text-slate-600">
+                  <div className="rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4">
+                    <div className="text-sm font-medium text-shinkai-100">必須</div>
+                    <ul className="mt-3 space-y-2 text-sm text-shinkai-100">
                       {requiredItems.map((item) => (
                         <li key={item}>・{item}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4">
-                    <div className="text-sm font-medium text-slate-900">なるべくあると助かるもの</div>
-                    <ul className="mt-3 space-y-2 text-sm text-slate-600">
+                  <div className="rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4">
+                    <div className="text-sm font-medium text-shinkai-100">なるべくあると助かるもの</div>
+                    <ul className="mt-3 space-y-2 text-sm text-shinkai-100">
                       {helpfulItems.map((item) => (
                         <li key={item}>・{item}</li>
                       ))}
@@ -232,13 +232,13 @@ export default function GuidePage() {
                   </div>
                 </div>
 
-                <p className="mt-4 text-sm leading-7 text-slate-600">
+                <p className="mt-4 text-sm leading-7 text-shinkai-100">
                   参考曲やご希望の雰囲気、活動の背景なども共有いただけると、方向性をより丁寧に合わせやすくなります。活動の節目や投稿予定日がある場合も、分かる範囲でお知らせいただけると助かります。
                 </p>
               </div>
             </AnimatedPanel>
 
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader eyebrow="安心して進めるために" title="最初に知っておくと安心なこと" />
 
@@ -246,14 +246,14 @@ export default function GuidePage() {
                   {reassuringPoints.map((item) => (
                     <div
                       key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-sm leading-7 text-slate-600"
+                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 p-4 text-sm leading-7 text-shinkai-100"
                     >
                       {item}
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-4 rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4 text-sm leading-7 text-slate-600">
+                <div className="mt-4 rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4 text-sm leading-7 text-shinkai-100">
                   キー変更をご希望の場合は、ご相談の段階であらかじめお知らせください。変更後のオケがあるとスムーズですが、お手元にない場合も、まずは一度ご相談ください。
                 </div>
               </div>
@@ -261,7 +261,7 @@ export default function GuidePage() {
           </div>
 
           <div className="grid gap-4 xl:grid-cols-[0.92fr_1.08fr]">
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader
                   eyebrow="提出前の確認"
@@ -271,7 +271,7 @@ export default function GuidePage() {
 
                 <Link
                   href={siteLinks.audioCheck}
-                  className="inline-flex items-center text-sm font-medium text-sky-600 transition hover:text-sky-700"
+                  className="inline-flex items-center text-sm font-medium text-sheen transition hover:text-shinkai-100"
                 >
                   音声データチェックページへ
                   <ChevronRight className="ml-1 h-4 w-4" />
@@ -279,7 +279,7 @@ export default function GuidePage() {
               </div>
             </AnimatedPanel>
 
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader eyebrow="よくある質問" title="初回の不安を、先に整理しておきたい方へ" />
 
@@ -291,13 +291,13 @@ export default function GuidePage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.2 }}
                       transition={{ duration: 0.45 }}
-                      className="rounded-[1.2rem] border border-slate-200 bg-slate-50/70 p-4"
+                      className="rounded-[1.2rem] border border-white/10 bg-shinkai-900/40 p-4"
                     >
                       <div className="flex items-start gap-3">
-                        <CircleHelp className="mt-0.5 h-4 w-4 shrink-0 text-sky-500" />
+                        <CircleHelp className="mt-0.5 h-4 w-4 shrink-0 text-sheen" />
                         <div className="min-w-0">
-                          <div className="text-sm font-medium text-slate-900">Q. {item.q}</div>
-                          <div className="mt-2 text-sm leading-7 text-slate-600">{item.a}</div>
+                          <div className="text-sm font-medium text-shinkai-100">Q. {item.q}</div>
+                          <div className="mt-2 text-sm leading-7 text-shinkai-100">{item.a}</div>
                         </div>
                       </div>
                     </motion.div>
@@ -307,7 +307,7 @@ export default function GuidePage() {
             </AnimatedPanel>
           </div>
 
-          <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+          <AnimatedPanel className="rounded-[1.9rem] border border-white/12 bg-shinkai-800/80 backdrop-blur-xl">
             <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <SectionHeader
@@ -318,7 +318,7 @@ export default function GuidePage() {
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
                   <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
                     {contactActionLabels.primary}
                   </a>
@@ -327,7 +327,7 @@ export default function GuidePage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                  className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                 >
                   <a href={siteLinks.x} target="_blank" rel="noreferrer">
                     {contactActionLabels.secondary}
@@ -337,7 +337,7 @@ export default function GuidePage() {
             </div>
           </AnimatedPanel>
 
-          <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+          <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
             <div className="grid gap-5 p-6 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
                 <SectionHeader
@@ -348,14 +348,14 @@ export default function GuidePage() {
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
                   <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
                 </Button>
 
                 <Button
                   asChild
                   variant="outline"
-                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                  className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                 >
                   <Link href={siteLinks.compose}>作曲依頼ページへ</Link>
                 </Button>

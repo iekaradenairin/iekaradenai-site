@@ -16,16 +16,16 @@ export default function WorksPage() {
       <SiteHeader currentLabel="作品" />
       <main className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pt-10">
         <section className="space-y-6">
-          <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 p-6 backdrop-blur-xl">
-            <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">
+          <AnimatedPanel className="rounded-[2rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
+            <div className="inline-flex rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen">
               作品
             </div>
-            <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+            <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100 md:text-5xl">
               これまでに作った{worksSorted.length}曲、
               <br />
               新しい順に並んでいます。
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-shinkai-200 md:text-base">
               和ロックとポップスのあいだで、情景に感情を託して書いています。気になった1曲から聴いてみてください。
             </p>
           </AnimatedPanel>

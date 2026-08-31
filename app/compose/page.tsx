@@ -44,16 +44,16 @@ export default function ComposePage() {
       <SiteHeader currentLabel="作曲依頼" />
       <main className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pt-10">
         <section className="space-y-6">
-          <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 p-6 backdrop-blur-xl">
+          <AnimatedPanel className="rounded-[2rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
             <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
-                <div className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">作曲依頼</div>
-                <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+                <div className="inline-flex rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen">作曲依頼</div>
+                <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100 md:text-5xl">
                   世界観のある1曲を、
                   <br />
                   ていねいに形にしていきます。
                 </h1>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-shinkai-200 md:text-base">
                   透明感や空気感、少しのエモーショナルさを大切にしながら、活動や作品の雰囲気に合う楽曲を一緒につくっていきます。
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -69,13 +69,13 @@ export default function ComposePage() {
                 </div>
               </div>
 
-              <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.94),rgba(30,41,59,0.92))] p-5 text-white">
-                <div className="flex items-center gap-2 text-sky-200">
+              <AnimatedPanel className="rounded-[1.75rem] border border-white/10 bg-shinkai-700/80 p-5 text-shinkai-100">
+                <div className="flex items-center gap-2 text-sheen">
                   <Wand2 className="h-4 w-4" />
                   <p className="text-sm font-medium">Sound Direction</p>
                 </div>
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight">透明感や空気感が自然に残る、まっすぐ届く音づくり</h2>
-                <p className="mt-3 text-sm leading-7 text-slate-200">
+                <p className="mt-3 text-sm leading-7 text-shinkai-200">
                   爽やかさ、瑞々しさ、少しのエモーショナルさ。そうした空気を大切にしながら、作品全体の雰囲気まで含めて組み立てていきます。
                 </p>
               </AnimatedPanel>
@@ -83,20 +83,20 @@ export default function ComposePage() {
           </AnimatedPanel>
 
           <div className="grid gap-4 xl:grid-cols-[0.98fr_1.02fr]">
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/78 p-6 backdrop-blur-xl">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
               <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-sky-600" />
-                <p className="text-sm font-medium text-sky-600">こんな相談に向いています</p>
+                <Sparkles className="h-4 w-4 text-sheen" />
+                <p className="text-sm font-medium text-sheen">こんな相談に向いています</p>
               </div>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">世界観の相談から始めたい方へ</h2>
-              <div className="mt-5 space-y-3 text-sm text-slate-600">
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-shinkai-100">世界観の相談から始めたい方へ</h2>
+              <div className="mt-5 space-y-3 text-sm text-shinkai-200">
                 {suitableCases.map((item) => (
-                  <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50/75 p-4">・{item}</div>
+                  <div key={item} className="rounded-2xl border border-white/10 bg-shinkai-900/40 p-4">・{item}</div>
                 ))}
               </div>
             </AnimatedPanel>
 
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/78 p-6 backdrop-blur-xl">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
               <div className="grid gap-3 md:grid-cols-2">
                 {[
                   { title: "作曲", desc: "活動やイメージに合わせた楽曲制作の相談ができます。", icon: Music4 },
@@ -106,12 +106,12 @@ export default function ComposePage() {
                 ].map((item) => {
                   const Icon = item.icon;
                   return (
-                    <div key={item.title} className="rounded-[1.2rem] border border-slate-200 bg-slate-50/75 p-4">
-                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-50">
-                        <Icon className="h-4 w-4 text-sky-500" />
+                    <div key={item.title} className="rounded-[1.2rem] border border-white/10 bg-shinkai-900/40 p-4">
+                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-shinkai-800/60">
+                        <Icon className="h-4 w-4 text-sheen" />
                       </div>
-                      <div className="text-sm font-medium text-slate-900">{item.title}</div>
-                      <div className="mt-2 text-sm leading-7 text-slate-600">{item.desc}</div>
+                      <div className="text-sm font-medium text-shinkai-100">{item.title}</div>
+                      <div className="mt-2 text-sm leading-7 text-shinkai-200">{item.desc}</div>
                     </div>
                   );
                 })}
@@ -119,13 +119,13 @@ export default function ComposePage() {
             </AnimatedPanel>
           </div>
 
-          <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/78 p-6 backdrop-blur-xl">
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">ご相談前によくいただくご質問</h2>
+          <AnimatedPanel className="rounded-[1.75rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-shinkai-100">ご相談前によくいただくご質問</h2>
             <div className="mt-5 grid gap-3 md:grid-cols-2">
               {faqs.map((item) => (
-                <div key={item.q} className="rounded-[1.2rem] border border-slate-200 bg-slate-50/75 p-4">
-                  <div className="text-sm font-medium text-slate-900">Q. {item.q}</div>
-                  <div className="mt-2 text-sm leading-7 text-slate-600">{item.a}</div>
+                <div key={item.q} className="rounded-[1.2rem] border border-white/10 bg-shinkai-900/40 p-4">
+                  <div className="text-sm font-medium text-shinkai-100">Q. {item.q}</div>
+                  <div className="mt-2 text-sm leading-7 text-shinkai-200">{item.a}</div>
                 </div>
               ))}
             </div>

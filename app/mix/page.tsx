@@ -117,14 +117,14 @@ export default function MixPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <AnimatedPanel className="rounded-[2rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+            <AnimatedPanel className="rounded-[2rem] border border-white/12 bg-shinkai-800/80 backdrop-blur-xl">
               <div className="grid gap-6 p-6 md:p-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
                 <div>
                   <motion.div
                     initial={{ opacity: 0, y: 20, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 0.55 }}
-                    className="inline-flex items-center gap-2 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700"
+                    className="inline-flex items-center gap-2 rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen"
                   >
                     <motion.div
                       animate={{ rotate: [0, 8, -5, 0], scale: [1, 1.08, 1] }}
@@ -135,12 +135,12 @@ export default function MixPage() {
                     <span>MIX依頼</span>
                   </motion.div>
 
-                  <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+                  <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100 md:text-5xl">
                     声の魅力を大切にしながら、<br className="hidden md:inline" />
                     作品として自然に届くかたちへ整えます。
                   </h1>
 
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-shinkai-100 md:text-base">
                     聴きやすく自然な補正をベースに、透明感や空気感を大切にしながら仕上げます。
                     はじめてのご依頼でも進め方が分かりやすいよう丁寧にご案内し、ハモリや雰囲気づくりについても、できる範囲で一緒に整えていきます。
                   </p>
@@ -150,7 +150,7 @@ export default function MixPage() {
                       animate={{ y: [0, -2, 0], scale: [1, 1.012, 1] }}
                       transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                      <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
                         <a href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer">
                           {contactActionLabels.primary}
                         </a>
@@ -160,7 +160,7 @@ export default function MixPage() {
                     <Button
                       asChild
                       variant="outline"
-                      className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                      className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                     >
                       <Link href={BEGINNER_URL}>はじめての方へ</Link>
                     </Button>
@@ -175,11 +175,11 @@ export default function MixPage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.45, delay: 0.12 + i * 0.08 }}
                       whileHover={{ y: -4 }}
-                      className="rounded-[1.3rem] border border-slate-200 bg-slate-50/70 p-4"
+                      className="rounded-[1.3rem] border border-white/10 bg-shinkai-900/40 p-4"
                     >
-                      <div className="text-xs tracking-[0.14em] text-slate-500">{item.label}</div>
-                      <div className="mt-2 text-xl font-semibold text-slate-900">{item.value}</div>
-                      <div className="mt-1 text-sm text-slate-500">{item.note}</div>
+                      <div className="text-xs tracking-[0.14em] text-shinkai-200">{item.label}</div>
+                      <div className="mt-2 text-xl font-semibold text-shinkai-100">{item.value}</div>
+                      <div className="mt-1 text-sm text-shinkai-200">{item.note}</div>
                     </motion.div>
                   ))}
                 </div>
@@ -200,11 +200,11 @@ export default function MixPage() {
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                   whileHover={{ y: -5 }}
                 >
-                  <AnimatedPanel className="h-full rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+                  <AnimatedPanel className="h-full rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
                     <div className="p-5">
-                      <Icon className="mb-4 h-6 w-6 text-sky-500" />
-                      <h2 className="text-lg font-semibold text-slate-900">{item.title}</h2>
-                      <p className="mt-3 text-sm leading-7 text-slate-600">{item.desc}</p>
+                      <Icon className="mb-4 h-6 w-6 text-sheen" />
+                      <h2 className="text-lg font-semibold text-shinkai-100">{item.title}</h2>
+                      <p className="mt-3 text-sm leading-7 text-shinkai-100">{item.desc}</p>
                     </div>
                   </AnimatedPanel>
                 </motion.div>
@@ -213,7 +213,7 @@ export default function MixPage() {
           </div>
 
           <div className="grid gap-4 xl:grid-cols-[1.02fr_0.98fr]">
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader eyebrow="対応内容" title="MIXで対応できること" />
                 <div className="grid gap-3 md:grid-cols-2">
@@ -225,7 +225,7 @@ export default function MixPage() {
                   ].map((item) => (
                     <div
                       key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-700"
+                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-100"
                     >
                       {item}
                     </div>
@@ -234,14 +234,14 @@ export default function MixPage() {
               </div>
             </AnimatedPanel>
 
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader eyebrow="このような方に向いています" title="ご相談しながら進めたい方へ" />
-                <div className="space-y-3 text-sm text-slate-600">
+                <div className="space-y-3 text-sm text-shinkai-100">
                   {suitableFor.map((item) => (
                     <div
                       key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4"
+                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 p-4"
                     >
                       ・{item}
                     </div>
@@ -252,22 +252,22 @@ export default function MixPage() {
           </div>
 
           <div className="grid gap-4 xl:grid-cols-[1.04fr_0.96fr]">
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader eyebrow="送ってほしいもの" title="まずは、この内容が分かれば大丈夫です" />
                 <div className="grid gap-4 md:grid-cols-2">
-                  <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4">
-                    <div className="text-sm font-medium text-slate-900">必須</div>
-                    <ul className="mt-3 space-y-2 text-sm text-slate-600">
+                  <div className="rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4">
+                    <div className="text-sm font-medium text-shinkai-100">必須</div>
+                    <ul className="mt-3 space-y-2 text-sm text-shinkai-100">
                       {requiredItems.map((item) => (
                         <li key={item}>・{item}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4">
-                    <div className="text-sm font-medium text-slate-900">なるべくあると助かるもの</div>
-                    <ul className="mt-3 space-y-2 text-sm text-slate-600">
+                  <div className="rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4">
+                    <div className="text-sm font-medium text-shinkai-100">なるべくあると助かるもの</div>
+                    <ul className="mt-3 space-y-2 text-sm text-shinkai-100">
                       {helpfulItems.map((item) => (
                         <li key={item}>・{item}</li>
                       ))}
@@ -275,41 +275,41 @@ export default function MixPage() {
                   </div>
                 </div>
 
-                <p className="mt-4 text-sm leading-7 text-slate-600">
+                <p className="mt-4 text-sm leading-7 text-shinkai-100">
                   参考曲やご希望の雰囲気、活動の背景なども共有いただけると、方向性をより丁寧に合わせやすくなります。活動の節目や投稿予定日がある場合も、分かる範囲でお知らせいただけると助かります。
                 </p>
               </div>
             </AnimatedPanel>
 
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader
                   eyebrow="音源の推奨状態"
                   title="このような形ですと、よりスムーズに進められます"
                 />
-                <div className="grid gap-3 text-sm text-slate-600">
+                <div className="grid gap-3 text-sm text-shinkai-100">
                   {sourceGuide.map((item) => (
                     <div
                       key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3"
+                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3"
                     >
                       {item}
                     </div>
                   ))}
                 </div>
 
-                <p className="mt-4 text-sm leading-7 text-slate-600">
+                <p className="mt-4 text-sm leading-7 text-shinkai-100">
                   理想的な形はありますが、最初から完璧でなくても問題ありません。不安がある場合は、
                   <Link
                     href={AUDIO_CHECK_URL}
-                    className="mx-1 font-medium text-sky-600 underline underline-offset-4 transition hover:text-sky-700"
+                    className="mx-1 font-medium text-sheen underline underline-offset-4 transition hover:text-shinkai-100"
                   >
                     音声データチェックページ
                   </Link>
                   で簡易チェックをしてからお送りください。状態に迷う場合は、そのままご相談いただいても大丈夫です。より良い作品にしたいという気持ちがあれば、その時点から一緒に整えていければと思っています。
                 </p>
 
-                <div className="mt-4 rounded-[1.25rem] border border-slate-200 bg-slate-50/70 p-4 text-sm leading-7 text-slate-600">
+                <div className="mt-4 rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4 text-sm leading-7 text-shinkai-100">
                   キー変更をご希望の場合は、ご相談の段階であらかじめお知らせください。変更後のオケがあるとスムーズですが、お手元にない場合も、まずは一度ご相談ください。
                 </div>
               </div>
@@ -317,14 +317,14 @@ export default function MixPage() {
           </div>
 
           <div className="grid gap-4 xl:grid-cols-[0.92fr_1.08fr]">
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader eyebrow="納品について" title="納品と進行の目安について" />
-                <div className="grid gap-3 text-sm text-slate-600">
+                <div className="grid gap-3 text-sm text-shinkai-100">
                   {deliveryGuide.map((item) => (
                     <div
                       key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3"
+                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3"
                     >
                       {item}
                     </div>
@@ -333,7 +333,7 @@ export default function MixPage() {
               </div>
             </AnimatedPanel>
 
-            <AnimatedPanel className="rounded-[1.75rem] border border-white/70 bg-white/75 backdrop-blur">
+            <AnimatedPanel className="rounded-[1.75rem] border border-white/12 bg-shinkai-800/80 backdrop-blur">
               <div className="p-6">
                 <SectionHeader eyebrow="よくある質問" title="ご相談前によくいただくご質問" />
                 <div className="space-y-3">
@@ -344,10 +344,10 @@ export default function MixPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.2 }}
                       transition={{ duration: 0.45 }}
-                      className="rounded-[1.2rem] border border-slate-200 bg-slate-50/70 p-4"
+                      className="rounded-[1.2rem] border border-white/10 bg-shinkai-900/40 p-4"
                     >
-                      <div className="text-sm font-medium text-slate-900">Q. {item.q}</div>
-                      <div className="mt-2 text-sm leading-7 text-slate-600">{item.a}</div>
+                      <div className="text-sm font-medium text-shinkai-100">Q. {item.q}</div>
+                      <div className="mt-2 text-sm leading-7 text-shinkai-100">{item.a}</div>
                     </motion.div>
                   ))}
                 </div>
@@ -355,7 +355,7 @@ export default function MixPage() {
             </AnimatedPanel>
           </div>
 
-          <AnimatedPanel className="rounded-[1.9rem] border border-white/70 bg-white/80 backdrop-blur-xl">
+          <AnimatedPanel className="rounded-[1.9rem] border border-white/12 bg-shinkai-800/80 backdrop-blur-xl">
             <div className="grid gap-6 p-6 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <SectionHeader
@@ -366,7 +366,7 @@ export default function MixPage() {
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Button asChild className="h-12 rounded-full border border-white/70 bg-[linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.84))] px-6 text-sm text-white shadow-[0_18px_40px_rgba(148,163,184,0.22)] backdrop-blur-xl hover:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9))]">
+                <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
                   <a href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer">
                     {contactActionLabels.primary}
                   </a>
@@ -375,7 +375,7 @@ export default function MixPage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="h-12 rounded-full border-white/75 bg-white/30 px-6 text-sm text-slate-700 shadow-[0_10px_30px_rgba(148,163,184,0.12)] backdrop-blur-2xl hover:bg-white/45"
+                  className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                 >
                   <a href={X_URL} target="_blank" rel="noreferrer">
                     {contactActionLabels.secondary}

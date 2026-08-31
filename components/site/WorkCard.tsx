@@ -45,11 +45,11 @@ export function WorkCard({ work, activeId, onActivate }: WorkCardProps) {
     .join(" ・ ");
 
   return (
-    <div className="group rounded-2xl border border-slate-200 bg-white/80 p-3 backdrop-blur">
+    <div className="group rounded-2xl border border-white/10 bg-shinkai-800/70 p-3 backdrop-blur">
       <div className="relative aspect-video overflow-hidden rounded-xl ring-1 ring-white/10">
         {thumbFailed ? (
-          <div className="flex h-full w-full items-center justify-center bg-slate-900 p-4 text-center">
-            <span className="text-sm font-medium text-white">{work.title}</span>
+          <div className="flex h-full w-full items-center justify-center bg-shinkai-900 p-4 text-center">
+            <span className="text-sm font-medium text-shinkai-100">{work.title}</span>
           </div>
         ) : (
           <img
@@ -111,9 +111,9 @@ export function WorkCard({ work, activeId, onActivate }: WorkCardProps) {
       </div>
 
       <div className="mt-3 min-w-0">
-        <div className="text-lg font-semibold tracking-tight text-slate-900">{work.title}</div>
-        {work.scene ? <p className="mt-2 text-sm leading-7 text-slate-700">{work.scene}</p> : null}
-        {metaLine ? <p className="mt-2.5 text-xs leading-6 text-slate-500">{metaLine}</p> : null}
+        <div className="text-lg font-semibold tracking-tight text-shinkai-100">{work.title}</div>
+        {work.scene ? <p className="mt-2 text-sm leading-7 text-shinkai-200">{work.scene}</p> : null}
+        {metaLine ? <p className="mt-2.5 text-xs leading-6 text-shinkai-300">{metaLine}</p> : null}
 
         <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
           {versions.length > 1
@@ -125,8 +125,8 @@ export function WorkCard({ work, activeId, onActivate }: WorkCardProps) {
                   className={cn(
                     "rounded-full border px-2.5 py-1 transition",
                     v.youtubeId === selectedId
-                      ? "border-slate-900 bg-slate-900 text-white"
-                      : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+                      ? "border-sheen bg-sheen text-shinkai-950"
+                      : "border-white/10 bg-shinkai-700 text-shinkai-200 hover:border-white/20"
                   )}
                 >
                   {v.label ?? "オリジナル"}
@@ -138,7 +138,7 @@ export function WorkCard({ work, activeId, onActivate }: WorkCardProps) {
             href={`https://youtu.be/${selected.youtubeId}`}
             target="_blank"
             rel="noreferrer"
-            className="ml-auto rounded-full border border-slate-200 px-2.5 py-1 text-slate-600 transition hover:border-slate-300"
+            className="ml-auto rounded-full border border-white/10 px-2.5 py-1 text-shinkai-200 transition hover:border-white/20"
           >
             YouTubeで見る
           </a>
@@ -147,7 +147,7 @@ export function WorkCard({ work, activeId, onActivate }: WorkCardProps) {
               href={`https://www.nicovideo.jp/watch/${work.nicoId}`}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-slate-200 px-2.5 py-1 text-slate-600 transition hover:border-slate-300"
+              className="rounded-full border border-white/10 px-2.5 py-1 text-shinkai-200 transition hover:border-white/20"
             >
               ニコニコで見る
             </a>
