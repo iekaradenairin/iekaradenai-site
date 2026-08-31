@@ -17,3 +17,7 @@ Key routing rules:
 - Design system, brand → invoke design-consultation
 - Visual audit, design polish → invoke design-review
 - Architecture review → invoke plan-eng-review
+
+## Testing
+
+Run `npm run check` (typecheck + lib/works.ts validation + `node --test` + lint) or `npm test` for just the test suite. Tests live in `test/*.test.mjs`, run against source `.ts` files directly via Node's native TypeScript stripping (no ts-node/tsx needed). See README.md for the full command list.
