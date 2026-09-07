@@ -422,6 +422,14 @@
   will-change: transform, opacity;
 }
 
+/* 投稿タイトルの `曲名 / 倫 feat. 歌唱名` の後半。同名曲の見分けがつくよう
+   捨てずに残すが、曲名より一段落として読ませる */
+.deck__credit {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink-6);
+}
+
 /* --- Audio Check: ドロップゾーン ---------------------------------------- */
 
 .dropzone {

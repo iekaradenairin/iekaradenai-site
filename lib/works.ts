@@ -34,8 +34,6 @@ export function youtubeWatchUrl(videoId: string) {
   return `https://www.youtube.com/watch?v=${videoId}&list=${WORKS_PLAYLIST_ID}`
 }
 
-/** 「2026.08」形式。日付不明なら空文字 */
-export function formatReleaseMonth(publishedAt: string | null) {
-  if (!publishedAt) return ''
-  return publishedAt.slice(0, 7).replace('-', '.')
-}
+// 表示整形は lib/workTitle.ts に置いてある（テストから JSON import を経由せず
+// 叩けるようにするため）。呼び出し側は @/lib/works から使えれば十分なので再輸出する。
+export { formatReleaseMonth, splitWorkTitle } from './workTitle'

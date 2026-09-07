@@ -6,7 +6,7 @@ import SiteFooter from '@/components/site/SiteFooter'
 import SiteHeader from '@/components/site/SiteHeader'
 import LatestTrackBar from '@/components/site/LatestTrackBar'
 import { siteLinks } from '@/lib/siteLinks'
-import { formatReleaseMonth, latestWork } from '@/lib/works'
+import { formatReleaseMonth, latestWork, splitWorkTitle } from '@/lib/works'
 
 const worldCards = [
   {
@@ -22,6 +22,13 @@ const worldCards = [
     body: '終わったことは、終わったままでいい。乗り越えるための曲ではなく、まだ引きずっていていい曲を置いています。',
   },
 ]
+
+/** ヒーロー下端のバーは1行しか出せないので、年月と歌唱名を中黒でつないで meta に入れる */
+function LatestTrack({ work }: { work: NonNullable<typeof latestWork> }) {
+  const { title, credit } = splitWorkTitle(work.title)
+  const meta = [formatReleaseMonth(work.publishedAt), credit].filter(Boolean).join(' · ')
+  return <LatestTrackBar title={title} meta={meta} videoId={work.videoId} />
+}
 
 export default function TopPage() {
   return (
@@ -139,13 +146,7 @@ export default function TopPage() {
 
         <div style={{ flex: '1 1 auto', minHeight: 40 }} />
 
-        {latestWork ? (
-          <LatestTrackBar
-            title={latestWork.title}
-            meta={formatReleaseMonth(latestWork.publishedAt)}
-            videoId={latestWork.videoId}
-          />
-        ) : null}
+        {latestWork ? <LatestTrack work={latestWork} /> : null}
       </div>
 
       {/* --- 以降が水紋の対象範囲 --- */}

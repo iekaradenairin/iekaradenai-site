@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-import { youtubeEmbedUrl, type Work } from '@/lib/works'
+import { splitWorkTitle, youtubeEmbedUrl, type Work } from '@/lib/works'
 
 /**
  * 作品カードの「水底から浮上する」演出。
@@ -111,6 +111,7 @@ export function WorksDeck({ works }: { works: Work[] }) {
     <div ref={deck} className="deck">
       {works.map((work, i) => {
         const live = playing === i
+        const { title, credit } = splitWorkTitle(work.title)
         return (
           <div key={work.videoId} data-card className="deck__card">
             <div
@@ -170,10 +171,11 @@ export function WorksDeck({ works }: { works: Work[] }) {
                 )}
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', padding: '0 4px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '0 4px' }}>
                 <span className="display display--card" style={{ fontSize: 19, textShadow: 'none' }}>
-                  {work.title}
+                  {title}
                 </span>
+                {credit ? <span className="deck__credit">{credit}</span> : null}
               </div>
             </div>
           </div>
