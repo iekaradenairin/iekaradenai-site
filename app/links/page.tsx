@@ -1,30 +1,30 @@
+import Link from 'next/link'
+
 import RippleCanvas from '@/components/site/RippleCanvas'
 import SiteFooter from '@/components/site/SiteFooter'
-import SiteHeader from '@/components/site/SiteHeader'
 import { siteLinks } from '@/lib/siteLinks'
 
 /**
  * 名刺のQRコードの飛び先。印刷済みなので、このパスは動かさないこと
  * （リダイレクトにしてもいけない）。
  *
- * 主目的は X への誘導。ただし曲を聴きたい人がそのまま離脱しないよう、
- * YouTube とニコニコも一段下に並べて押しやすくしてある。
+ * 渡す前にひと通り会話しているので、自己紹介の文章は置かない。
+ * 名義とリンクだけ。ヘッダーも外してある — ナビの外部リンクが
+ * このページの中身とそのまま重複するため。
  */
 
 const channels = [
   {
     eyebrow: 'YOUTUBE',
     title: 'YouTube',
-    body: 'オリジナル曲のMVを公開しています。まずはここから。',
+    handle: '@iekaradenai_rin',
     href: siteLinks.youtubeChannel,
-    action: 'チャンネルを見る →',
   },
   {
     eyebrow: 'NICONICO',
     title: 'ニコニコ動画',
-    body: '同じ曲をニコニコ動画にも上げています。',
+    handle: 'マイページ',
     href: siteLinks.niconico,
-    action: 'マイページを見る →',
   },
 ]
 
@@ -32,72 +32,76 @@ export default function LinksPage() {
   return (
     <div className="page">
       <RippleCanvas />
-      <SiteHeader />
 
-      <section className="section section--narrow" style={{ padding: 'clamp(56px, 8vw, 92px) var(--gutter) 56px' }}>
-        <div className="stack" style={{ gap: 24 }}>
-          <span className="eyebrow">LINKS — リンク</span>
-          {/* 名刺を手渡された人が読む。「見つけた」のではなく「渡された」ので、
-              対面の挨拶の続きとして読めるようにしている */}
-          <h1 className="display display--page">
-            お会いできて、
-            <br />
-            ありがとうございました。
-          </h1>
-          <p className="lead" style={{ maxWidth: '30em' }}>
-            和ロックとポップスのあいだで、言えなかった言葉を情景に託して曲を作っています。
-            よければ、覗いていってください。
-          </p>
-        </div>
-      </section>
+      <main
+        className="section section--narrow"
+        style={{ maxWidth: 640, padding: 'clamp(56px, 12vw, 104px) var(--gutter) clamp(64px, 12vw, 96px)' }}
+      >
+        <Link
+          href={siteLinks.home}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 12,
+            marginBottom: 'clamp(40px, 7vw, 60px)',
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element -- 名義ロゴ */}
+          <img
+            src="/name.png"
+            alt="家から出ない倫"
+            style={{ display: 'block', height: 'clamp(56px, 13vw, 86px)', width: 'auto', opacity: 0.95 }}
+          />
+          <span className="mono" style={{ fontSize: 11, lineHeight: 1, color: 'var(--ink-6)', letterSpacing: '0.18em' }}>
+            MUSIC CREATOR
+          </span>
+        </Link>
 
-      {/* X を主導線にするので、1枚だけ大きく置く */}
-      <section className="section section--narrow" style={{ padding: '0 var(--gutter) 34px' }}>
-        <div className="panel" style={{ gap: 28 }}>
-          <div className="stack" style={{ gap: 12, maxWidth: '30em' }}>
-            <span className="eyebrow" style={{ fontSize: 10, letterSpacing: '0.2em' }}>
-              X
-            </span>
-            <span className="display display--panel" style={{ textShadow: 'none' }}>
-              名刺だけじゃ、何も聴かせられないので
-            </span>
-            <p className="body-xs">
-              Xを置いておきます。新曲ができたときや、作っている途中のことはだいたいここに流しています。ご相談のDMもこちらから。
-            </p>
-          </div>
+        <div className="stack" style={{ gap: 16 }}>
+          {/* X が主導線なので1枚だけ大きく、枠も明るくして先に目に入るようにする */}
           <a
             href={siteLinks.x}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-solid"
-            style={{ flex: 'none' }}
+            className="link-card link-card--primary"
           >
-            Xを見る
+            <span className="eyebrow" style={{ fontSize: 10, letterSpacing: '0.2em' }}>
+              X
+            </span>
+            <span className="display display--panel" style={{ textShadow: 'none' }}>
+              @iekaradenai_Rin
+            </span>
+            <span className="link-card__go" aria-hidden="true">
+              →
+            </span>
           </a>
-        </div>
-      </section>
 
-      <section className="section section--narrow" style={{ padding: '0 var(--gutter) 96px' }}>
-        <div
-          className="grid-auto"
-          style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 24 }}
-        >
-          {channels.map((c) => (
-            <div key={c.eyebrow} className="card card--hoverable" style={{ gap: 18, padding: '30px 28px' }}>
-              <span className="eyebrow" style={{ fontSize: 10, letterSpacing: '0.2em' }}>
-                {c.eyebrow}
-              </span>
-              <span className="display display--panel" style={{ textShadow: 'none' }}>
-                {c.title}
-              </span>
-              <p className="body-sm">{c.body}</p>
-              <a href={c.href} target="_blank" rel="noopener noreferrer" className="btn-ghost">
-                {c.action}
+          <div
+            className="grid-auto"
+            style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,220px),1fr))', gap: 16 }}
+          >
+            {channels.map((c) => (
+              <a
+                key={c.eyebrow}
+                href={c.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-card"
+              >
+                <span className="eyebrow eyebrow--small">{c.eyebrow}</span>
+                <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--ink-1)' }}>{c.title}</span>
+                <span className="mono" style={{ fontSize: 11, lineHeight: 1, color: 'var(--ink-6)' }}>
+                  {c.handle}
+                </span>
+                <span className="link-card__go" aria-hidden="true">
+                  →
+                </span>
               </a>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </section>
+      </main>
 
       <SiteFooter />
     </div>

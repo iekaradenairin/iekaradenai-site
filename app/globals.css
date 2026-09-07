@@ -405,6 +405,52 @@
   color: var(--ink-9);
 }
 
+/* --- /links: 名刺QRの飛び先。カード全面が押せる ------------------------- */
+
+.link-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px;
+  padding-right: 52px; /* 右下の矢印とテキストを重ねない */
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-1);
+  transition: border-color 0.3s, background 0.3s, transform 0.2s;
+}
+.link-card:hover {
+  border-color: var(--line-hover);
+  background: var(--surface-hover);
+  color: var(--ink);
+}
+.link-card:active { transform: scale(0.99); }
+
+.link-card--primary {
+  gap: 12px;
+  padding: 28px 30px;
+  padding-right: 60px;
+  border-color: rgba(143, 180, 255, 0.35);
+  background: rgba(143, 180, 255, 0.05);
+}
+.link-card--primary:hover {
+  border-color: rgba(143, 180, 255, 0.6);
+  background: rgba(143, 180, 255, 0.09);
+}
+
+.link-card__go {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  font-size: 15px;
+  color: var(--ink-6);
+  transition: color 0.3s, transform 0.3s;
+}
+.link-card:hover .link-card__go {
+  color: var(--ink);
+  transform: translateX(3px);
+}
+
 /* --- Works: 水底から浮上するカード -------------------------------------- */
 
 .deck {
