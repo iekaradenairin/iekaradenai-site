@@ -1,0 +1,65 @@
+# 再生リストの日次反映
+#
+# YouTube の再生リストを毎日読んで、lib/works.generated.json に差分があれば
+# コミットする。その push で Cloudflare Pages が普段どおりビルドし、
+# 新曲がサイトに載る。
+#
+# 差分が無い日はコミットしないので、無駄なビルドは走らない。
+# 曲を足す手順は「再生リストに入れる」だけになる。
+
+name: 再生リストの日次反映
+
+on:
+  schedule:
+    # UTC 21:00 = JST 06:00。GitHub の cron は混雑時に数十分ずれることがある
+    - cron: '0 21 * * *'
+  # 手動でも回せるようにしておく（新曲を今すぐ載せたいとき用）
+  workflow_dispatch:
+
+# 既定の read-all では push できない
+permissions:
+  contents: write
+
+# 手動実行と定時実行がぶつかっても二重コミットしないように直列化する
+concurrency:
+  group: refresh-works
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: 再生リストを取得
+        # --strict: キー失効やクォータ切れを「前回のデータで続行」で
+        # 握りつぶさず、ジョブを失敗させて気づけるようにする
+        run: node scripts/fetch-works.mjs --strict
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+
+      - name: 取得結果を検査
+        # 壊れたデータをそのまま本番へ push しないための関門
+        run: node scripts/validate-works.mjs
+
+      - name: 差分があればコミット
+        run: |
+          if git diff --quiet -- lib/works.generated.json; then
+            echo "再生リストに変化はありませんでした"
+            exit 0
+          fi
+
+          echo "変更点:"
+          git --no-pager diff --stat -- lib/works.generated.json
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/works.generated.json
+          git commit -m "data: refresh works from the YouTube playlist
+
+          再生リストの日次反映（.github/workflows/refresh-works.yml）による自動コミット。"
+          git push

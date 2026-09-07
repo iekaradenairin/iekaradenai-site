@@ -89,7 +89,16 @@ async function fetchAll(key) {
   return items
 }
 
+// --strict では取得できなかった時点で落とす。
+// ビルド中は「前回のデータで出す」のが正しい振る舞いだが、日次の更新ジョブで
+// 同じことをやると、キー失効やクォータ切れに気づかないまま更新が止まる。
+const STRICT = process.argv.includes('--strict')
+
 function keepExisting(reason) {
+  if (STRICT) {
+    console.error(`  ${reason}`)
+    process.exit(1)
+  }
   if (fs.existsSync(OUT)) {
     const n = JSON.parse(fs.readFileSync(OUT, 'utf-8')).length
     console.warn(`  ${reason} — 既存の works.generated.json（${n}曲）をそのまま使います`)

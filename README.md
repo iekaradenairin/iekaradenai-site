@@ -12,11 +12,33 @@ Next.js の静的エクスポート（`output: "export"`）で、Cloudflare Page
 
 ## 曲を足す
 
-**サイトは触りません。** YouTube の[全曲プレイリスト](https://www.youtube.com/playlist?list=PL9xTJo4NgKecdcBhJaL3MCZu9JBFjKG0h)に
-新曲を追加して、サイトを再ビルドするだけです。
+**プレイリストに入れるだけです。** [全曲プレイリスト](https://www.youtube.com/playlist?list=PL9xTJo4NgKecdcBhJaL3MCZu9JBFjKG0h)に
+新曲を追加すれば、翌朝6時（JST）の自動ジョブがサイトに反映します。
 
-1. プレイリストに曲を追加する
-2. Cloudflare Pages で再デプロイする（`main` への push、またはダッシュボードの "Retry deployment"）
+内訳はこうなっています。
+
+1. GitHub Actions（`.github/workflows/refresh-works.yml`）が毎日プレイリストを読む
+2. 前回と中身が違えば `lib/works.generated.json` をコミットして push する
+3. その push で Cloudflare Pages がビルド・公開する
+
+変化が無い日はコミットしないので、無駄なビルドは走りません。
+
+**今すぐ載せたいとき**は、GitHub の Actions タブ →「再生リストの日次反映」→
+"Run workflow" で手動実行できます。
+
+並びは公開日の新しい順です。プレイリスト内での並べ替えは気にしなくて大丈夫で、
+一番新しい曲が自動でトップの「最新作」になります。非公開・削除済みの動画は除外されます。
+
+### 曲名の出方
+
+カードには YouTube のタイトルをそのまま出すのではなく、
+`曲名 / 倫 feat. 歌唱名` のスラッシュで割って、曲名を大きく・クレジットを小さく出しています。
+`【初投稿】` のような角括弧の接頭辞は落とします。規則は `lib/workTitle.ts` にあります。
+
+### トップの世界観セクション
+
+トップの3枚（「あの双子座に願いを」など）は**プレイリスト連動ではありません**。
+見出しも曲名ではなく手書きのコピーなので、`app/top/page.tsx` の `worldCards` を直接編集します。
 
 ビルド時に `scripts/fetch-works.mjs` がプレイリスト全件を取りに行き、
 `lib/works.generated.json` に焼き込みます。**並びは公開日の新しい順**なので、
@@ -24,18 +46,27 @@ Next.js の静的エクスポート（`output: "export"`）で、Cloudflare Page
 
 非公開・削除済みの動画は自動で除外されます。
 
-### 必要な設定（初回だけ）
+### APIキーの置き場所（設定済み）
 
-プレイリストの取得には YouTube Data API のキーが要ります。
-Cloudflare Pages の **ビルド環境変数** に `YOUTUBE_API_KEY` を入れてください。
+プレイリストの取得には YouTube Data API v3 のキーが要ります。
+`schuldkrone.80@gmail.com` の Google Cloud で発行し、2箇所に登録してあります。
 
-- Google Cloud Console でプロジェクトを作り、YouTube Data API v3 を有効化 → APIキーを発行
-- 使うアカウントは `schuldkrone.80@gmail.com`（このワークスペースの既定）
-- キーは**ビルド時にしか使わない**ので、ブラウザには出ません。閲覧者が増えてもクォータを食いません
+| 置き場所 | 用途 |
+|---|---|
+| GitHub の Actions シークレット `YOUTUBE_API_KEY` | 日次ジョブが使う。**実質こちらが本番** |
+| Cloudflare Pages のビルド環境変数 `YOUTUBE_API_KEY` | ビルド時にも一応取り直す（Preview / Production 両方） |
 
-キーが未設定でも**ビルドは失敗しません**。その場合はコミット済みの
-`lib/works.generated.json` がそのまま使われます（新曲が載らないだけ）。
-API が落ちていたときも同じで、前回の内容を維持します。
+キーは**サーバー側でしか使わない**のでブラウザには出ません。閲覧者が増えてもクォータを食いません。
+消費は1日1ユニット程度で、無料枠（1日1万）に対して誤差です。
+
+キーの制限は「APIの制限 = YouTube Data API v3 のみ」。ビルドはIPが固定できないので
+アプリケーションの制限は「なし」にしてあります。
+
+**キーが無くてもビルドは失敗しません。** コミット済みの `lib/works.generated.json` が
+そのまま使われます（新曲が載らないだけ）。API が落ちていたときも前回の内容を維持します。
+
+ただし日次ジョブは `--strict` で走らせているので、**キー失効やクォータ切れがあれば
+ジョブが赤くなって気づけます**。ここで握りつぶすと更新が黙って止まるためです。
 
 手元で取り込みたいときは:
 
