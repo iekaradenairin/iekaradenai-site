@@ -198,7 +198,7 @@ export default function InstrumentalsPage() {
                   </a>
                 </Button>
                 <Button asChild variant="outline" className="h-12 rounded-full px-6">
-                  <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
+                  <Link href={siteLinks.order}>ご依頼ページへ</Link>
                 </Button>
               </div>
             </div>

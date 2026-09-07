@@ -90,7 +90,7 @@ export default function TopPage() {
                 variant="outline"
                 className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-200 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
               >
-                <Link href={siteLinks.about}>世界観を見る</Link>
+                <Link href={siteLinks.instrumentals}>オフボーカルを見る</Link>
               </Button>
             </motion.div>
           </div>
@@ -184,14 +184,14 @@ export default function TopPage() {
                 variant="outline"
                 className="h-11 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-200 shadow-sm hover:bg-shinkai-700/60"
               >
-                <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
+                <Link href={siteLinks.order}>ご依頼ページへ</Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
                 className="h-11 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-200 shadow-sm hover:bg-shinkai-700/60"
               >
-                <Link href={siteLinks.compose}>作曲依頼ページへ</Link>
+                <Link href={siteLinks.audioCheck}>音声データチェック</Link>
               </Button>
             </div>
           </div>

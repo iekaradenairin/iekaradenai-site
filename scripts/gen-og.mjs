@@ -9,21 +9,7 @@ import { createElement as h } from 'react'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.join(__dirname, '..')
-const LOG_DIR = path.join(ROOT, 'content', 'log')
 const OG_DIR = path.join(ROOT, 'public', 'og')
-
-// --- frontmatter parser ---
-function parseFrontmatter(raw) {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)
-  if (!match) return {}
-  const data = {}
-  for (const line of match[1].split('\n')) {
-    const colon = line.indexOf(':')
-    if (colon === -1) continue
-    data[line.slice(0, colon).trim()] = line.slice(colon + 1).trim()
-  }
-  return data
-}
 
 // --- フォントはリポジトリ同梱（scripts/fonts/）から読む ---
 // 以前は Google Fonts を毎ビルド fetch していたため、Google Fonts が数分
@@ -150,30 +136,6 @@ async function main() {
     path.join(OG_DIR, 'default.png'),
     await generatePng('和ロック×ポップスのオリジナル曲', fonts)
   )
-
-  // /about 専用OGP
-  console.log('  Generating: about')
-  fs.writeFileSync(
-    path.join(OG_DIR, 'about.png'),
-    await generatePng('言えなかった言葉のことを、ずっと書いています。', fonts)
-  )
-
-  // log記事ごとのOGP
-  if (!fs.existsSync(LOG_DIR)) return
-
-  const files = fs.readdirSync(LOG_DIR)
-    .filter(f => f.endsWith('.md') && !f.startsWith('_'))
-
-  for (const file of files) {
-    const slug = file.replace(/\.md$/, '')
-    const raw = fs.readFileSync(path.join(LOG_DIR, file), 'utf-8')
-    const { title } = parseFrontmatter(raw)
-    console.log(`  Generating: log-${slug}`)
-    fs.writeFileSync(
-      path.join(OG_DIR, `log-${slug}.png`),
-      await generatePng(title || slug, fonts)
-    )
-  }
 
   console.log('OGP generation complete.')
 }

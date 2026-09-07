@@ -131,7 +131,7 @@ export default function AudioCheckPage() {
                       variant="outline"
                       className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                     >
-                      <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
+                      <Link href={siteLinks.order}>ご依頼ページへ</Link>
                     </Button>
                   </div>
                 </div>
@@ -347,13 +347,13 @@ export default function AudioCheckPage() {
                 <SectionHeader
                   eyebrow="次に進む"
                   title="必要に応じて、こちらも確認できます"
-                  body="依頼内容が固まってきたら MIX依頼ページへ、その前に流れを確認したい場合は はじめての方へ へ進んでください。"
+                  body="依頼内容が固まってきたら、ご依頼ページへ進んでください。どんな曲を作っているかは作品ページで聴けます。"
                 />
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
                 <Button asChild className="h-12 rounded-full border border-sheen/40 bg-sheen px-6 text-sm text-shinkai-950 shadow-[0_18px_40px_rgba(95,168,199,0.25)] backdrop-blur-xl hover:bg-sheen/90">
-                  <Link href={siteLinks.mix}>MIX依頼ページへ</Link>
+                  <Link href={siteLinks.order}>ご依頼ページへ</Link>
                 </Button>
 
                 <Button
@@ -361,7 +361,7 @@ export default function AudioCheckPage() {
                   variant="outline"
                   className="h-12 rounded-full border-white/15 bg-shinkai-800/50 px-6 text-sm text-shinkai-100 shadow-[0_10px_30px_rgba(13,25,32,0.2)] backdrop-blur-2xl hover:bg-shinkai-800/80"
                 >
-                  <Link href={siteLinks.guide}>はじめての方へ</Link>
+                  <Link href={siteLinks.works}>作品を見る</Link>
                 </Button>
               </div>
             </div>

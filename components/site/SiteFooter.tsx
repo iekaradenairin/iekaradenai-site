@@ -10,16 +10,12 @@ import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
 
 const workLinks = [
   { label: "作品", href: siteLinks.works },
-  { label: "世界観", href: siteLinks.about },
-  { label: "log", href: siteLinks.log },
+  { label: "オフボーカル配布", href: siteLinks.instrumentals },
 ] as const;
 
 const requestLinks = [
-  { label: "MIX依頼", href: siteLinks.mix },
+  { label: "ご依頼", href: siteLinks.order },
   { label: "音声データチェック", href: siteLinks.audioCheck },
-  { label: "作曲依頼", href: siteLinks.compose },
-  { label: "オフボーカル配布", href: siteLinks.instrumentals },
-  { label: "はじめての方へ", href: siteLinks.guide },
 ] as const;
 
 export function SiteFooter() {

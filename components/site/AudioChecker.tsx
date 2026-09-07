@@ -405,7 +405,7 @@ export function AudioChecker() {
                   </a>
                 </Button>
                 <Button asChild variant="outline" className="h-11 rounded-full px-6 text-sm">
-                  <a href={siteLinks.mix}>MIX依頼ページを見る</a>
+                  <a href={siteLinks.order}>ご依頼ページを見る</a>
                 </Button>
               </div>
             </motion.div>

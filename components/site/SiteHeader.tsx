@@ -53,10 +53,10 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
             作品
           </Link>
           <Link
-            href={siteLinks.about}
+            href={siteLinks.order}
             className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full border border-white/10 bg-shinkai-800/70 px-3 text-[11px] text-shinkai-200 shadow-sm backdrop-blur"
           >
-            世界観
+            依頼
           </Link>
         </div>
 
@@ -72,13 +72,13 @@ export function SiteHeader({ currentLabel }: SiteHeaderProps) {
           >
             作品
           </Link>
-          <Link href={siteLinks.about} className="inline-flex min-h-11 items-center transition hover:text-shinkai-100">
-            世界観
+          <Link href={siteLinks.instrumentals} className="inline-flex min-h-11 items-center transition hover:text-shinkai-100">
+            オフボーカル
           </Link>
-          <Link href={siteLinks.log} className="inline-flex min-h-11 items-center transition hover:text-shinkai-100">
-            log
+          <Link href={siteLinks.audioCheck} className="inline-flex min-h-11 items-center transition hover:text-shinkai-100">
+            音声チェック
           </Link>
-          <Link href={siteLinks.mix} className="inline-flex min-h-11 items-center text-xs text-shinkai-300 transition hover:text-shinkai-100">
+          <Link href={siteLinks.order} className="inline-flex min-h-11 items-center text-xs text-shinkai-300 transition hover:text-shinkai-100">
             依頼
           </Link>
         </motion.nav>
