@@ -7,7 +7,7 @@ import SiteHeader from '@/components/site/SiteHeader'
 import LatestTrackBar from '@/components/site/LatestTrackBar'
 import WorldDeck, { type WorldCard } from '@/components/site/WorldDeck'
 import { siteLinks } from '@/lib/siteLinks'
-import { formatReleaseMonth, latestWork, splitWorkTitle } from '@/lib/works'
+import { formatReleaseMonth, latestWork, splitWorkTitle, youtubeWatchUrl } from '@/lib/works'
 
 // 世界観セクションの3枚は手で選んで手で書くもの。見出しは曲名ではなく
 // 「その曲が何の話か」を置いている。作品一覧（再生リスト由来）とは別管理。
@@ -136,8 +136,10 @@ export default function TopPage() {
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 22, paddingTop: 12 }}>
+            {/* 下端の「最新作 — LATEST TRACK」と同じ動画へ飛ばす。
+                再生リストが空のときだけ再生リスト自体に落とす */}
             <a
-              href={siteLinks.youtubePlaylist}
+              href={latestWork ? youtubeWatchUrl(latestWork.videoId) : siteLinks.youtubePlaylist}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-solid btn-solid--hero"
