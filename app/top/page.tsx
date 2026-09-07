@@ -207,7 +207,9 @@ export default function TopPage() {
               <br />
               明るく見える。
             </h2>
-            <p style={{ margin: 0, maxWidth: '34em', fontSize: 17, lineHeight: 2.1, color: 'var(--ink-2)', textWrap: 'pretty' }}>
+            {/* ヒーローの段落と同じ 15px / 行間2.05。デザイン原本は17pxだったが、
+                スマホ幅だと本文としては大きすぎた */}
+            <p className="lead" style={{ maxWidth: '34em' }}>
               泣きたいわけじゃないのに、なぜか泣けてしまう夜があります。好きだった人のことを、ふいに思い出してしまう夜も。終わったはずの気持ちほど、ずいぶん経ってから戻ってくる。そういう夜のそばで鳴っている音楽を作っています。
             </p>
           </div>
