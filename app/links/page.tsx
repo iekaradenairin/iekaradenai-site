@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import LinkCards from '@/components/site/LinkCards'
 import RippleCanvas from '@/components/site/RippleCanvas'
 import SiteFooter from '@/components/site/SiteFooter'
 import { siteLinks } from '@/lib/siteLinks'
@@ -12,22 +13,6 @@ import { siteLinks } from '@/lib/siteLinks'
  * 名義とリンクだけ。ヘッダーも外してある — ナビの外部リンクが
  * このページの中身とそのまま重複するため。
  */
-
-const channels = [
-  {
-    eyebrow: 'YOUTUBE',
-    title: 'YouTube',
-    handle: '@iekaradenai_rin',
-    href: siteLinks.youtubeChannel,
-  },
-  {
-    eyebrow: 'NICONICO',
-    title: 'ニコニコ動画',
-    handle: 'マイページ',
-    href: siteLinks.niconico,
-  },
-]
-
 export default function LinksPage() {
   return (
     <div className="page">
@@ -35,7 +20,13 @@ export default function LinksPage() {
 
       <main
         className="section section--narrow"
-        style={{ maxWidth: 640, padding: 'clamp(56px, 12vw, 104px) var(--gutter) clamp(64px, 12vw, 96px)' }}
+        style={{
+          maxWidth: 640,
+          padding: 'clamp(56px, 12vw, 104px) var(--gutter) clamp(64px, 12vw, 96px)',
+          // カードが奥から浮上するので奥行きを与える
+          perspective: 1200,
+          perspectiveOrigin: '50% 40%',
+        }}
       >
         <Link
           href={siteLinks.home}
@@ -58,49 +49,7 @@ export default function LinksPage() {
           </span>
         </Link>
 
-        <div className="stack" style={{ gap: 16 }}>
-          {/* X が主導線なので1枚だけ大きく、枠も明るくして先に目に入るようにする */}
-          <a
-            href={siteLinks.x}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-card link-card--primary"
-          >
-            <span className="eyebrow" style={{ fontSize: 10, letterSpacing: '0.2em' }}>
-              X
-            </span>
-            <span className="display display--panel" style={{ textShadow: 'none' }}>
-              @iekaradenai_Rin
-            </span>
-            <span className="link-card__go" aria-hidden="true">
-              →
-            </span>
-          </a>
-
-          <div
-            className="grid-auto"
-            style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,220px),1fr))', gap: 16 }}
-          >
-            {channels.map((c) => (
-              <a
-                key={c.eyebrow}
-                href={c.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-card"
-              >
-                <span className="eyebrow eyebrow--small">{c.eyebrow}</span>
-                <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--ink-1)' }}>{c.title}</span>
-                <span className="mono" style={{ fontSize: 11, lineHeight: 1, color: 'var(--ink-6)' }}>
-                  {c.handle}
-                </span>
-                <span className="link-card__go" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
+        <LinkCards />
       </main>
 
       <SiteFooter />
