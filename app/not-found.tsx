@@ -1,53 +1,37 @@
-"use client";
+import Link from 'next/link'
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Radio, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { siteLinks } from "@/lib/siteLinks";
+import SiteFooter from '@/components/site/SiteFooter'
+import SiteHeader from '@/components/site/SiteHeader'
+import { siteLinks } from '@/lib/siteLinks'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#122430_0%,#0D1920_100%)] text-shinkai-200">
-      <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
-        <Link href={siteLinks.home} className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-shinkai-800/70 backdrop-blur-2xl">
-            <Radio className="h-5 w-5 text-sheen" />
-          </div>
-          <div>
-            <p className="text-sm font-medium text-sheen">music works</p>
-            <div className="text-base font-semibold tracking-wide text-shinkai-100">家から出ない倫</div>
-          </div>
-        </Link>
-      </header>
+    <div className="page">
+      <SiteHeader />
 
-      <main className="mx-auto flex max-w-7xl flex-col items-center justify-center px-6 py-24 text-center lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65 }}
-          className="rounded-[2rem] border border-white/10 bg-shinkai-800/70 p-10 backdrop-blur-xl shadow-[0_10px_40px_rgba(13,25,32,0.4)] max-w-lg w-full"
-        >
-          <p className="text-sm font-medium text-sheen">404</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100">
-            ページが見つかりません
+      <section className="section section--narrow" style={{ padding: 'clamp(72px, 10vw, 120px) var(--gutter) 110px' }}>
+        <div className="stack" style={{ gap: 26 }}>
+          <span className="eyebrow eyebrow--dim">404 — NOT FOUND</span>
+          <h1 className="display display--page">
+            そのページは
+            <br />
+            見つかりませんでした。
           </h1>
-          <p className="mt-4 text-sm leading-7 text-shinkai-200">
-            お探しのページは存在しないか、移動した可能性があります。
+          <p className="lead" style={{ maxWidth: '30em' }}>
+            移動したか、なくなったのかもしれません。トップか作品ページからたどってみてください。
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-            <Button asChild className="h-12 rounded-full px-6">
-              <Link href={siteLinks.home}>
-                トップページへ
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-12 rounded-full px-6">
-              <Link href={siteLinks.order}>ご依頼を見る</Link>
-            </Button>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 18, paddingTop: 6 }}>
+            <Link href={siteLinks.home} className="btn-solid">
+              トップへ戻る
+            </Link>
+            <Link href={siteLinks.works} className="link-quiet">
+              作品を見る →
+            </Link>
           </div>
-        </motion.div>
-      </main>
+        </div>
+      </section>
+
+      <SiteFooter />
     </div>
-  );
+  )
 }

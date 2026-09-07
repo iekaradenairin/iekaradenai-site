@@ -1,420 +1,188 @@
-"use client";
+'use client'
 
-import React, { useRef, useState, useCallback, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Upload, CheckCircle2, AlertCircle, Loader2, ChevronRight, FileDown, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { siteLinks } from "@/lib/siteLinks";
-import { analyzeAudioBuffer, type AnalysisResult, type AudioMetrics } from "@/lib/audioAnalysis";
-import { generateMarkdownReport, downloadMarkdownReport } from "@/lib/generateReport";
+import { useRef, useState } from 'react'
 
-const MAX_FILE_SIZE = 100 * 1024 * 1024;
-const MOBILE_WARN_SIZE = 30 * 1024 * 1024;
+import { buildReport, measure, parseWavHeader, type Report } from '@/lib/audioAnalysis'
 
-const ACCEPTED_TYPES = new Set([
-  "audio/wav",
-  "audio/wave",
-  "audio/x-wav",
-  "audio/mpeg",
-  "audio/mp3",
-  "audio/ogg",
-  "audio/aiff",
-  "audio/x-aiff",
-]);
+const MAX_BYTES = 200 * 1024 * 1024
 
-type State =
-  | { kind: "idle" }
-  | { kind: "hover" }
-  | { kind: "loading"; mobileWarning: boolean }
-  | { kind: "result"; result: AnalysisResult; fileName: string; mobileWarning: boolean }
-  | { kind: "error"; message: string };
-
-function WaveformCanvas({ data }: { data: Float32Array }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || data.length === 0) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const w = canvas.offsetWidth;
-    const h = canvas.offsetHeight;
-    if (w < 1 || h < 1) return;
-
-    canvas.width = w;
-    canvas.height = h;
-
-    ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = "rgba(26, 49, 64, 0.6)";
-    ctx.fillRect(0, 0, w, h);
-
-    const mid = h / 2;
-    const step = data.length / w;
-
-    ctx.beginPath();
-    ctx.strokeStyle = "rgb(95, 168, 199)";
-    ctx.lineWidth = 1.5;
-
-    for (let x = 0; x < w; x++) {
-      const idx = Math.floor(x * step);
-      const amp = (data[idx] ?? 0) * mid * 0.85;
-      if (x === 0) {
-        ctx.moveTo(x, mid - amp);
-      } else {
-        ctx.lineTo(x, mid - amp);
-      }
-    }
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.strokeStyle = "rgba(95, 168, 199, 0.45)";
-    for (let x = 0; x < w; x++) {
-      const idx = Math.floor(x * step);
-      const amp = (data[idx] ?? 0) * mid * 0.85;
-      if (x === 0) {
-        ctx.moveTo(x, mid + amp);
-      } else {
-        ctx.lineTo(x, mid + amp);
-      }
-    }
-    ctx.stroke();
-  }, [data]);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="h-16 w-full rounded-2xl border border-white/10 bg-shinkai-900/40"
-      style={{ display: "block" }}
-    />
-  );
-}
-
-function formatDuration(seconds: number): string {
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${String(s).padStart(2, "0")}`;
-}
-
-function formatDb(db: number): string {
-  if (!isFinite(db)) return "-∞";
-  return `${db.toFixed(1)} dB`;
-}
-
-function formatSeconds(sec: number): string {
-  if (sec < 0.05) return "なし";
-  return `${sec.toFixed(2)}s`;
-}
-
-function MetricChip({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex flex-col gap-0.5 rounded-xl border border-white/10 bg-shinkai-900/40 px-3 py-2">
-      <span className="text-[10px] text-shinkai-300">{label}</span>
-      <span className="text-xs font-medium text-shinkai-100">{value}</span>
-    </div>
-  );
-}
-
-function DetailMetrics({ metrics }: { metrics: AudioMetrics }) {
-  const channelLabel =
-    metrics.numChannels === 1
-      ? "モノラル"
-      : metrics.isEffectivelyMono
-        ? `ステレオ (実質モノ)`
-        : `ステレオ (${metrics.numChannels}ch)`;
-
-  return (
-    <div className="space-y-2">
-      <p className="text-[11px] font-medium tracking-wide text-shinkai-300">詳細データ</p>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-        <MetricChip label="再生時間" value={formatDuration(metrics.duration)} />
-        <MetricChip label="ピーク" value={formatDb(metrics.peakLevel)} />
-        <MetricChip label="RMS" value={formatDb(metrics.rmsLevel)} />
-        <MetricChip label="ダイナミックレンジ" value={`${metrics.dynamicRange.toFixed(1)} dB`} />
-        <MetricChip label="頭の無音" value={formatSeconds(metrics.headSilence)} />
-        <MetricChip label="末尾の無音" value={formatSeconds(metrics.tailSilence)} />
-        <MetricChip label="サンプルレート" value={`${(metrics.sampleRate / 1000).toFixed(1)} kHz`} />
-        <MetricChip label="チャンネル" value={channelLabel} />
-      </div>
-    </div>
-  );
-}
-
-function ReportSection({ result, fileName }: { result: AnalysisResult; fileName: string }) {
-  const [open, setOpen] = useState(false);
-  const mdText = open ? generateMarkdownReport(result, fileName) : "";
-
-  return (
-    <div className="rounded-[1.5rem] border border-white/10 bg-shinkai-800/70">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between px-5 py-4 text-left"
-      >
-        <div className="flex items-center gap-2">
-          <FileDown className="h-4 w-4 text-shinkai-300" />
-          <span className="text-sm font-medium text-shinkai-100">レポートを確認する</span>
-        </div>
-        <ChevronDown
-          className={`h-4 w-4 text-shinkai-300 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-        />
-      </button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="overflow-hidden"
-          >
-            <div className="border-t border-white/10 px-5 pb-5 pt-4 space-y-3">
-              <pre className="max-h-72 overflow-y-auto rounded-xl bg-shinkai-950 p-4 text-[11px] leading-relaxed text-shinkai-200 whitespace-pre-wrap font-mono">
-                {mdText}
-              </pre>
-              <button
-                onClick={() => downloadMarkdownReport(result, fileName)}
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-shinkai-700 px-4 py-2 text-xs font-medium text-shinkai-100 transition hover:bg-shinkai-700/70"
-              >
-                <FileDown className="h-3.5 w-3.5" />
-                .md ファイルをダウンロード
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-async function processFile(file: File): Promise<AnalysisResult> {
-  const arrayBuffer = await file.arrayBuffer();
-  const audioCtx = new AudioContext();
-  try {
-    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-    return analyzeAudioBuffer(audioBuffer);
-  } finally {
-    audioCtx.close();
-  }
-}
+type Phase =
+  | { kind: 'idle' }
+  | { kind: 'busy'; fileName: string }
+  | { kind: 'error'; message: string }
+  | { kind: 'done'; fileName: string; report: Report }
 
 export function AudioChecker() {
-  const [state, setState] = useState<State>({ kind: "idle" });
-  const processingRef = useRef(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const input = useRef<HTMLInputElement>(null)
+  const [phase, setPhase] = useState<Phase>({ kind: 'idle' })
+  const [hot, setHot] = useState(false)
 
-  const handleFile = useCallback(async (file: File) => {
-    if (processingRef.current) return;
-
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    const mobileWarning = isMobile && file.size > MOBILE_WARN_SIZE;
-
-    if (file.size > MAX_FILE_SIZE) {
-      setState({ kind: "error", message: "ファイルが大きすぎます（100MB以下でお願いします）" });
-      return;
-    }
-
-    if (!ACCEPTED_TYPES.has(file.type) && !file.name.match(/\.(wav|mp3|ogg|aif|aiff)$/i)) {
-      setState({ kind: "error", message: "この形式には対応していません。WAV または MP3 でお試しください。" });
-      return;
-    }
-
-    processingRef.current = true;
-    setState({ kind: "loading", mobileWarning });
-
+  async function analyze(file: File) {
+    setPhase({ kind: 'busy', fileName: file.name })
     try {
-      const result = await processFile(file);
-      setState({ kind: "result", result, fileName: file.name, mobileWarning });
-    } catch {
-      setState({ kind: "error", message: "ファイルを読み込めませんでした。別のファイルでお試しください。" });
-    } finally {
-      processingRef.current = false;
+      if (file.size > MAX_BYTES) throw new Error('size')
+
+      const buf = await file.arrayBuffer()
+      const Ctx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+      if (!Ctx) throw new Error('unsupported')
+
+      const ctx = new Ctx()
+      // decodeAudioData は渡した ArrayBuffer を detach するので、
+      // ヘッダ解析用にコピーを渡す
+      const audio = await ctx.decodeAudioData(buf.slice(0))
+      const wav = parseWavHeader(buf)
+      const report = buildReport(file, audio, measure(audio), wav)
+      void ctx.close()
+
+      setPhase({ kind: 'done', fileName: file.name, report })
+    } catch (err) {
+      setPhase({
+        kind: 'error',
+        message:
+          err instanceof Error && err.message === 'size'
+            ? 'ファイルが大きすぎます。200MB以下で書き出したものをお使いください。'
+            : 'この形式は読み込めないようです。WAV や MP3 で書き出したものをお試しください。',
+      })
     }
-  }, []);
+  }
 
-  const onDrop = useCallback(
-    (e: React.DragEvent) => {
-      e.preventDefault();
-      setState((s) => (s.kind === "loading" ? s : { kind: "idle" }));
-      const file = e.dataTransfer.files?.[0];
-      if (file instanceof File) handleFile(file);
-    },
-    [handleFile],
-  );
-
-  const onDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    if (!processingRef.current) setState({ kind: "hover" });
-  };
-
-  const onDragLeave = () => {
-    if (!processingRef.current) setState({ kind: "idle" });
-  };
-
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) handleFile(file);
-    e.target.value = "";
-  };
-
-  const isHover = state.kind === "hover";
-  const isLoading = state.kind === "loading";
+  const report = phase.kind === 'done' ? phase.report : null
 
   return (
-    <div className="space-y-4">
-      {/* Drop zone */}
-      <AnimatePresence mode="wait">
-        {state.kind !== "result" && (
-          <motion.div
-            key="dropzone"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.35 }}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onDragLeave={onDragLeave}
-            onClick={() => !isLoading && inputRef.current?.click()}
-            className={`flex min-h-[160px] cursor-pointer flex-col items-center justify-center gap-3 rounded-[1.75rem] border-2 border-dashed p-6 text-center transition-colors ${
-              isHover
-                ? "border-sheen bg-sheen/10"
-                : isLoading
-                  ? "border-white/10 bg-shinkai-900/40 cursor-default"
-                  : "border-sheen/30 bg-shinkai-900/30 hover:border-sheen/50 hover:bg-shinkai-800/40"
-            }`}
-          >
-            <input
-              ref={inputRef}
-              type="file"
-              accept=".wav,.mp3,.ogg,.aif,.aiff,audio/*"
-              className="hidden"
-              onChange={onInputChange}
-            />
+    <>
+      <section className="section" style={{ padding: '0 var(--gutter) 96px' }}>
+        <button
+          type="button"
+          className="dropzone"
+          data-hot={hot || undefined}
+          onClick={() => input.current?.click()}
+          onDragOver={(e) => {
+            e.preventDefault()
+            if (!hot) setHot(true)
+          }}
+          onDragLeave={(e) => {
+            e.preventDefault()
+            setHot(false)
+          }}
+          onDrop={(e) => {
+            e.preventDefault()
+            setHot(false)
+            const f = e.dataTransfer?.files?.[0]
+            if (f) void analyze(f)
+          }}
+        >
+          <input
+            ref={input}
+            type="file"
+            accept="audio/*"
+            style={{ display: 'none' }}
+            onChange={(e) => {
+              const f = e.target.files?.[0]
+              if (f) void analyze(f)
+              e.target.value = ''
+            }}
+          />
 
-            {isLoading ? (
-              <>
-                <Loader2 className="h-8 w-8 animate-spin text-sheen" />
-                <p className="text-sm text-shinkai-300">解析中...</p>
-                {state.mobileWarning && (
-                  <p className="text-xs text-amber-300">大きいファイルです。処理に時間がかかることがあります。</p>
-                )}
-              </>
-            ) : state.kind === "error" ? (
-              <>
-                <AlertCircle className="h-8 w-8 text-amber-400" />
-                <p className="text-sm font-medium text-shinkai-100">{state.message}</p>
-                <p className="text-xs text-shinkai-300">クリックして別のファイルを選択</p>
-              </>
-            ) : (
-              <>
-                <Upload className={`h-8 w-8 transition-colors ${isHover ? "text-shinkai-100" : "text-sheen"}`} />
-                <div>
-                  <p className="text-sm font-medium text-shinkai-100">
-                    音声ファイルをドラッグ＆ドロップ
-                  </p>
-                  <p className="mt-1 text-xs text-shinkai-300">またはクリックして選択 · WAV / MP3 / OGG · 100MB以下</p>
-                </div>
-              </>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+          {phase.kind === 'idle' ? (
+            <span className="stack" style={{ alignItems: 'center', gap: 14 }}>
+              <span className="display display--panel" style={{ textShadow: 'none' }}>
+                音声ファイルをここに置いてください
+              </span>
+              <span style={{ fontSize: 13, lineHeight: 1.9, color: 'var(--ink-5)' }}>
+                クリックして選択もできます　WAV / MP3 / OGG / M4A
+              </span>
+              <span className="mono" style={{ fontSize: 11, lineHeight: 1, color: 'var(--ink-9)' }}>
+                DRAG &amp; DROP
+              </span>
+            </span>
+          ) : null}
 
-      {/* Results */}
-      <AnimatePresence>
-        {state.kind === "result" && (
-          <motion.div
-            key="results"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="space-y-4"
-          >
-            {/* Re-check button + filename */}
-            <div className="flex items-center justify-between gap-3">
-              <p className="truncate text-xs text-shinkai-300">{state.fileName}</p>
-              <button
-                onClick={() => {
-                  setState({ kind: "idle" });
-                  inputRef.current?.click();
-                }}
-                className="shrink-0 rounded-full border border-white/10 bg-shinkai-800/60 px-3 py-1.5 text-xs text-shinkai-200 transition hover:bg-shinkai-700/60"
-              >
-                別のファイルをチェック
-              </button>
+          {phase.kind === 'busy' ? (
+            <span className="stack" style={{ alignItems: 'center', gap: 14 }}>
+              <span className="display display--panel" style={{ textShadow: 'none' }}>
+                解析しています…
+              </span>
+              <span style={{ fontSize: 13, color: 'var(--ink-5)' }}>{phase.fileName}</span>
+            </span>
+          ) : null}
+
+          {phase.kind === 'error' ? (
+            <span className="stack" style={{ alignItems: 'center', gap: 14 }}>
+              <span className="display display--card" style={{ color: 'var(--bad)', textShadow: 'none' }}>
+                読み込めませんでした
+              </span>
+              <span style={{ fontSize: 13, lineHeight: 1.9, color: 'var(--ink-5)', maxWidth: '26em' }}>
+                {phase.message}
+              </span>
+              <span className="mono" style={{ fontSize: 11, lineHeight: 1, color: 'var(--ink-9)' }}>
+                クリックしてもう一度選ぶ
+              </span>
+            </span>
+          ) : null}
+
+          {phase.kind === 'done' ? (
+            <span className="stack" style={{ alignItems: 'center', gap: 10 }}>
+              <span className="mono" style={{ fontSize: 11, lineHeight: 1, color: 'var(--ink-9)' }}>
+                {phase.fileName}
+              </span>
+              <span className="display display--card" style={{ textShadow: 'none' }}>
+                別のファイルを見るならここに置いてください
+              </span>
+            </span>
+          ) : null}
+        </button>
+      </section>
+
+      {report ? (
+        <section className="section" style={{ padding: '0 var(--gutter) 96px' }} aria-live="polite">
+          <div className="stack" style={{ gap: 30 }}>
+            <div className="panel summary" data-tone={report.summary.tone} style={{ gap: 22, justifyContent: 'flex-start' }}>
+              <div className="stack" style={{ gap: 10, minWidth: 0, flex: '1 1 300px' }}>
+                <span className="eyebrow" style={{ fontSize: 10, letterSpacing: '0.2em' }}>
+                  RESULT
+                </span>
+                <span className="display" style={{ fontSize: 26, lineHeight: 1.45, textShadow: 'none' }}>
+                  {report.summary.title}
+                </span>
+                <p className="body-sm" style={{ color: 'var(--ink-2)' }}>
+                  {report.summary.body}
+                </p>
+              </div>
+              <div className="mono stack" style={{ gap: 8, fontSize: 11, lineHeight: 1.9, color: 'var(--ink-6)' }}>
+                <span>{report.spec.format}</span>
+                <span>{report.spec.length}</span>
+                <span>{report.spec.channels}</span>
+              </div>
             </div>
 
-            {/* Waveform */}
-            <WaveformCanvas data={state.result.waveformData} />
-
-            {/* Result cards */}
-            <div className="grid gap-3 sm:grid-cols-2">
-              {state.result.dimensions.map((dim) => (
-                <motion.div
-                  key={dim.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className={`rounded-2xl border p-4 ${
-                    dim.status === "ok"
-                      ? "border-sheen/25 bg-shinkai-800/60"
-                      : "border-amber-400/25 bg-amber-500/10"
-                  }`}
-                >
-                  <div className="flex items-start gap-2">
-                    {dim.status === "ok" ? (
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sheen" />
-                    ) : (
-                      <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
-                    )}
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-shinkai-300">{dim.label}</span>
-                        {dim.value && (
-                          <span className="text-xs text-shinkai-300">{dim.value}</span>
-                        )}
-                      </div>
-                      <p className="mt-1 text-sm leading-6 text-shinkai-100">{dim.copy}</p>
-                    </div>
+            <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,250px),1fr))', gap: 22 }}>
+              {report.checks.map((c) => (
+                <div key={c.label} className="card" style={{ gap: 14, padding: '26px 24px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                    <span className="label">{c.label}</span>
+                    <span className="badge" data-level={c.level}>
+                      {c.badge}
+                    </span>
                   </div>
-                </motion.div>
+                  <span className="mono" style={{ fontSize: 20, lineHeight: 1, color: 'var(--ink-1)' }}>
+                    {c.value}
+                  </span>
+                  <p className="body-xs">{c.note}</p>
+                </div>
               ))}
             </div>
 
-            {/* 詳細データ */}
-            <DetailMetrics metrics={state.result.metrics} />
-
-            {/* Overall + CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.15 }}
-              className={`rounded-[1.75rem] border p-5 ${
-                state.result.overall === "ok"
-                  ? "border-sheen/25 bg-shinkai-800/70"
-                  : "border-amber-400/25 bg-amber-500/10"
-              }`}
-            >
-              <p className="text-sm font-medium text-shinkai-100">{state.result.overallCopy}</p>
-              <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-                <Button asChild className="h-11 rounded-full px-6 text-sm">
-                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
-                    相談へ進む
-                    <ChevronRight className="ml-1 h-4 w-4" />
-                  </a>
-                </Button>
-                <Button asChild variant="outline" className="h-11 rounded-full px-6 text-sm">
-                  <a href={siteLinks.order}>ご依頼ページを見る</a>
-                </Button>
-              </div>
-            </motion.div>
-
-            {/* レポート */}
-            <ReportSection result={state.result} fileName={state.fileName} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+            <p className="note" style={{ maxWidth: '44em' }}>
+              ※
+              自動での簡易判定です。ここで「注意」が出ても実際には問題ないこと、逆に「大丈夫そう」でも聴いて相談したいことがあります。最終的な判断は、実際に聴かせてもらってからお伝えします。
+            </p>
+          </div>
+        </section>
+      ) : null}
+    </>
+  )
 }
+
+export default AudioChecker

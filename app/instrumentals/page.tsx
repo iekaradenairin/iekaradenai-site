@@ -1,213 +1,121 @@
-"use client";
+import RippleCanvas from '@/components/site/RippleCanvas'
+import SiteFooter from '@/components/site/SiteFooter'
+import SiteHeader from '@/components/site/SiteHeader'
+import { siteLinks } from '@/lib/siteLinks'
 
-import React from "react";
-import Link from "next/link";
-import { Disc3, ExternalLink, ShieldCheck, Mic2, Sparkles, Search, Download } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { siteLinks } from "@/lib/siteLinks";
-import { SiteFooter } from "@/components/site/SiteFooter";
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { AnimatedPanel } from "@/components/site/AnimatedPanel";
-import { PageFrame } from "@/components/site/PageFrame";
-import { ContactBlock } from "@/components/site/ContactBlock";
+const sources = [
+  {
+    eyebrow: 'PIAPRO',
+    title: 'ピアプロ',
+    body: '全曲のオフボーカルをまとめて置いています。曲を探すならこちらから。',
+    href: siteLinks.piapro,
+    action: 'ピアプロを見る →',
+  },
+  {
+    eyebrow: 'DRIVE',
+    title: 'Google ドライブ',
+    body: '同じものを共有フォルダにも置いています。まとめて落としたいときはこちら。',
+    href: siteLinks.driveInstrumentals,
+    action: 'フォルダを開く →',
+  },
+]
 
-const steps = [
+const terms = [
   {
-    icon: Search,
-    step: "STEP 1",
-    title: "ピアプロで曲を探す",
-    desc: "配布中の音源はピアプロにまとめています。曲名や雰囲気から気になるものを選んでください。",
+    title: 'してもらって嬉しいこと',
+    body: '歌ってみた・演奏動画の投稿、配信での使用、練習や録音の練習台。曲名と作者名をどこかに書いてもらえたら十分です。',
   },
   {
-    icon: Download,
-    step: "STEP 2",
-    title: "音源をダウンロード",
-    desc: "利用条件は音源ごとにピアプロのページへ記載しています。ダウンロード前に目を通してもらえると安心です。",
+    title: 'ひとこと相談してほしいこと',
+    body: 'CDやサブスクなど、販売をともなう形での使用。イベントやお店での再生。だめという話ではなく、把握しておきたいだけです。',
   },
   {
-    icon: Mic2,
-    step: "STEP 3",
-    title: "歌ってみたに使う",
-    desc: "あとは自由に歌っていただければ大丈夫です。完成した作品を聴かせていただけるとうれしいので、よければお知らせください。",
+    title: '遠慮してほしいこと',
+    body: '音源そのものの再配布や販売、自作としての公開。誰かを傷つける目的での使用も、できれば避けてください。',
   },
-] as const;
-
-const highlights = [
-  {
-    icon: Disc3,
-    title: "配布先はピアプロに一本化",
-    desc: "音源も利用条件もピアプロ側で最新の状態にしています。ここを見に行けば全部そろいます。",
-  },
-  {
-    icon: Sparkles,
-    title: "情景を書いた曲が中心",
-    desc: "屋上や神社の階段、湖や桜。情景に感情を託した曲が多めです。",
-  },
-  {
-    icon: Mic2,
-    title: "歌ってみた用途を想定",
-    desc: "歌ってみたで使ってもらうことを前提に用意しています。気軽に手に取ってください。",
-  },
-] as const;
-
-const usagePolicy = [
-  {
-    title: "利用条件はピアプロの記載が最新です",
-    body: "音源ごとの条件はピアプロの各ページに書いています。ダウンロード前にそちらをご確認ください。",
-  },
-  {
-    title: "歌ってみたでの使用を中心に想定しています",
-    body: "それ以外の用途で迷う場合は、無理にご自身で判断せず、一度ご相談ください。",
-  },
-  {
-    title: "細かいケースは相談ベースで大丈夫です",
-    body: "条件の読み方に迷ったときも、そのままご相談ください。できるだけ柔軟に考えます。",
-  },
-] as const;
+]
 
 export default function InstrumentalsPage() {
   return (
-    <PageFrame>
-      <SiteHeader currentLabel="オフボーカル配布" />
-      <main className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pt-10">
-        <section className="space-y-6">
-          <AnimatedPanel className="rounded-[2rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
-            <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
-              <div>
-                <div className="inline-flex rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen">
-                  オフボーカル配布
-                </div>
-                <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100 md:text-5xl">
-                  歌ってみたに使えるオフボーカルを、
-                  <br />
-                  ピアプロで配布しています。
-                </h1>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-shinkai-200 md:text-base">
-                  配布している音源は、すべて作品として公開している楽曲のインストです。曲の一覧・音源のダウンロード・利用条件は、すべてピアプロにまとめています。
-                </p>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <Button asChild className="h-12 rounded-full px-6">
-                    <a href={siteLinks.piapro} target="_blank" rel="noreferrer">
-                      ピアプロで音源を見る
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                  <Button asChild variant="outline" className="h-12 rounded-full px-6">
-                    <Link href={siteLinks.works}>どんな曲かを聴いてみる</Link>
-                  </Button>
-                </div>
+    <div className="page">
+      <RippleCanvas />
+      <SiteHeader current="instrumentals" />
+
+      <section className="section" style={{ padding: 'clamp(56px, 8vw, 92px) var(--gutter) 64px' }}>
+        <div className="stack" style={{ gap: 24 }}>
+          <span className="eyebrow">INSTRUMENTALS — オフボーカル</span>
+          <h1 className="display display--page">
+            この曲を
+            <br />
+            あなたの声で。
+          </h1>
+          <p className="lead" style={{ maxWidth: '32em' }}>
+            オフボーカル音源を配布しています。歌ってみた、演奏、練習用に、どうぞ自由に使ってください。あなたの声でもう一度この作品に息を吹き込んでいただけたら本当に嬉しいです。
+          </p>
+        </div>
+      </section>
+
+      <section className="section" style={{ padding: '0 var(--gutter) 96px' }}>
+        <div className="stack" style={{ gap: 20 }}>
+          <span className="eyebrow eyebrow--small">音源のある場所</span>
+
+          <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,320px),1fr))', gap: '26px 34px' }}>
+            {sources.map((s) => (
+              <div key={s.eyebrow} className="card card--hoverable" style={{ gap: 20, padding: '32px 30px' }}>
+                <span className="eyebrow" style={{ fontSize: 10, letterSpacing: '0.2em' }}>
+                  {s.eyebrow}
+                </span>
+                <span className="display display--panel" style={{ textShadow: 'none' }}>
+                  {s.title}
+                </span>
+                <p className="body-sm">{s.body}</p>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+                  {s.action}
+                </a>
               </div>
-
-              <AnimatedPanel className="rounded-[1.75rem] border border-white/10 bg-shinkai-700/80 p-5 text-shinkai-100">
-                <div className="flex items-center gap-2 text-sheen">
-                  <Disc3 className="h-4 w-4" />
-                  <p className="text-sm font-medium">Piapro</p>
-                </div>
-                <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-                  ダウンロードはピアプロから
-                </h2>
-                <p className="mt-3 text-sm leading-7 text-shinkai-200">
-                  ピアプロはクリプトン・フューチャー・メディアが運営する創作物の投稿サイトです。音源はそちらに置いているので、下のボタンからそのまま進んでください。
-                </p>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="mt-5 h-11 w-full rounded-full border-sheen/40 bg-sheen px-6 text-shinkai-950 hover:bg-sheen/90"
-                >
-                  <a href={siteLinks.piapro} target="_blank" rel="noreferrer">
-                    ピアプロのページを開く
-                    <ExternalLink className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-              </AnimatedPanel>
-            </div>
-          </AnimatedPanel>
-
-          <div className="grid gap-6 border-t border-white/10 pt-6 sm:grid-cols-3">
-            {steps.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.step}
-                  className="sm:border-l sm:border-white/10 sm:pl-6 sm:first:border-l-0 sm:first:pl-0"
-                >
-                  <div className="flex items-center gap-2">
-                    <Icon className="h-4 w-4 text-sheen" />
-                    <span className="text-xs font-medium tracking-[0.14em] text-sheen">{item.step}</span>
-                  </div>
-                  <h2 className="mt-3 text-lg font-semibold text-shinkai-100">{item.title}</h2>
-                  <p className="mt-2 text-sm leading-7 text-shinkai-200">{item.desc}</p>
-                </div>
-              );
-            })}
+            ))}
           </div>
 
-          <div className="grid gap-6 border-t border-white/10 pt-6 sm:grid-cols-3">
-            {highlights.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="sm:border-l sm:border-white/10 sm:pl-6 sm:first:border-l-0 sm:first:pl-0"
-                >
-                  <Icon className="h-5 w-5 text-sheen" />
-                  <h2 className="mt-3 text-lg font-semibold text-shinkai-100">{item.title}</h2>
-                  <p className="mt-2 text-sm leading-7 text-shinkai-200">{item.desc}</p>
-                </div>
-              );
-            })}
+          <p className="note" style={{ marginTop: 6 }}>
+            見つからない曲や、キー変更・ガイドメロディ入りのご希望があれば聞いてみてください。対応できる場合もあります。
+          </p>
+        </div>
+      </section>
+
+      <section className="section" style={{ padding: '0 var(--gutter) 96px' }}>
+        <div className="stack" style={{ gap: 34 }}>
+          <span className="eyebrow eyebrow--dim">TERMS — 使うときのお願い</span>
+          <div className="grid-auto grid-auto--md">
+            {terms.map((t) => (
+              <div key={t.title} className="rule">
+                <span className="label">{t.title}</span>
+                <p className="body-xs">{t.body}</p>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <AnimatedPanel className="rounded-[1.9rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-sheen" />
-              <p className="text-sm font-medium text-sheen">利用について</p>
-            </div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-shinkai-100">
-              まずはこの方針でご確認いただければ大丈夫です
-            </h2>
-            <div className="mt-5 grid gap-3 md:grid-cols-3">
-              {usagePolicy.map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4"
-                >
-                  <div className="text-sm font-medium text-shinkai-100">{item.title}</div>
-                  <div className="mt-2 text-sm leading-7 text-shinkai-200">{item.body}</div>
-                </div>
-              ))}
-            </div>
-          </AnimatedPanel>
+      <section className="section" style={{ padding: '0 var(--gutter) 110px' }}>
+        <div className="panel">
+          <div className="stack" style={{ gap: 10, maxWidth: '32em' }}>
+            <span className="display display--card" style={{ textShadow: 'none' }}>
+              歌ってくれたら聴きに行きます
+            </span>
+            <p className="body-xs">
+              投稿したらXで教えてください。連絡をもらえたら必ず聴きに行きます。使い方の質問や、音源の要望もこちらから。
+            </p>
+            <p style={{ margin: 0, fontSize: 11, lineHeight: 1.9, color: 'var(--ink-8)' }}>
+              ※必ず聴きに行きますが、感想やリポストをお約束するものではありません。
+            </p>
+          </div>
+          <a href={siteLinks.x} target="_blank" rel="noopener noreferrer" className="btn-solid" style={{ flex: 'none' }}>
+            Xで知らせる
+          </a>
+        </div>
+      </section>
 
-          <AnimatedPanel className="rounded-[1.9rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
-            <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div>
-                <p className="text-sm font-medium text-sheen">配布ページへ</p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-shinkai-100">
-                  気になる曲があれば、そのまま使ってください
-                </h2>
-                <p className="mt-3 max-w-3xl text-sm leading-7 text-shinkai-200">
-                  配布中の音源はピアプロにまとめています。歌ってみたに使いたい方は、こちらからご覧ください。MIXまで含めて相談したい場合は、MIX依頼ページもあわせてどうぞ。
-                </p>
-              </div>
-              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Button asChild className="h-12 rounded-full px-6">
-                  <a href={siteLinks.piapro} target="_blank" rel="noreferrer">
-                    ピアプロで音源を見る
-                    <ExternalLink className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-                <Button asChild variant="outline" className="h-12 rounded-full px-6">
-                  <Link href={siteLinks.order}>ご依頼ページへ</Link>
-                </Button>
-              </div>
-            </div>
-          </AnimatedPanel>
-
-          <ContactBlock />
-        </section>
-      </main>
       <SiteFooter />
-    </PageFrame>
-  );
+    </div>
+  )
 }

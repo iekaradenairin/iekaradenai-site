@@ -1,43 +1,54 @@
-"use client";
-
-import { useState } from "react";
-import { SiteFooter } from "@/components/site/SiteFooter";
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { AnimatedPanel } from "@/components/site/AnimatedPanel";
-import { PageFrame } from "@/components/site/PageFrame";
-import { WorkCard } from "@/components/site/WorkCard";
-import { worksSorted } from "@/lib/works";
+import RippleCanvas from '@/components/site/RippleCanvas'
+import SiteFooter from '@/components/site/SiteFooter'
+import SiteHeader from '@/components/site/SiteHeader'
+import WorksDeck from '@/components/site/WorksDeck'
+import { siteLinks } from '@/lib/siteLinks'
+import { works } from '@/lib/works'
 
 export default function WorksPage() {
-  const [activeId, setActiveId] = useState<string | null>(null);
-
   return (
-    <PageFrame>
-      <SiteHeader currentLabel="作品" />
-      <main className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10 lg:pt-10">
-        <section className="space-y-6">
-          <AnimatedPanel className="rounded-[2rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-xl">
-            <div className="inline-flex rounded-full bg-shinkai-800/60 px-3 py-1 text-xs font-medium text-sheen">
-              作品
-            </div>
-            <h1 className="mt-3 text-3xl font-semibold tracking-tight text-shinkai-100 md:text-5xl">
-              これまでに作った{worksSorted.length}曲、
-              <br />
-              新しい順に並んでいます。
-            </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-shinkai-200 md:text-base">
-              和ロックとポップスのあいだで、情景に感情を託して書いています。気になった1曲から聴いてみてください。
-            </p>
-          </AnimatedPanel>
+    <div className="page">
+      <RippleCanvas />
+      <SiteHeader current="works" />
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {worksSorted.map((work) => (
-              <WorkCard key={work.title} work={work} activeId={activeId} onActivate={setActiveId} />
-            ))}
+      <section className="section" style={{ maxWidth: 1100, margin: 0, padding: 'clamp(56px, 8vw, 92px) var(--gutter) 40px' }}>
+        <div className="stack" style={{ gap: 24 }}>
+          <span className="eyebrow">WORKS — 作品</span>
+          <h1 className="display display--page">
+            紡いできた作品たち。
+            <br />
+            全部に大切な想いを込めています。
+          </h1>
+          <p className="lead" style={{ maxWidth: '32em' }}>
+            順番に聴く必要はありません。気になる声に耳を傾けてみてください。
+          </p>
+        </div>
+      </section>
+
+      <section
+        className="section section--wide"
+        style={{ padding: '20px var(--gutter) 120px', perspective: 1500, perspectiveOrigin: '50% 40%' }}
+      >
+        {works.length ? (
+          <WorksDeck works={works} />
+        ) : (
+          <div className="panel" style={{ justifyContent: 'flex-start' }}>
+            <div className="stack" style={{ gap: 10, maxWidth: '32em' }}>
+              <span className="display display--panel" style={{ textShadow: 'none' }}>
+                作品を読み込めませんでした
+              </span>
+              <p className="body-xs">
+                再生リストから曲を取得できていません。YouTube の再生リストから直接ご覧ください。
+              </p>
+            </div>
+            <a href={siteLinks.youtubePlaylist} target="_blank" rel="noopener noreferrer" className="btn-solid">
+              再生リストを開く
+            </a>
           </div>
-        </section>
-      </main>
+        )}
+      </section>
+
       <SiteFooter />
-    </PageFrame>
-  );
+    </div>
+  )
 }

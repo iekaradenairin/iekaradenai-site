@@ -1,67 +1,75 @@
-import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { works, worksSorted, heroWork, compareWorks } from '../lib/works.ts'
+import test from 'node:test'
 
-const ID_RE = /^[A-Za-z0-9_-]{11}$/
+import { normalizeItems } from '../scripts/fetch-works.mjs'
 
-test('every youtubeId matches the YouTube ID format', () => {
-  for (const w of works) {
-    assert.match(w.youtubeId, ID_RE, `${w.title}: ${w.youtubeId}`)
+/** playlistItems の1件分をでっち上げる */
+function item({ videoId, title, videoPublishedAt = null, position = 0 }) {
+  return {
+    snippet: { title, position, resourceId: { videoId } },
+    contentDetails: videoPublishedAt ? { videoPublishedAt } : {},
   }
+}
+
+test('公開日の新しい順に並ぶ（再生リストの並び順ではなく）', () => {
+  const got = normalizeItems([
+    item({ videoId: 'aaaaaaaaaaa', title: '古い曲', videoPublishedAt: '2023-06-01T00:00:00Z', position: 0 }),
+    item({ videoId: 'bbbbbbbbbbb', title: '新しい曲', videoPublishedAt: '2026-08-01T00:00:00Z', position: 1 }),
+    item({ videoId: 'ccccccccccc', title: '中くらい', videoPublishedAt: '2025-01-01T00:00:00Z', position: 2 }),
+  ])
+  assert.deepEqual(
+    got.map((w) => w.title),
+    ['新しい曲', '中くらい', '古い曲'],
+  )
 })
 
-test('no duplicate youtubeId across works', () => {
-  const ids = works.map((w) => w.youtubeId)
-  assert.equal(ids.length, new Set(ids).size)
+test('公開日が取れないものは末尾に回り、再生リストの並び順を保つ', () => {
+  const got = normalizeItems([
+    item({ videoId: 'aaaaaaaaaaa', title: '日付なし2', position: 5 }),
+    item({ videoId: 'bbbbbbbbbbb', title: '日付あり', videoPublishedAt: '2024-01-01T00:00:00Z', position: 1 }),
+    item({ videoId: 'ccccccccccc', title: '日付なし1', position: 2 }),
+  ])
+  assert.deepEqual(
+    got.map((w) => w.title),
+    ['日付あり', '日付なし1', '日付なし2'],
+  )
 })
 
-test('no duplicate title across works', () => {
-  const titles = works.map((w) => w.title)
-  assert.equal(titles.length, new Set(titles).size)
+test('非公開・削除済みの項目は落とす', () => {
+  const got = normalizeItems([
+    item({ videoId: 'aaaaaaaaaaa', title: 'Private video', videoPublishedAt: '2026-01-01T00:00:00Z' }),
+    item({ videoId: 'bbbbbbbbbbb', title: 'Deleted video', videoPublishedAt: '2026-01-01T00:00:00Z' }),
+    item({ videoId: 'ccccccccccc', title: '生きてる曲', videoPublishedAt: '2025-01-01T00:00:00Z' }),
+  ])
+  assert.deepEqual(
+    got.map((w) => w.title),
+    ['生きてる曲'],
+  )
 })
 
-test('worksSorted is newest-first with unreleased dates (null) last', () => {
-  const dated = worksSorted.filter((w) => w.releasedAt != null)
-  for (let i = 1; i < dated.length; i++) {
-    assert.ok(dated[i - 1].releasedAt >= dated[i].releasedAt)
-  }
-  const nullStartIndex = worksSorted.findIndex((w) => w.releasedAt == null)
-  if (nullStartIndex !== -1) {
-    for (let i = nullStartIndex; i < worksSorted.length; i++) {
-      assert.equal(worksSorted[i].releasedAt, null)
-    }
-  }
+test('再生リストに同じ動画が二度入っていても1件にまとまる', () => {
+  const got = normalizeItems([
+    item({ videoId: 'aaaaaaaaaaa', title: '同じ曲', videoPublishedAt: '2025-01-01T00:00:00Z', position: 0 }),
+    item({ videoId: 'aaaaaaaaaaa', title: '同じ曲', videoPublishedAt: '2025-01-01T00:00:00Z', position: 7 }),
+  ])
+  assert.equal(got.length, 1)
 })
 
-test('heroWork falls back to worksSorted[0] when nothing is featured', () => {
-  assert.equal(works.some((w) => w.featured), false)
-  assert.equal(heroWork, worksSorted[0])
+test('videoId かタイトルが欠けた項目は落とす', () => {
+  const got = normalizeItems([
+    { snippet: { title: 'IDなし', position: 0 }, contentDetails: {} },
+    item({ videoId: 'bbbbbbbbbbb', title: '   ' }),
+    item({ videoId: 'ccccccccccc', title: '正常', videoPublishedAt: '2025-01-01T00:00:00Z' }),
+  ])
+  assert.deepEqual(
+    got.map((w) => w.title),
+    ['正常'],
+  )
 })
 
-test('compareWorks is a total order: antisymmetric and reflexive-zero', () => {
-  const sample = [
-    { title: 'A', youtubeId: 'aaaaaaaaaaa', releasedAt: '2026-01-01' },
-    { title: 'B', youtubeId: 'bbbbbbbbbbb', releasedAt: '2026-01-01' },
-    { title: 'C', youtubeId: 'ccccccccccc', releasedAt: null },
-    { title: 'D', youtubeId: 'ddddddddddd', releasedAt: null },
-  ]
-  for (const a of sample) {
-    for (const b of sample) {
-      const ab = compareWorks(a, b)
-      const ba = compareWorks(b, a)
-      if (a === b) {
-        assert.equal(ab, 0)
-      } else {
-        assert.notEqual(ab, 0, `${a.title} vs ${b.title} must not tie`)
-        assert.equal(Math.sign(ab), -Math.sign(ba), `${a.title} vs ${b.title} must be antisymmetric`)
-      }
-    }
-  }
-})
-
-test('sorting is deterministic regardless of input order', () => {
-  const shuffled = [...works].reverse()
-  const sortedA = [...works].sort(compareWorks).map((w) => w.youtubeId)
-  const sortedB = [...shuffled].sort(compareWorks).map((w) => w.youtubeId)
-  assert.deepEqual(sortedA, sortedB)
+test('サイトが使うキーだけを返す（position は漏らさない）', () => {
+  const [work] = normalizeItems([
+    item({ videoId: 'aaaaaaaaaaa', title: '曲', videoPublishedAt: '2025-01-01T00:00:00Z', position: 3 }),
+  ])
+  assert.deepEqual(Object.keys(work).sort(), ['publishedAt', 'title', 'videoId'])
 })

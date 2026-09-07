@@ -1,138 +1,104 @@
-"use client";
+import Link from 'next/link'
 
-import React from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Radio, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { siteLinks } from "@/lib/siteLinks";
-import { contactPolicyCopy, contactActionLabels } from "@/lib/contactPolicy";
+import { siteLinks } from '@/lib/siteLinks'
 
-const workLinks = [
-  { label: "作品", href: siteLinks.works },
-  { label: "オフボーカル配布", href: siteLinks.instrumentals },
-] as const;
+const COPYRIGHT = '© 2026 家から出ない倫 / iekaradenai Rin'
 
-const requestLinks = [
-  { label: "ご依頼", href: siteLinks.order },
-  { label: "音声データチェック", href: siteLinks.audioCheck },
-] as const;
+/**
+ * デザイン側はトップだけ大きいフッター、他ページは1行の細いフッター、という
+ * 使い分けだったのでバリアントにしてある。
+ */
+export function SiteFooter({ variant = 'slim' }: { variant?: 'slim' | 'full' }) {
+  if (variant === 'full') return <FullFooter />
 
-export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-[linear-gradient(180deg,rgba(13,25,32,0.3),rgba(13,25,32,0.6))]">
-      <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
-        <motion.div
-          animate={{
-            boxShadow: [
-              "0 10px 24px rgba(13,25,32,0.3)",
-              "0 16px 30px rgba(13,25,32,0.4)",
-              "0 10px 24px rgba(13,25,32,0.3)",
-            ],
-          }}
-          transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut" }}
-          className="rounded-[2rem] border border-white/10 bg-shinkai-800/70 p-6 backdrop-blur-2xl"
-        >
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-            <div>
-              <Link href={siteLinks.home} className="inline-flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-shinkai-700/60">
-                  <Radio className="h-5 w-5 text-sheen" />
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-shinkai-100">家から出ない倫</div>
-                  <div className="text-sm text-shinkai-300">music works</div>
-                </div>
-              </Link>
+    <footer className="site-footer site-footer--slim">
+      <Link href={siteLinks.home} style={{ fontSize: 12, whiteSpace: 'nowrap' }}>
+        ← トップへ戻る
+      </Link>
 
-              <p className="mt-5 text-sm leading-7 text-shinkai-200">
-                和ロックとポップスのあいだで、情景に感情を託して曲を作っています。よければ、覗いていってください。
-              </p>
-
-              <div className="mt-5 rounded-[1.25rem] border border-white/10 bg-shinkai-900/40 p-4 text-sm leading-7 text-shinkai-200">
-                {contactPolicyCopy.footerBody}
-              </div>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Button asChild className="h-12 rounded-full px-6">
-                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer">
-                    {contactActionLabels.primary}
-                  </a>
-                </Button>
-                <Button asChild variant="outline" className="h-12 rounded-full px-6">
-                  <a href={siteLinks.x} target="_blank" rel="noreferrer">
-                    {contactActionLabels.secondary}
-                  </a>
-                </Button>
-              </div>
-            </div>
-
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-              <div>
-                <div className="text-xs tracking-[0.16em] text-shinkai-300">作品</div>
-                <div className="mt-4 grid gap-2">
-                  {workLinks.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <div className="text-xs tracking-[0.16em] text-shinkai-300">ご依頼について</div>
-                <div className="mt-4 grid gap-2">
-                  {requestLinks.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <div className="text-xs tracking-[0.16em] text-shinkai-300">外部リンク</div>
-                <div className="mt-4 grid gap-2">
-                  <a href={siteLinks.youtubeChannel} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
-                    <span>YouTube</span>
-                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
-                  </a>
-                  <a href={siteLinks.youtubePlaylist} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
-                    <span>全曲プレイリスト</span>
-                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
-                  </a>
-                  <a href={siteLinks.niconico} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
-                    <span>ニコニコ動画</span>
-                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
-                  </a>
-                  <a href={siteLinks.piapro} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
-                    <span>ピアプロ</span>
-                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
-                  </a>
-                  <a href={siteLinks.x} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
-                    <span>Xで相談する</span>
-                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
-                  </a>
-                  <a href={siteLinks.googleForm} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-shinkai-900/40 px-4 py-3 text-sm text-shinkai-200 transition hover:border-white/20 hover:bg-shinkai-700/50">
-                    <span>Googleフォーム</span>
-                    <ExternalLink className="h-4 w-4 text-shinkai-300" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+      <div className="site-footer__nav">
+        <Link href={siteLinks.works}>作品</Link>
+        <Link href={siteLinks.instrumentals}>オフボーカル</Link>
+        <Link href={siteLinks.audioCheck}>音声データチェック</Link>
+        <Link href={siteLinks.order}>依頼</Link>
       </div>
+
+      <span style={{ whiteSpace: 'nowrap' }}>{COPYRIGHT}</span>
     </footer>
-  );
+  )
 }
 
-export default SiteFooter;
+function FullFooter() {
+  return (
+    <footer className="site-footer site-footer--full">
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          gap: 40,
+          marginBottom: 52,
+        }}
+      >
+        <div className="stack" style={{ gap: 14, maxWidth: '30em' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- 名義ロゴ */}
+          <img
+            src="/name.png"
+            alt="家から出ない倫"
+            style={{ display: 'block', height: 72, width: 'auto', alignSelf: 'flex-start', objectFit: 'contain', opacity: 0.9 }}
+          />
+          <span className="mono" style={{ fontSize: 11, lineHeight: 1, color: 'var(--ink-8)', letterSpacing: '0.18em' }}>
+            MUSIC CREATOR
+          </span>
+          <p style={{ margin: '6px 0 0', fontSize: 13, lineHeight: 2, color: 'var(--ink-3)' }}>
+            夜ひとりのときに聴く曲を作っています。言葉にならなかった思いも、ずっと消えない記憶も、全部音楽にのせて。
+          </p>
+          <p style={{ margin: 0, fontSize: 12, lineHeight: 2, color: 'var(--ink-8)' }}>
+            MIX・作曲のご依頼もお受けしています。ご相談は Googleフォーム、または X のDMから。
+          </p>
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '40px 64px' }}>
+          <div className="site-footer__group">
+            <span className="eyebrow eyebrow--small">サイト</span>
+            <Link href={siteLinks.works}>作品</Link>
+            <Link href={siteLinks.instrumentals}>オフボーカル配布</Link>
+          </div>
+
+          <div className="site-footer__group">
+            <span className="eyebrow eyebrow--small">ご依頼の方へ</span>
+            <Link href={siteLinks.order}>MIX・作曲のご依頼</Link>
+            <Link href={siteLinks.audioCheck}>音声データチェック</Link>
+          </div>
+
+          <div className="site-footer__group">
+            <span className="eyebrow eyebrow--small">外部リンク</span>
+            <a href={siteLinks.youtubeChannel} target="_blank" rel="noopener noreferrer">
+              YouTube
+            </a>
+            <a href={siteLinks.niconico} target="_blank" rel="noopener noreferrer">
+              niconico
+            </a>
+            <a href={siteLinks.piapro} target="_blank" rel="noopener noreferrer">
+              ピアプロ
+            </a>
+            <a href={siteLinks.x} target="_blank" rel="noopener noreferrer">
+              Xで相談する
+            </a>
+            <a href={siteLinks.googleForm} target="_blank" rel="noopener noreferrer">
+              Googleフォーム
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="site-footer__legal">
+        <span>{COPYRIGHT}</span>
+      </div>
+    </footer>
+  )
+}
+
+export default SiteFooter

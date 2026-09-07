@@ -8,12 +8,18 @@ export const siteLinks = {
   audioCheck: "/audio-check",
   order: "/order",
 
-  googleForm: "https://forms.gle/srAnkjJyZLJVigmw8",
-  googleFormCompose: "https://docs.google.com/forms/d/e/1FAIpQLSf_lT6dRVu3v6Xik3JupYa35X0rQZ-uD15rgpiGLEP1RtKk0g/viewform?usp=pp_url&entry.1511935247=%E4%BD%9C%E6%9B%B2%E4%BE%9D%E9%A0%BC%EF%BC%88%E6%96%99%E9%87%91%E3%81%AF%E7%9B%B8%E8%AB%87%EF%BC%89",
+  // 外部リンクは Claude Design 側の値に合わせてある（2026-09-07 に本人確認済み）。
+  // v1 は niconico が user/47793022、フォームが forms.gle/srAnkjJyZLJVigmw8 だった。
+  googleForm: "https://forms.gle/p2vqEqumUJex8VUH9",
   youtubeChannel: "https://www.youtube.com/@iekaradenai_rin",
   youtubePlaylist: "https://www.youtube.com/playlist?list=PL9xTJo4NgKecdcBhJaL3MCZu9JBFjKG0h",
-  niconico: "https://www.nicovideo.jp/user/47793022",
+  niconico: "https://www.nicovideo.jp/user/137132696",
   piapro: "https://piapro.jp/iekaradenairin",
+  driveInstrumentals:
+    "https://drive.google.com/drive/folders/1o7e-HfHbhrSaW1Vw5xBb8Ehb0T2jSAzo?usp=drive_link",
   x: "https://x.com/iekaradenai_Rin",
   domain: "https://iekaradenai.work",
 } as const;
+
+/** 作品データの出所。Works ページとトップの「最新作」はここから引く */
+export const WORKS_PLAYLIST_ID = "PL9xTJo4NgKecdcBhJaL3MCZu9JBFjKG0h";
