@@ -29,7 +29,7 @@ const description =
   (works.length ? `オリジナル曲${works.length}曲を公開中。` : "");
 
 export const metadata: Metadata = {
-  title: "家から出ない倫 — 和ロック×ポップスのオリジナル曲",
+  title: "家から出ない倫 - オフィシャルサイト",
   description,
   metadataBase: new URL("https://iekaradenai.work"),
   openGraph: {
