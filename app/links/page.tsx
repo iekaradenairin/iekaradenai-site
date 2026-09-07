@@ -37,10 +37,12 @@ export default function LinksPage() {
       <section className="section section--narrow" style={{ padding: 'clamp(56px, 8vw, 92px) var(--gutter) 56px' }}>
         <div className="stack" style={{ gap: 24 }}>
           <span className="eyebrow">LINKS — リンク</span>
+          {/* 名刺を手渡された人が読む。「見つけた」のではなく「渡された」ので、
+              対面の挨拶の続きとして読めるようにしている */}
           <h1 className="display display--page">
-            見つけてくれて、
+            お会いできて、
             <br />
-            ありがとうございます。
+            ありがとうございました。
           </h1>
           <p className="lead" style={{ maxWidth: '30em' }}>
             和ロックとポップスのあいだで、言えなかった言葉を情景に託して曲を作っています。
@@ -57,10 +59,10 @@ export default function LinksPage() {
               X
             </span>
             <span className="display display--panel" style={{ textShadow: 'none' }}>
-              いちばん反応が早い場所です
+              名刺だけじゃ、何も聴かせられないので
             </span>
             <p className="body-xs">
-              制作の途中経過や新曲の告知はここに流しています。ご相談のDMもこちらからどうぞ。
+              Xを置いておきます。新曲ができたときや、作っている途中のことはだいたいここに流しています。ご相談のDMもこちらから。
             </p>
           </div>
           <a
