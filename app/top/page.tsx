@@ -5,21 +5,27 @@ import RippleCanvas from '@/components/site/RippleCanvas'
 import SiteFooter from '@/components/site/SiteFooter'
 import SiteHeader from '@/components/site/SiteHeader'
 import LatestTrackBar from '@/components/site/LatestTrackBar'
+import WorldDeck, { type WorldCard } from '@/components/site/WorldDeck'
 import { siteLinks } from '@/lib/siteLinks'
 import { formatReleaseMonth, latestWork, splitWorkTitle } from '@/lib/works'
 
-const worldCards = [
+// 世界観セクションの3枚は手で選んで手で書くもの。見出しは曲名ではなく
+// 「その曲が何の話か」を置いている。作品一覧（再生リスト由来）とは別管理。
+const worldCards: WorldCard[] = [
   {
-    title: '青春と、和ロック',
-    body: '和楽器とギターは、混ざりきらないまま並べておきます。馴染ませすぎない距離に、あの頃の温度が残るから。',
+    videoId: 'FBlDIdRFPnk',
+    title: 'あの双子座に願いを',
+    body: '二人の出会いと別れを描く物語。あのとき過ごした思い出は、いつになっても風化しない。星を見たら鮮明に思い出せる。',
   },
   {
-    title: '言えなかった言葉',
-    body: '感情は直接書かずに、雨や駅や水位に預けます。言えなかったことほど、風景のほうが覚えているから。',
+    videoId: 'wfamkctKfUw',
+    title: '世界を旅する…そんな夢',
+    body: '静かに広がる少し暗くて冷たい世界。叶う叶わないは結果のお話。いつまでも想っていたいのも別のお話。',
   },
   {
-    title: '流れる時間',
-    body: '終わったことは、終わったままでいい。乗り越えるための曲ではなく、まだ引きずっていていい曲を置いています。',
+    videoId: '6TGFCqzekSU',
+    title: '花火の裏、隠れる想い',
+    body: '言葉にできないこともある。そして言葉にしても伝わらないときもあるかもしれない。それでもそれは後悔じゃない。',
   },
 ]
 
@@ -161,23 +167,28 @@ export default function TopPage() {
             padding: 'clamp(72px, 10vw, 130px) var(--gutter) clamp(80px, 10vw, 138px)',
             background: 'var(--bg)',
             color: '#fff',
-            overflow: 'hidden',
             letterSpacing: 'var(--tracking)',
+            // カードが水底から浮上する（Z方向に動く）ので奥行きを与える。
+            // セクション自体は clip しない — 浮上途中のカードが切れるため
+            perspective: 1500,
+            perspectiveOrigin: '50% 40%',
           }}
         >
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              left: '50%',
-              top: -260,
-              width: 900,
-              height: 900,
-              marginLeft: -450,
-              borderRadius: '50%',
-              background: 'radial-gradient(circle,rgba(0,0,115,.24) 0%,rgba(0,0,0,0) 68%)',
-            }}
-          />
+          {/* 装飾の光はセクション外へはみ出すので、ここだけで切る */}
+          <div aria-hidden="true" style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+            <div
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: -260,
+                width: 900,
+                height: 900,
+                marginLeft: -450,
+                borderRadius: '50%',
+                background: 'radial-gradient(circle,rgba(0,0,115,.24) 0%,rgba(0,0,0,0) 68%)',
+              }}
+            />
+          </div>
 
           <div
             style={{
@@ -201,24 +212,7 @@ export default function TopPage() {
             </p>
           </div>
 
-          <div className="grid-auto" style={{ position: 'relative', gap: 28 }}>
-            {worldCards.map((card) => (
-              <div key={card.title} className="card" style={{ gap: 22, padding: 28 }}>
-                <div className="hatch" style={{ position: 'relative', height: 190 }}>
-                  <span
-                    className="mono"
-                    style={{ position: 'absolute', left: 10, bottom: 9, fontSize: 9, lineHeight: 1, color: 'var(--ink-8)' }}
-                  >
-                    代表作 MV サムネイル 16:9
-                  </span>
-                </div>
-                <span className="display display--card" style={{ textShadow: 'none' }}>
-                  {card.title}
-                </span>
-                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.95, color: 'var(--ink-4)' }}>{card.body}</p>
-              </div>
-            ))}
-          </div>
+          <WorldDeck cards={worldCards} />
 
           <div style={{ position: 'relative', marginTop: 56, display: 'flex', justifyContent: 'center' }}>
             <Link href={siteLinks.works} className="btn-ghost" style={{ alignSelf: 'auto' }}>
