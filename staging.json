@@ -13,31 +13,13 @@
   },
   "pending": {},
   "attempts": {},
-  "outbox": [
-    {
-      "id": "added-SGbf1NgRzvg",
-      "type": "added",
-      "videoId": "SGbf1NgRzvg",
-      "title": "【オリジナル曲】星空、そして君に【家から出ない倫/珈琲neco】",
-      "channelTitle": "珈琲neco☕️",
-      "reason": "原曲URL一致: FE0TG8CqM3M",
-      "at": "2026-11-01T06:33:37.880Z"
-    },
-    {
-      "id": "added-CYg52eoHyZU",
-      "type": "added",
-      "videoId": "CYg52eoHyZU",
-      "title": "藍空をなぞって",
-      "channelTitle": "Release - Topic",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "at": "2026-11-01T06:33:37.880Z"
-    }
-  ],
+  "outbox": [],
   "search": {
     "cursor": 3,
     "lastDeepScan": null
   },
   "incidents": {},
   "lastSearchSuccessAt": "2026-11-01T06:33:30.727Z",
-  "lastAdditionSuccessAt": "2026-11-01T06:33:37.880Z"
+  "lastAdditionSuccessAt": "2026-11-01T06:33:37.880Z",
+  "lastDiscordSuccessAt": "2026-11-01T06:33:46.139Z"
 }
