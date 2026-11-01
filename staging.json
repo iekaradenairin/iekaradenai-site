@@ -15,7 +15,7 @@
   "attempts": {},
   "outbox": [],
   "search": {
-    "cursor": 3,
+    "cursor": 0,
     "lastDeepScan": null
   },
   "incidents": {},
