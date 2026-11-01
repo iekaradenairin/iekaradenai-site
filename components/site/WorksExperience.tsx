@@ -49,7 +49,8 @@ export default function WorksExperience({ works, covers, coversPlaylistUrl, chil
           </p>
           {isCovers ? (
             <p className="note works-intro__rule">
-              家から出ない倫が{coversPlaylistUrl ? <a href={coversPlaylistUrl} target="_blank" rel="noopener noreferrer">専用のYouTube再生リスト</a> : '専用のYouTube再生リスト'}に追加した作品を、サイトの更新時に自動で掲載しています。
+              YouTubeに投稿する際、タイトルまたは概要欄に「曲名」と「家から出ない倫」を記載していただくと検索による掲載の対象になります。
+              <br />掲載まで時間がかかる場合があります。
             </p>
           ) : null}
         </div>
