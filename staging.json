@@ -11,15 +11,23 @@
       "source": "automatic"
     }
   },
-  "pending": {},
+  "pending": {
+    "sepS54VqbnQ": {
+      "id": "sepS54VqbnQ",
+      "title": "藍空をなぞって / 星巡璃〖#VocaDuo2026〗",
+      "channelTitle": "あまねもものスタジオ",
+      "reason": "作者表記一致: iekaradenai_rin",
+      "discoveredAt": "2026-11-01T06:37:13.015Z"
+    }
+  },
   "attempts": {},
   "outbox": [],
   "search": {
-    "cursor": 0,
+    "cursor": 3,
     "lastDeepScan": null
   },
   "incidents": {},
-  "lastSearchSuccessAt": "2026-11-01T06:33:30.727Z",
+  "lastSearchSuccessAt": "2026-11-01T06:37:13.015Z",
   "lastAdditionSuccessAt": "2026-11-01T06:33:37.880Z",
   "lastDiscordSuccessAt": "2026-11-01T06:33:46.139Z"
 }
