@@ -1,7 +1,7 @@
 # YouTube作品の自動発見とDiscord通知
 
 通常運用にAIは使いません。GitHub Actions / YouTube Data API / Discord Webhookで動きます。
-現在はステージングで検証中です。`lib/discovery.config.json` の `enabled` は false のままです。
+現在はステージングで検証済み、本番反映待ちです。`lib/discovery.config.json` の `enabled` は true に準備してありますが、定時実行はmainへの反映後に開始します。
 
 2026-11-01時点で、専用OAuthクライアント・Discord Webhook・検証用リストを設定済みです。
 OAuthの公開ステータスは「本番環境」に変更し、変更後の認証情報をSecretsへ再登録しました。
@@ -61,6 +61,7 @@ gh workflow run refresh-works.yml --ref staging -f mode=apply
 ```
 
 定時実行はmainへの反映後に有効です。mainでの自動追加には `enabled: true` が必要です。
+停止するときは `enabled: false` にしてmainへ反映します。定時処理での追加を止め、履歴同期とHPの再生リスト取得は継続します。
 停止中も手動変更のHP反映は継続します。ステージングでの追加は検証用リストにしか書き込みません。
 ステージングの通常ページは掲載用リストを表示するため、検証用リストへの追加だけでは表示は変わりません。
 検証用リストをHPに表示する確認は、掲載用リストIDを本番と分けた検証ブランチで行います。

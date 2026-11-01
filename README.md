@@ -13,7 +13,7 @@ Next.js の静的エクスポート（`output: "export"`）で、Cloudflare Page
 ## 曲を足す
 
 **プレイリストに入れるだけです。** [全曲プレイリスト](https://www.youtube.com/playlist?list=PL9xTJo4NgKecdcBhJaL3MCZu9JBFjKG0h)に
-新曲を追加すれば、翌朝6時（JST）の自動ジョブがサイトに反映します。
+新曲を追加すれば、翌朝6時17分ごろ（JST）の自動ジョブがサイトに反映します。
 
 内訳はこうなっています。
 
@@ -177,5 +177,5 @@ APIの取得に失敗した場合は前回のデータを維持します。正�
 
 曲名抽出・YouTube検索・ルール判定・再生リストへの自動追加・Discord通知のコードは
 `scripts/automation/` にあります。AIを呼び出す処理はありません。
-`lib/discovery.config.json` の `enabled` は false で、本番の自動追加はまだ有効にしていません。
+`lib/discovery.config.json` の `enabled` は true に準備済みです。現在はステージングのみで、本番の日次実行はmainへ反映してから始まります。
 準備・再認証・手動検証・停止方法は [運用手順](docs/YOUTUBE_AUTOMATION.md) を参照してください。
