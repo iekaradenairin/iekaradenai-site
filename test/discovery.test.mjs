@@ -59,6 +59,10 @@ test('既存掲載を履歴に登録し、削除されても履歴は残す。�
   assert.equal(state.history[candidate.id].source, 'playlist')
 })
 
+test('本人の配信サービス Release - Topic は曲名と作者が一致しても除外する', () => {
+  assert.equal(decide({ ...candidate, channelId: 'UCiX-LGEYYiuC5hDBXMpHWxw', channelTitle: 'Release - Topic' }, songs, config, originalChannelId).reason, 'excluded-channel')
+})
+
 test('結果不明の書き込みは、存在すれば成功通知、不在なら再追加せず要確認にする', () => {
   for (const present of [true, false]) {
     const state = emptyState('playlist')

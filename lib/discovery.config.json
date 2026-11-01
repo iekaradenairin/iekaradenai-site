@@ -6,7 +6,7 @@
   "maxSearchCalls": 12,
   "recentDays": 35,
   "excludedVideoIds": [],
-  "excludedChannelIds": [],
+  "excludedChannelIds": ["UCiX-LGEYYiuC5hDBXMpHWxw"],
   "titleOverrides": {},
   "aliases": {}
 }
