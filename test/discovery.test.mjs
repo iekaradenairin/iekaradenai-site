@@ -183,3 +183,20 @@ test('翌日に持ち越した直近検索は同じ期間・ページで続行�
   assert.equal(queries[0].publishedAfter, queries[1].publishedAfter)
   assert.equal(queries[1].pageToken, 'next')
 })
+
+test('履歴ブランチ未作成時にリポジトリの正しいAPI URLから初期化する', async () => {
+  const { GitHubStateStore } = await import('../scripts/automation/store.mjs')
+  const root = 'https://api.github.com/repos/owner/repo'
+  const store = new GitHubStateStore({ repository: 'owner/repo', token: 'fake', environment: 'staging', playlistId: 'target', request: async (url, options) => {
+    if (url === root) return { ok: true, json: async () => ({ default_branch: 'main' }) }
+    if (url === `${root}/git/ref/heads/main`) return { ok: true, json: async () => ({ object: { sha: 'main-sha' } }) }
+    if (url === `${root}/git/refs` && options.method === 'POST') {
+      assert.deepEqual(JSON.parse(options.body), { ref: 'refs/heads/automation-state', sha: 'main-sha' })
+      return { ok: true, json: async () => ({}) }
+    }
+    assert.notEqual(url, `${root}/`)
+    return { ok: false, status: 404 }
+  } })
+  const state = await store.load()
+  assert.equal(state.playlistId, 'target')
+})

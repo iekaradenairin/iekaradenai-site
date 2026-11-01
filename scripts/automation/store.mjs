@@ -13,7 +13,7 @@ export class GitHubStateStore {
   async api(endpoint, { method = 'GET', body, allow404 = false } = {}) {
     let response
     try {
-      response = await this.request(`https://api.github.com/repos/${this.repository}/${endpoint}`, {
+      response = await this.request(`https://api.github.com/repos/${this.repository}${endpoint ? `/${endpoint}` : ''}`, {
         method, signal: AbortSignal.timeout(30000),
         headers: { Authorization: `Bearer ${this.token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json', 'X-GitHub-Api-Version': '2022-11-28' },
         ...(body ? { body: JSON.stringify(body) } : {}),
