@@ -1,15 +1,13 @@
 {
   "version": 1,
   "playlistId": "PLT3rX9JYpgWE",
-  "history": {},
-  "pending": {
+  "history": {
     "SGbf1NgRzvg": {
-      "id": "SGbf1NgRzvg",
-      "title": "【オリジナル曲】星空、そして君に【家から出ない倫/珈琲neco】",
-      "channelTitle": "珈琲neco☕️",
-      "reason": "原曲URL一致: FE0TG8CqM3M",
-      "discoveredAt": "2026-11-01T06:33:30.727Z"
-    },
+      "firstSeenAt": "2026-11-01T06:33:37.880Z",
+      "source": "automatic"
+    }
+  },
+  "pending": {
     "CYg52eoHyZU": {
       "id": "CYg52eoHyZU",
       "title": "藍空をなぞって",
@@ -18,13 +16,18 @@
       "discoveredAt": "2026-11-01T06:33:30.727Z"
     }
   },
-  "attempts": {
-    "SGbf1NgRzvg": {
+  "attempts": {},
+  "outbox": [
+    {
+      "id": "added-SGbf1NgRzvg",
+      "type": "added",
+      "videoId": "SGbf1NgRzvg",
+      "title": "【オリジナル曲】星空、そして君に【家から出ない倫/珈琲neco】",
+      "channelTitle": "珈琲neco☕️",
       "reason": "原曲URL一致: FE0TG8CqM3M",
       "at": "2026-11-01T06:33:37.880Z"
     }
-  },
-  "outbox": [],
+  ],
   "search": {
     "cursor": 3,
     "lastDeepScan": null
