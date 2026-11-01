@@ -11,10 +11,16 @@ name: 再生リストの日次反映
 
 on:
   schedule:
-    # UTC 21:00 = JST 06:00。GitHub の cron は混雑時に数十分ずれることがある
-    - cron: '0 21 * * *'
+    # UTC 21:17 = JST 06:17。毎時ちょうどの混雑を避ける（遅延する場合もある）
+    - cron: '17 21 * * *'
   # 手動でも回せるようにしておく（新曲を今すぐ載せたいとき用）
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 実行内容（previewは検索だけ、applyは検証用リストへ追加）
+        type: choice
+        options: [refresh, preview, apply, notify-test, auth-check]
+        default: refresh
 
 # 既定の read-all では push できない
 permissions:
@@ -22,12 +28,65 @@ permissions:
 
 # 手動実行と定時実行がぶつかっても二重コミットしないように直列化する
 concurrency:
-  group: refresh-works
+  group: youtube-playlists
   cancel-in-progress: false
 
 jobs:
-  refresh:
+  automation:
+    if: github.event_name == 'schedule' || inputs.mode == 'preview' || inputs.mode == 'apply' || inputs.mode == 'notify-test' || inputs.mode == 'auth-check'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Discord通知の接続検証
+        if: inputs.mode == 'notify-test'
+        run: node scripts/check-discord-webhook.mjs
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      - name: 曲名リストを更新
+        if: inputs.mode != 'notify-test'
+        run: node scripts/fetch-works.mjs --strict
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      - name: 検索・判定・自動追加
+        id: discovery
+        if: inputs.mode != 'notify-test'
+        run: node scripts/discover-covers.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          COVERS_STAGING_PLAYLIST_ID: ${{ vars.COVERS_STAGING_PLAYLIST_ID }}
+          AUTOMATION_MODE: ${{ inputs.mode == 'auth-check' && 'auth-check' || inputs.mode == 'preview' && 'preview' || 'apply' }}
+          AUTOMATION_EXPLICIT_APPLY: ${{ inputs.mode == 'apply' && 'true' || 'false' }}
+      - name: 検索結果を保存
+        if: always() && inputs.mode == 'preview'
+        uses: actions/upload-artifact@v4
+        with:
+          name: covers-search-report
+          path: automation-report.json
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: 自動処理の異常・復旧を通知
+        if: always() && inputs.mode != 'notify-test' && (job.status == 'success' || steps.discovery.outputs.error_reported != 'true')
+        run: node scripts/automation-status.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          STATUS_COMPONENT: automation-workflow
+          STATUS_RESULT: ${{ job.status }}
+
+  refresh:
+    needs: automation
+    if: always() && !cancelled() && (github.event_name == 'schedule' || inputs.mode == 'refresh' || inputs.mode == 'apply')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -38,28 +97,40 @@ jobs:
       - name: 再生リストを取得
         # --strict: キー失効やクォータ切れを「前回のデータで続行」で
         # 握りつぶさず、ジョブを失敗させて気づけるようにする
-        run: node scripts/fetch-works.mjs --strict
+        run: |
+          node scripts/fetch-works.mjs --strict
+          node scripts/fetch-covers.mjs --strict
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
       - name: 取得結果を検査
         # 壊れたデータをそのまま本番へ push しないための関門
-        run: node scripts/validate-works.mjs
+        run: |
+          node scripts/validate-works.mjs
+          node scripts/validate-covers.mjs
 
       - name: 差分があればコミット
         run: |
-          if git diff --quiet -- lib/works.generated.json; then
+          if git diff --quiet -- lib/works.generated.json lib/covers.generated.json; then
             echo "再生リストに変化はありませんでした"
             exit 0
           fi
 
           echo "変更点:"
-          git --no-pager diff --stat -- lib/works.generated.json
+          git --no-pager diff --stat -- lib/works.generated.json lib/covers.generated.json
 
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add lib/works.generated.json
+          git add lib/works.generated.json lib/covers.generated.json
           git commit -m "data: refresh works from the YouTube playlist
 
           再生リストの日次反映（.github/workflows/refresh-works.yml）による自動コミット。"
           git push
+      - name: HP更新の異常・復旧を通知
+        if: always()
+        run: node scripts/automation-status.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          STATUS_COMPONENT: website
+          STATUS_RESULT: ${{ job.status }}

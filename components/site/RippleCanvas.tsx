@@ -16,8 +16,13 @@ type Drop = { x: number; y: number; t: number; life: number; amp: number; scale:
 /** 端末の描画バッファ上限。フルページ高さ × dpr2 だと数千万pxになりモバイルで落ちるため */
 const MAX_BACKING_PIXELS = 12_000_000
 
-export function RippleCanvas() {
+export function RippleCanvas({ tone = 'night' }: { tone?: 'night' | 'sunshower' }) {
   const ref = useRef<HTMLCanvasElement>(null)
+  const daylight = useRef(tone === 'sunshower' ? 1 : 0)
+
+  useEffect(() => {
+    daylight.current = tone === 'sunshower' ? 1 : 0
+  }, [tone])
 
   useEffect(() => {
     const canvas = ref.current
@@ -33,6 +38,7 @@ export function RippleCanvas() {
     let w = 0
     let h = 0
     const drops: Drop[] = []
+    let light = daylight.current
     let last: { x: number; y: number } | null = null
 
     const resize = () => {
@@ -74,6 +80,9 @@ export function RippleCanvas() {
 
     const draw = (dt: number) => {
       ctx.clearRect(0, 0, w, h)
+      const red = Math.round(205 - light * 160)
+      const green = Math.round(230 - light * 120)
+      const blue = Math.round(255 - light * 120)
       for (let i = drops.length - 1; i >= 0; i--) {
         const d = drops[i]
         d.t += dt
@@ -101,10 +110,10 @@ export function RippleCanvas() {
           const rp = ease - k * 0.14
           if (rp <= 0) continue
           const radius = rp * (k === 0 ? 130 : 90) * d.scale
-          const alpha = fade * d.amp * (k === 0 ? 0.09 : 0.055)
+          const alpha = fade * d.amp * (k === 0 ? 0.09 : 0.055) * (1 + light * 1.8)
           if (alpha <= 0.003) continue
           ctx.lineWidth = 1
-          ctx.strokeStyle = `rgba(205,230,255,${alpha.toFixed(3)})`
+          ctx.strokeStyle = `rgba(${red},${green},${blue},${alpha.toFixed(3)})`
           ctx.beginPath()
           ctx.arc(d.x, d.y, radius, 0, 6.2832)
           ctx.stroke()
@@ -117,6 +126,7 @@ export function RippleCanvas() {
     const spin = (now: number) => {
       const dt = Math.min(0.05, prev ? (now - prev) / 1000 : 0.016)
       prev = now
+      light += (daylight.current - light) * Math.min(1, dt * 3)
       if (drops.length) draw(dt)
       raf = requestAnimationFrame(spin)
     }
