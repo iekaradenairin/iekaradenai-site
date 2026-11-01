@@ -33,20 +33,25 @@ export default function WorksExperience({ works, covers, coversPlaylistUrl, chil
       <section className="section works-intro">
         <nav className="works-switch" aria-label="作品の種類">
           <Link href={siteLinks.works} scroll={false} aria-current={!isCovers ? 'page' : undefined}>
-            <span className="works-switch__symbol" aria-hidden="true">☾</span>オリジナル作品
+            オリジナル作品
           </Link>
           <Link href={siteLinks.covers} scroll={false} aria-current={isCovers ? 'page' : undefined}>
-            <span className="works-switch__symbol" aria-hidden="true">☼</span>歌ってくれた作品
+            歌ってくれた作品
           </Link>
         </nav>
         <div key={weather} className="stack works-intro__copy" aria-live="polite">
-          <span className="eyebrow">{isCovers ? 'COVERS — 歌ってくれた作品' : 'WORKS — 作品'}</span>
+          <span className="eyebrow">{isCovers ? 'VOICES — 歌ってくれた作品' : 'WORKS — 作品'}</span>
           <h1 className="display display--page">
-            {isCovers ? <>あなたの声で、<br />また違う景色になる。</> : <>紡いできた作品たち。<br />全部に大切な想いを込めています。</>}
+            {isCovers ? <>作った曲に、<br />新しい息を吹き込んでくれた作品。</> : <>紡いできた作品たち。<br />全部に大切な想いを込めています。</>}
           </h1>
           <p className="lead works-intro__lead">
-            {isCovers ? <>作った曲に、新しい息を吹き込んでくれた声たち。<br />歌ってくれて、ありがとう。</> : '順番に聴く必要はありません。気になる声に耳を傾けてみてください。'}
+            {isCovers ? '歌っていただき、本当にありがとうございます。' : '順番に聴く必要はありません。気になる声に耳を傾けてみてください。'}
           </p>
+          {isCovers ? (
+            <p className="note works-intro__rule">
+              家から出ない倫が{coversPlaylistUrl ? <a href={coversPlaylistUrl} target="_blank" rel="noopener noreferrer">専用のYouTube再生リスト</a> : '専用のYouTube再生リスト'}に追加した作品を、サイトの更新時に自動で掲載しています。
+            </p>
+          ) : null}
         </div>
       </section>
       <section className="section section--wide works-list" aria-label={isCovers ? '歌ってくれた作品一覧' : 'オリジナル作品一覧'}>
@@ -54,7 +59,6 @@ export default function WorksExperience({ works, covers, coversPlaylistUrl, chil
           <WorksDeck key={weather} works={items} variant={isCovers ? 'covers' : 'originals'} />
         ) : (
           <div className="works-empty">
-            <span className="works-empty__symbol" aria-hidden="true">{isCovers ? '☼' : '☾'}</span>
             <h2 className="display display--panel">{isCovers ? 'ここから、また違う声で。' : '作品を読み込めませんでした'}</h2>
             <p className="body-sm">{isCovers ? '歌ってくれた作品を、少しずつここに集めていきます。' : 'YouTubeの再生リストから直接ご覧ください。'}</p>
             {playlist ? <a className="link-quiet" href={playlist} target="_blank" rel="noopener noreferrer">YouTubeの再生リストを見る ↗</a> : null}

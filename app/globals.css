@@ -618,15 +618,15 @@
 }
 .works-switch a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
 .works-switch a:hover { color: var(--ink); }
-.works-switch__symbol { font: 400 22px/1 Georgia, serif; }
 .works-intro__copy { gap: 24px; animation: works-copy-in 1s ease both; }
 .works-intro__lead { max-width: 34em; }
+.works-intro__rule { max-width: 46em; }
+.works-intro__rule a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
 @keyframes works-copy-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .works-list { padding: 20px var(--gutter) 120px; min-height: 30vh; }
 /* 一覧全体に遠近をかけると、縦長の一覧では先頭カードが画面外へ沈みすぎる。 */
 .deck__slot { perspective: 1500px; perspective-origin: 50% 40%; min-width: 0; }
 .works-empty { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding: 40px 0 60px; border-top: 1px solid var(--line-faint); }
-.works-empty__symbol { color: var(--accent); font: 400 40px/1 Georgia, serif; }
 .deck__source { display: flex; justify-content: space-between; padding: 14px 18px; font-size: 12px; border: 1px solid var(--line); border-top: 0; background: var(--surface); }
 [data-weather="sunshower"] .display { text-shadow: none; }
 [data-weather="sunshower"] .site-header__mark { filter: brightness(0.3) sepia(0.25) saturate(0.7); }
