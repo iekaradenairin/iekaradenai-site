@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { works } from "@/lib/works";
+import { covers, coversPlaylistUrl } from "@/lib/covers";
+import WorksExperience from "@/components/site/WorksExperience";
 
 const description = `和ロックとポップスのあいだで書いてきた、情景に感情を託した楽曲${works.length}曲。`;
 
@@ -22,5 +24,5 @@ export const metadata: Metadata = {
 };
 
 export default function WorksLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <WorksExperience works={works} covers={covers} coversPlaylistUrl={coversPlaylistUrl}>{children}</WorksExperience>;
 }

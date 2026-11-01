@@ -64,7 +64,7 @@ export function normalizeItems(items) {
   return works.map(({ videoId, title, publishedAt }) => ({ videoId, title, publishedAt }))
 }
 
-async function fetchAll(key) {
+export async function fetchAll(key, playlistId = PLAYLIST_ID) {
   const items = []
   let pageToken = ''
 
@@ -72,7 +72,7 @@ async function fetchAll(key) {
     const url =
       'https://www.googleapis.com/youtube/v3/playlistItems' +
       '?part=snippet,contentDetails&maxResults=50' +
-      `&playlistId=${encodeURIComponent(PLAYLIST_ID)}` +
+      `&playlistId=${encodeURIComponent(playlistId)}` +
       `&key=${encodeURIComponent(key)}` +
       (pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : '')
 

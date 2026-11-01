@@ -8,12 +8,13 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/fetch-works.mjs && node scripts/gen-og.mjs && next build",
+    "build": "node scripts/fetch-works.mjs && node scripts/fetch-covers.mjs && node scripts/validate-covers.mjs && node scripts/gen-og.mjs && next build",
     "fetch-works": "node scripts/fetch-works.mjs",
+    "fetch-covers": "node scripts/fetch-covers.mjs",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "validate-works": "node scripts/validate-works.mjs",
+    "validate-works": "node scripts/validate-works.mjs && node scripts/validate-covers.mjs",
     "test": "node --test",
     "check": "npm run typecheck && npm run validate-works && npm run test && npm run lint"
   },

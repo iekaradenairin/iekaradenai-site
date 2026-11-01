@@ -536,3 +536,108 @@
   0%, 100% { transform: scale(1); opacity: 0.9; }
   50% { transform: scale(1.06); opacity: 1; }
 }
+
+/* --- 作品：夜の雨から天気雨へ ------------------------------------------ */
+.works-world {
+  isolation: isolate;
+  background-color: #070c12;
+  transition: background-color 1.4s ease, color 1.1s ease;
+}
+.works-world[data-weather="sunshower"] {
+  --bg-footer: rgba(221, 232, 231, 0.7);
+  --ink: #243c48;
+  --ink-1: #2b4552;
+  --ink-2: #48636d;
+  --ink-3: #48636d;
+  --ink-4: #48636d;
+  --ink-5: #526c75;
+  --ink-6: #526c75;
+  --ink-7: #526c75;
+  --ink-8: #526c75;
+  --ink-9: #526c75;
+  --accent: #527f89;
+  --accent-soft: #3e717e;
+  --surface: rgba(255, 255, 255, 0.3);
+  --surface-hover: rgba(255, 255, 255, 0.55);
+  --line: rgba(53, 91, 105, 0.18);
+  --line-faint: rgba(53, 91, 105, 0.15);
+  --line-input: rgba(53, 91, 105, 0.24);
+  --line-hover: rgba(53, 91, 105, 0.5);
+  --hatch: #d8e5e5;
+  background-color: #e3eceb;
+  color: var(--ink);
+}
+.works-world__daylight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(255, 238, 203, 0.95), transparent 55%),
+    radial-gradient(ellipse at 0% 52%, rgba(186, 218, 224, 0.8), transparent 65%),
+    linear-gradient(160deg, #f0f1e6, #d7e7e7 65%, #e6edeb);
+  transition: opacity 1.5s ease;
+}
+[data-weather="sunshower"] .works-world__daylight { opacity: 1; }
+.works-world__leak {
+  position: fixed;
+  inset: -25%;
+  z-index: 7;
+  pointer-events: none;
+  opacity: 0;
+}
+.works-world__leak--sunshower {
+  background: radial-gradient(ellipse at 85% 20%, rgba(255, 239, 211, 0.9), rgba(255, 229, 187, 0.35) 32%, transparent 65%);
+  animation: works-light-leak 1.6s ease-out both;
+}
+.works-world__leak--night {
+  background: radial-gradient(ellipse at 70% 20%, rgba(170, 191, 209, 0.16), transparent 65%);
+  animation: works-dusk 1.4s ease-out both;
+}
+@keyframes works-light-leak {
+  0% { opacity: 0; transform: translate(12%, -8%) scale(0.85); }
+  35% { opacity: 0.85; }
+  100% { opacity: 0; transform: translate(-8%, 6%) scale(1.2); }
+}
+@keyframes works-dusk {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.works-intro { max-width: 1100px; margin: 0; padding: 36px var(--gutter) 40px; }
+.works-switch { display: inline-flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: clamp(44px, 7vw, 72px); border-bottom: 1px solid var(--line-faint); }
+.works-switch a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0 16px;
+  color: var(--ink-6);
+  font-size: 13px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.8s ease, border-color 0.8s ease;
+}
+.works-switch a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+.works-switch a:hover { color: var(--ink); }
+.works-switch__symbol { font: 400 22px/1 Georgia, serif; }
+.works-intro__copy { gap: 24px; animation: works-copy-in 1s ease both; }
+.works-intro__lead { max-width: 34em; }
+@keyframes works-copy-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.works-list { padding: 20px var(--gutter) 120px; min-height: 30vh; }
+/* 一覧全体に遠近をかけると、縦長の一覧では先頭カードが画面外へ沈みすぎる。 */
+.deck__slot { perspective: 1500px; perspective-origin: 50% 40%; min-width: 0; }
+.works-empty { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding: 40px 0 60px; border-top: 1px solid var(--line-faint); }
+.works-empty__symbol { color: var(--accent); font: 400 40px/1 Georgia, serif; }
+.deck__source { display: flex; justify-content: space-between; padding: 14px 18px; font-size: 12px; border: 1px solid var(--line); border-top: 0; background: var(--surface); }
+[data-weather="sunshower"] .display { text-shadow: none; }
+[data-weather="sunshower"] .site-header__mark { filter: brightness(0.3) sepia(0.25) saturate(0.7); }
+.works-world .site-header__mark { transition: filter 1.1s ease; }
+.works-world .site-header__link:hover,
+.works-world .site-header__link[data-current="true"],
+.works-world .site-header__externals a:hover,
+.works-world .site-header__order:hover,
+.works-world .site-footer a:hover { color: var(--ink); }
+.works-world .site-header__divider { background: var(--line-input); }
+.works-world .site-footer { transition: background-color 1.4s ease, color 1.1s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .works-world__leak { display: none; }
+}

@@ -4,6 +4,7 @@
 export const siteLinks = {
   home: "/top",
   works: "/works",
+  covers: "/works/covers",
   instrumentals: "/instrumentals",
   audioCheck: "/audio-check",
   order: "/order",
