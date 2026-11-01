@@ -18,7 +18,12 @@
       "discoveredAt": "2026-11-01T06:33:30.727Z"
     }
   },
-  "attempts": {},
+  "attempts": {
+    "SGbf1NgRzvg": {
+      "reason": "原曲URL一致: FE0TG8CqM3M",
+      "at": "2026-11-01T06:33:37.880Z"
+    }
+  },
   "outbox": [],
   "search": {
     "cursor": 3,
