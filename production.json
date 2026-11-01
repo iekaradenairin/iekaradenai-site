@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "playlistId": "PLJUkB9xv7gTE",
+  "history": {
+    "SGbf1NgRzvg": {
+      "firstSeenAt": "2026-11-01T09:52:51.142Z",
+      "source": "playlist"
+    },
+    "sepS54VqbnQ": {
+      "firstSeenAt": "2026-11-01T09:52:51.142Z",
+      "source": "playlist"
+    },
+    "BC8ZgzJWhX0": {
+      "firstSeenAt": "2026-11-01T09:52:51.142Z",
+      "source": "playlist"
+    }
+  },
+  "pending": {},
+  "attempts": {},
+  "outbox": [],
+  "search": {
+    "cursor": 0,
+    "lastDeepScan": null
+  },
+  "incidents": {}
+}
