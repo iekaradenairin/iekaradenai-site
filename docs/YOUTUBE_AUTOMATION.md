@@ -3,6 +3,10 @@
 通常運用にAIは使いません。GitHub Actions / YouTube Data API / Discord Webhookで動きます。
 現在はステージングで検証中です。`lib/discovery.config.json` の `enabled` は false のままです。
 
+2026-11-01時点で、専用OAuthクライアント・Discord Webhook・検証用リストを設定済みです。
+OAuthの公開ステータスは「本番環境」に変更し、変更後の認証情報をSecretsへ再登録しました。
+プライバシー説明はステージングの `/oauth-privacy.html` にあります。本番サイトへの移行時に説明URLも本番ドメインへ更新します。
+
 ## 設定するもの
 
 GitHubリポジトリのActions Secrets:
@@ -44,6 +48,7 @@ OAuthは `YoutubeAPIKEY-Site` プロジェクトに専用のデスクトップ�
 - `refresh`: 既存のHP掲載データを更新
 - `preview`: 最新の原曲データから検索・判定だけを実行。YouTube書き込み・Discord送信なし。結果は実行Summaryと7日間のartifact
 - `notify-test`: 【検証】と明記したDiscord接続テスト。動画操作なし
+- `auth-check`: 更新トークンからの認証・本人のチャンネル・対象リストを確認。検索・動画操作なし
 - `apply`: 検証用リストへの追加と通知。stagingでのみ停止スイッチを一時的に上書きできる
 
 検証例:
@@ -51,6 +56,7 @@ OAuthは `YoutubeAPIKEY-Site` プロジェクトに専用のデスクトップ�
 ```bash
 gh workflow run refresh-works.yml --ref staging -f mode=preview
 gh workflow run refresh-works.yml --ref staging -f mode=notify-test
+gh workflow run refresh-works.yml --ref staging -f mode=auth-check
 gh workflow run refresh-works.yml --ref staging -f mode=apply
 ```
 

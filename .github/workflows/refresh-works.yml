@@ -19,7 +19,7 @@ on:
       mode:
         description: 実行内容（previewは検索だけ、applyは検証用リストへ追加）
         type: choice
-        options: [refresh, preview, apply, notify-test]
+        options: [refresh, preview, apply, notify-test, auth-check]
         default: refresh
 
 # 既定の read-all では push できない
@@ -33,7 +33,7 @@ concurrency:
 
 jobs:
   automation:
-    if: github.event_name == 'schedule' || inputs.mode == 'preview' || inputs.mode == 'apply' || inputs.mode == 'notify-test'
+    if: github.event_name == 'schedule' || inputs.mode == 'preview' || inputs.mode == 'apply' || inputs.mode == 'notify-test' || inputs.mode == 'auth-check'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -63,7 +63,7 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           COVERS_STAGING_PLAYLIST_ID: ${{ vars.COVERS_STAGING_PLAYLIST_ID }}
-          AUTOMATION_MODE: ${{ inputs.mode == 'preview' && 'preview' || 'apply' }}
+          AUTOMATION_MODE: ${{ inputs.mode == 'auth-check' && 'auth-check' || inputs.mode == 'preview' && 'preview' || 'apply' }}
           AUTOMATION_EXPLICIT_APPLY: ${{ inputs.mode == 'apply' && 'true' || 'false' }}
       - name: 検索結果を保存
         if: always() && inputs.mode == 'preview'

@@ -15,7 +15,7 @@ const markdown = (text) => String(text || '').replace(/[\r\n]/g, ' ').replace(/(
 
 export async function main(env = process.env) {
   const mode = env.AUTOMATION_MODE || 'preview'
-  if (!['preview', 'apply', 'notify-test', 'sync', 'failure'].includes(mode)) throw new ServiceError('config', 'invalid-mode')
+  if (!['preview', 'apply', 'notify-test', 'sync', 'failure', 'auth-check'].includes(mode)) throw new ServiceError('config', 'invalid-mode')
   const environment = env.GITHUB_REF_NAME === 'main' ? 'production' : 'staging'
   const config = await read('lib/discovery.config.json')
   validateConfig(config)
@@ -23,6 +23,17 @@ export async function main(env = process.env) {
   const playlistId = environment === 'production' ? published.playlistId : env.COVERS_STAGING_PLAYLIST_ID
   const context = { environment, playlistId: playlistId || published.playlistId, runUrl: env.GITHUB_RUN_ID ? `https://github.com/${env.GITHUB_REPOSITORY}/actions/runs/${env.GITHUB_RUN_ID}` : undefined }
   const youtube = new YouTube({ key: env.YOUTUBE_API_KEY })
+
+  if (mode === 'auth-check') {
+    const expected = await youtube.originalChannel(config.originalChannelHandle)
+    youtube.token = await refreshAccessToken(env)
+    const identity = await youtube.call('channels', { part: 'id', mine: 'true' })
+    if (!identity.items?.some((channel) => channel.id === expected)) throw new ServiceError('youtube', 'wrong-authorized-channel')
+    if (!playlistId) throw new ServiceError('config', 'staging-playlist-not-configured')
+    await youtube.playlist(playlistId)
+    console.log('YouTube認証の更新・対象チャンネル・再生リスト取得を確認しました。動画の追加・削除はしていません。')
+    return
+  }
 
   if (mode === 'preview') {
     // 読み取りだけ。Googleの書き込み認証・検証リスト未作成でも検索を検証できる。
