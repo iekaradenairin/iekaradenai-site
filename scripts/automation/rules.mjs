@@ -35,12 +35,13 @@ export function decide(video, songs, config, originalChannelId) {
   if (config.excludedVideoIds.includes(video.id)) return { accepted: false, reason: 'excluded-video' }
   if (config.excludedChannelIds.includes(video.channelId)) return { accepted: false, reason: 'excluded-channel' }
   if (!video.public) return { accepted: false, reason: 'unavailable' }
+  // 自分の原曲だけでなく告知ショートも除外する。自分が投稿した本家歌唱版は手動追加できる。
+  if (video.channelId === originalChannelId) return { accepted: false, reason: 'own-channel' }
   const text = `${video.title}\n${video.description}`
   const normalized = normalize(text)
   const links = linkedVideoIds(text)
   for (const song of songs) {
     if (!song.aliases.some((alias) => normalized.includes(normalize(alias)))) continue
-    if (video.channelId === originalChannelId && song.originalIds.includes(video.id)) return { accepted: false, reason: 'own-original' }
     const originalLink = song.originalIds.find((id) => links.has(id))
     const author = config.authorNames.find((name) => normalized.includes(normalize(name)))
     if (originalLink || author) return { accepted: true, song: song.title, reason: originalLink ? `原曲URL一致: ${originalLink}` : `作者表記一致: ${author}` }

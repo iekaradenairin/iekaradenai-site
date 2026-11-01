@@ -44,7 +44,8 @@ test('対応する原曲URLなら作者表記なしで一致し、偽ドメイ�
 
 test('自己投稿の原曲を除外し、同じ作品リスト内の他チャンネルの本家歌唱版は許可する', () => {
   const original = { ...candidate, id: 'FE0TG8CqM3M', channelId: originalChannelId }
-  assert.equal(decide(original, songs, config, originalChannelId).reason, 'own-original')
+  assert.equal(decide(original, songs, config, originalChannelId).reason, 'own-channel')
+  assert.equal(decide({ ...original, id: 'R18wadDc1S8', title: '新曲 星空そして君に 本日公開' }, songs, config, originalChannelId).reason, 'own-channel')
   assert.equal(decide({ ...candidate, id: 'sepS54VqbnQ', title: '藍空をなぞって' }, songs, config, originalChannelId).accepted, true)
   assert.equal(decide(candidate, songs, { ...config, excludedChannelIds: [candidate.channelId] }, originalChannelId).accepted, false)
 })
