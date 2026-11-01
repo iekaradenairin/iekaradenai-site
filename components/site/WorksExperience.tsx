@@ -49,8 +49,7 @@ export default function WorksExperience({ works, covers, coversPlaylistUrl, chil
           </p>
           {isCovers ? (
             <p className="note works-intro__rule">
-              YouTubeに投稿する際、タイトルまたは概要欄に「曲名」と「家から出ない倫」を記載していただくと検索による掲載の対象になります。
-              <br />掲載まで時間がかかる場合があります。
+              YouTubeに投稿する際、タイトルまたは概要欄に「曲名」と「家から出ない倫」を記載していただくと検索による掲載の対象になります。掲載まで時間がかかる場合があります。
             </p>
           ) : null}
         </div>
