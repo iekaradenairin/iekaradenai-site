@@ -19,8 +19,9 @@
   "attempts": {},
   "outbox": [],
   "search": {
-    "cursor": 0,
+    "cursor": 3,
     "lastDeepScan": null
   },
-  "incidents": {}
+  "incidents": {},
+  "lastSearchSuccessAt": "2026-11-01T09:52:52.165Z"
 }
