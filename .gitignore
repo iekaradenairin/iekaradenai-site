@@ -46,3 +46,7 @@ content/log/_*
 *.tsbuildinfo
 next-env.d.ts
 .gstack/
+
+# local automation reports / OAuth credentials
+/automation-report.json
+/.automation-local/
