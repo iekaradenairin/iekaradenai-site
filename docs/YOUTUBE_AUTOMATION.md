@@ -1,11 +1,11 @@
 # YouTube作品の自動発見とDiscord通知
 
 通常運用にAIは使いません。GitHub Actions / YouTube Data API / Discord Webhookで動きます。
-現在はステージングで検証済み、本番反映待ちです。`lib/discovery.config.json` の `enabled` は true に準備してありますが、定時実行はmainへの反映後に開始します。
+2026-11-01に本番反映し、初回実行も成功しました。`lib/discovery.config.json` の `enabled` は true で、毎朝6:17 JSTごろに日次処理を実行します。
 
 2026-11-01時点で、専用OAuthクライアント・Discord Webhook・検証用リストを設定済みです。
 OAuthの公開ステータスは「本番環境」に変更し、変更後の認証情報をSecretsへ再登録しました。
-プライバシー説明はステージングの `/oauth-privacy.html` にあります。本番サイトへの移行時に説明URLも本番ドメインへ更新します。
+プライバシー説明は本番の https://iekaradenai.work/oauth-privacy.html にあります。
 
 ## 設定するもの
 

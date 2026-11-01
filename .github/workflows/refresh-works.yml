@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 実行内容（previewは検索だけ、applyは検証用リストへ追加）
+        description: 実行内容（previewは検索だけ。applyはmainで掲載用、それ以外で検証用へ追加）
         type: choice
         options: [refresh, preview, apply, notify-test, auth-check]
         default: refresh
