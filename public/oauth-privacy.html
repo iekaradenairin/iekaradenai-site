@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>YouTube連携のプライバシーについて — 家から出ない倫</title>
+<style>body{margin:0;background:#f4f6f5;color:#263e49;font:16px/1.9 system-ui,sans-serif}main{max-width:760px;margin:auto;padding:64px 24px}h1{font-size:28px;line-height:1.5}h2{font-size:19px;margin-top:36px}a{color:#285f78}p,li{overflow-wrap:anywhere}.note{font-size:13px;color:#526c75}</style>
+</head>
+<body><main>
+<p class="note">家から出ない倫 HP作品自動更新</p>
+<h1>YouTube連携のプライバシーについて</h1>
+<p>このアプリは、家から出ない倫本人が、楽曲を歌ってくれた作品をYouTubeの再生リストと自身のHPに掲載するために利用する自動更新ツールです。</p>
+<h2>取得・利用する情報</h2>
+<p>YouTubeの動画ID、タイトル、概要欄、投稿チャンネル、公開日、公開状態、対象再生リストの内容を取得し、作品の検索・掲載判定・重複防止・再追加防止に利用します。概要欄は判定のために読み取り、掲載履歴には保存しません。</p>
+<h2>Googleアカウントとの連携</h2>
+<p>本人の同意を得てYouTubeへのアクセス権限を取得し、指定した再生リストへの動画追加に利用します。Googleの許可画面では動画の編集・削除を含む広い権限が表示されますが、この定期処理には動画やコメント、字幕を削除する処理は実装していません。</p>
+<h2>保存先と共有先</h2>
+<p>処理はGitHub Actionsで実行します。継続認証情報とDiscord Webhook URLはGitHub Secretsで管理します。掲載済み動画のID・処理時刻、候補動画の情報、未送信通知はGitHubリポジトリで管理し、公開リポジトリ内の状態記録は第三者も閲覧できます。</p>
+<p>掲載作品の情報はHPとYouTubeの再生リストで公開します。追加した動画のタイトル、投稿者、URL、追加理由、および処理の異常・復旧情報を、本人が指定したDiscordチャンネルへ通知します。Googleの認証情報をHPやDiscordへ送る処理はありません。定期実行処理ではAIサービスを使用しません。</p>
+<h2>連携の停止と情報の削除</h2>
+<p>本人はGoogleアカウントの<a href="https://myaccount.google.com/connections">接続管理</a>から連携を解除できます。自動追加の停止、再生リストからの取り外し、リポジトリの記録の削除も本人が管理します。掲載履歴を消去すると、過去に取り外した動画の再追加防止が解除されます。</p>
+<h2>お問い合わせ</h2>
+<p>管理者：家から出ない倫<br>連絡先：<a href="mailto:schuldkrone.80@gmail.com">schuldkrone.80@gmail.com</a></p>
+<p class="note">更新日：2026年11月1日</p>
+</main></body>
+</html>
