@@ -547,8 +547,8 @@
   transition: opacity 1.4s ease, filter 1.4s ease;
 }
 .works-world[data-weather="sunshower"] > .ripple {
-  opacity: 0.5;
-  filter: blur(0.6px);
+  opacity: 0.35;
+  filter: blur(0.3px);
 }
 .works-world[data-weather="sunshower"] {
   --bg-footer: rgba(221, 232, 231, 0.7);
