@@ -15,14 +15,45 @@
       "source": "playlist"
     }
   },
-  "pending": {},
+  "pending": {
+    "j1jHlhBlnok": {
+      "id": "j1jHlhBlnok",
+      "title": "【 MV 】水星巡航トリップ／水埜ふな【 Original Song 】",
+      "channelTitle": "水埜ふな",
+      "reason": "作者表記一致: iekaradenai_rin",
+      "discoveredAt": "2026-11-02T00:41:34.296Z"
+    },
+    "QdS-5XWlTNE": {
+      "id": "QdS-5XWlTNE",
+      "title": "水星巡航トリップ",
+      "channelTitle": "Release - Topic",
+      "reason": "作者表記一致: iekaradenai_rin",
+      "discoveredAt": "2026-11-02T00:41:34.296Z"
+    },
+    "DxzvZ7t_fl8": {
+      "id": "DxzvZ7t_fl8",
+      "title": "【 祝100回再生 】水星巡航トリップ／水埜ふな【 Original Song 】 #shorts",
+      "channelTitle": "水埜ふな",
+      "reason": "作者表記一致: iekaradenai_rin",
+      "discoveredAt": "2026-11-02T00:41:34.296Z"
+    },
+    "HkAYOeJEqa4": {
+      "id": "HkAYOeJEqa4",
+      "title": "花笑み、ひとひら",
+      "channelTitle": "家から出ない倫 - Topic",
+      "reason": "作者表記一致: 家から出ない倫",
+      "discoveredAt": "2026-11-02T00:41:34.296Z"
+    }
+  },
   "attempts": {},
   "outbox": [],
   "search": {
-    "cursor": 3,
-    "lastDeepScan": null
+    "cursor": 11,
+    "lastDeepScan": null,
+    "task": "deep:\"秋乃\":",
+    "pageToken": "CGQQAA"
   },
   "incidents": {},
-  "lastSearchSuccessAt": "2026-11-01T09:52:52.165Z",
+  "lastSearchSuccessAt": "2026-11-02T00:41:34.296Z",
   "lastAdditionSuccessAt": "2026-11-01T09:52:59.126Z"
 }
