@@ -45,7 +45,7 @@ export default function WorksExperience({ works, covers, coversPlaylistUrl, chil
             {isCovers ? <>作った曲に<br />新しい息を吹き込んでくれた作品。</> : <>紡いできた作品たち。<br />全部に大切な想いを込めています。</>}
           </h1>
           <p className="lead works-intro__lead">
-            {isCovers ? '歌っていただき、本当にありがとうございます。' : '順番に聴く必要はありません。気になる声に耳を傾けてみてください。'}
+            {isCovers ? '歌っていただき本当にありがとうございます。' : '順番に聴く必要はありません。気になる声に耳を傾けてみてください。'}
           </p>
           {isCovers ? (
             <p className="note works-intro__rule">
