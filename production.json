@@ -21,16 +21,13 @@
     "QdS-5XWlTNE": {
       "firstSeenAt": "2026-11-02T00:41:40.891Z",
       "source": "automatic"
+    },
+    "DxzvZ7t_fl8": {
+      "firstSeenAt": "2026-11-02T00:41:40.891Z",
+      "source": "automatic"
     }
   },
   "pending": {
-    "DxzvZ7t_fl8": {
-      "id": "DxzvZ7t_fl8",
-      "title": "【 祝100回再生 】水星巡航トリップ／水埜ふな【 Original Song 】 #shorts",
-      "channelTitle": "水埜ふな",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "discoveredAt": "2026-11-02T00:41:34.296Z"
-    },
     "HkAYOeJEqa4": {
       "id": "HkAYOeJEqa4",
       "title": "花笑み、ひとひら",
@@ -39,12 +36,7 @@
       "discoveredAt": "2026-11-02T00:41:34.296Z"
     }
   },
-  "attempts": {
-    "DxzvZ7t_fl8": {
-      "reason": "作者表記一致: iekaradenai_rin",
-      "at": "2026-11-02T00:41:40.891Z"
-    }
-  },
+  "attempts": {},
   "outbox": [
     {
       "id": "added-j1jHlhBlnok",
@@ -61,6 +53,15 @@
       "videoId": "QdS-5XWlTNE",
       "title": "水星巡航トリップ",
       "channelTitle": "Release - Topic",
+      "reason": "作者表記一致: iekaradenai_rin",
+      "at": "2026-11-02T00:41:40.891Z"
+    },
+    {
+      "id": "added-DxzvZ7t_fl8",
+      "type": "added",
+      "videoId": "DxzvZ7t_fl8",
+      "title": "【 祝100回再生 】水星巡航トリップ／水埜ふな【 Original Song 】 #shorts",
+      "channelTitle": "水埜ふな",
       "reason": "作者表記一致: iekaradenai_rin",
       "at": "2026-11-02T00:41:40.891Z"
     }
