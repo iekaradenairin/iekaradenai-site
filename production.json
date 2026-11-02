@@ -33,44 +33,7 @@
   },
   "pending": {},
   "attempts": {},
-  "outbox": [
-    {
-      "id": "added-j1jHlhBlnok",
-      "type": "added",
-      "videoId": "j1jHlhBlnok",
-      "title": "【 MV 】水星巡航トリップ／水埜ふな【 Original Song 】",
-      "channelTitle": "水埜ふな",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "at": "2026-11-02T00:41:40.891Z"
-    },
-    {
-      "id": "added-QdS-5XWlTNE",
-      "type": "added",
-      "videoId": "QdS-5XWlTNE",
-      "title": "水星巡航トリップ",
-      "channelTitle": "Release - Topic",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "at": "2026-11-02T00:41:40.891Z"
-    },
-    {
-      "id": "added-DxzvZ7t_fl8",
-      "type": "added",
-      "videoId": "DxzvZ7t_fl8",
-      "title": "【 祝100回再生 】水星巡航トリップ／水埜ふな【 Original Song 】 #shorts",
-      "channelTitle": "水埜ふな",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "at": "2026-11-02T00:41:40.891Z"
-    },
-    {
-      "id": "added-HkAYOeJEqa4",
-      "type": "added",
-      "videoId": "HkAYOeJEqa4",
-      "title": "花笑み、ひとひら",
-      "channelTitle": "家から出ない倫 - Topic",
-      "reason": "作者表記一致: 家から出ない倫",
-      "at": "2026-11-02T00:41:40.891Z"
-    }
-  ],
+  "outbox": [],
   "search": {
     "cursor": 11,
     "lastDeepScan": null,
@@ -79,5 +42,6 @@
   },
   "incidents": {},
   "lastSearchSuccessAt": "2026-11-02T00:41:34.296Z",
-  "lastAdditionSuccessAt": "2026-11-02T00:41:40.891Z"
+  "lastAdditionSuccessAt": "2026-11-02T00:41:40.891Z",
+  "lastDiscordSuccessAt": "2026-11-02T00:41:57.685Z"
 }
