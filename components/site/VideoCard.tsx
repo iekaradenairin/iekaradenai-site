@@ -62,20 +62,6 @@ export function VideoCard({
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }}
             />
             <span
-              className="mono"
-              style={{
-                position: 'absolute',
-                left: 10,
-                bottom: 9,
-                fontSize: 9,
-                lineHeight: 1,
-                color: '#dbe3ef',
-                textShadow: '0 1px 4px rgba(0,0,0,.8)',
-              }}
-            >
-              クリックで読み込み
-            </span>
-            <span
               aria-hidden="true"
               style={{
                 position: 'absolute',
