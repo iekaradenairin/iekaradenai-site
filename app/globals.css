@@ -543,6 +543,12 @@
   background-color: #070c12;
   transition: background-color 1.4s ease, color 1.1s ease;
 }
+.works-world > .ripple {
+  transition: opacity 1.4s ease;
+}
+.works-world[data-weather="sunshower"] > .ripple {
+  opacity: 0.5;
+}
 .works-world[data-weather="sunshower"] {
   --bg-footer: rgba(221, 232, 231, 0.7);
   --ink: #243c48;
