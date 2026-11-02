@@ -45,7 +45,12 @@
       "discoveredAt": "2026-11-02T00:41:34.296Z"
     }
   },
-  "attempts": {},
+  "attempts": {
+    "j1jHlhBlnok": {
+      "reason": "作者表記一致: iekaradenai_rin",
+      "at": "2026-11-02T00:41:40.891Z"
+    }
+  },
   "outbox": [],
   "search": {
     "cursor": 11,
