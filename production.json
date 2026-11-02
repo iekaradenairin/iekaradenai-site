@@ -25,23 +25,14 @@
     "DxzvZ7t_fl8": {
       "firstSeenAt": "2026-11-02T00:41:40.891Z",
       "source": "automatic"
-    }
-  },
-  "pending": {
+    },
     "HkAYOeJEqa4": {
-      "id": "HkAYOeJEqa4",
-      "title": "花笑み、ひとひら",
-      "channelTitle": "家から出ない倫 - Topic",
-      "reason": "作者表記一致: 家から出ない倫",
-      "discoveredAt": "2026-11-02T00:41:34.296Z"
+      "firstSeenAt": "2026-11-02T00:41:40.891Z",
+      "source": "automatic"
     }
   },
-  "attempts": {
-    "HkAYOeJEqa4": {
-      "reason": "作者表記一致: 家から出ない倫",
-      "at": "2026-11-02T00:41:40.891Z"
-    }
-  },
+  "pending": {},
+  "attempts": {},
   "outbox": [
     {
       "id": "added-j1jHlhBlnok",
@@ -68,6 +59,15 @@
       "title": "【 祝100回再生 】水星巡航トリップ／水埜ふな【 Original Song 】 #shorts",
       "channelTitle": "水埜ふな",
       "reason": "作者表記一致: iekaradenai_rin",
+      "at": "2026-11-02T00:41:40.891Z"
+    },
+    {
+      "id": "added-HkAYOeJEqa4",
+      "type": "added",
+      "videoId": "HkAYOeJEqa4",
+      "title": "花笑み、ひとひら",
+      "channelTitle": "家から出ない倫 - Topic",
+      "reason": "作者表記一致: 家から出ない倫",
       "at": "2026-11-02T00:41:40.891Z"
     }
   ],
