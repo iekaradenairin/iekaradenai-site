@@ -13,16 +13,13 @@
     "BC8ZgzJWhX0": {
       "firstSeenAt": "2026-11-01T09:52:51.142Z",
       "source": "playlist"
+    },
+    "j1jHlhBlnok": {
+      "firstSeenAt": "2026-11-02T00:41:40.891Z",
+      "source": "automatic"
     }
   },
   "pending": {
-    "j1jHlhBlnok": {
-      "id": "j1jHlhBlnok",
-      "title": "【 MV 】水星巡航トリップ／水埜ふな【 Original Song 】",
-      "channelTitle": "水埜ふな",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "discoveredAt": "2026-11-02T00:41:34.296Z"
-    },
     "QdS-5XWlTNE": {
       "id": "QdS-5XWlTNE",
       "title": "水星巡航トリップ",
@@ -45,13 +42,18 @@
       "discoveredAt": "2026-11-02T00:41:34.296Z"
     }
   },
-  "attempts": {
-    "j1jHlhBlnok": {
+  "attempts": {},
+  "outbox": [
+    {
+      "id": "added-j1jHlhBlnok",
+      "type": "added",
+      "videoId": "j1jHlhBlnok",
+      "title": "【 MV 】水星巡航トリップ／水埜ふな【 Original Song 】",
+      "channelTitle": "水埜ふな",
       "reason": "作者表記一致: iekaradenai_rin",
       "at": "2026-11-02T00:41:40.891Z"
     }
-  },
-  "outbox": [],
+  ],
   "search": {
     "cursor": 11,
     "lastDeepScan": null,
