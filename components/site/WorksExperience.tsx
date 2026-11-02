@@ -42,7 +42,7 @@ export default function WorksExperience({ works, covers, coversPlaylistUrl, chil
         <div key={weather} className="stack works-intro__copy" aria-live="polite">
           <span className="eyebrow">{isCovers ? 'VOICES — 歌ってくれた作品' : 'WORKS — 作品'}</span>
           <h1 className="display display--page">
-            {isCovers ? <>作った曲に<br />新しい息を吹き込んでくれた作品。</> : <>紡いできた作品たち。<br />全部に大切な想いを込めています。</>}
+            {isCovers ? '新しい息を吹き込んでくれた作品。' : <>紡いできた作品たち。<br />全部に大切な想いを込めています。</>}
           </h1>
           <p className="lead works-intro__lead">
             {isCovers ? '歌っていただき本当にありがとうございます。' : '順番に聴く必要はありません。気になる声に耳を傾けてみてください。'}
