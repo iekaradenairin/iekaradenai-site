@@ -53,7 +53,7 @@ function FullFooter() {
             MUSIC CREATOR
           </span>
           <p style={{ margin: '6px 0 0', fontSize: 13, lineHeight: 2, color: 'var(--ink-3)' }}>
-            夜ひとりのときに聴く曲を作っています。言葉にならなかった思いも、ずっと消えない記憶も、全部音楽にのせて。
+            夜ひとりのときに聴く曲を作っています。
           </p>
           <p style={{ margin: 0, fontSize: 12, lineHeight: 2, color: 'var(--ink-8)' }}>
             MIX・作曲のご依頼もお受けしています。ご相談は Googleフォーム、または X のDMから。
