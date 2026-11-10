@@ -25,7 +25,7 @@ const HAZE = 0x2c55c4
 const SURFACE = -1.5
 
 /** 同時に空中にある雨粒の数。しとしと降る程度に抑える */
-const DROPS = 18
+const DROPS = 13
 
 /** 同時に描ける水紋の数。古いものから上書きする */
 const RIPPLES = 56
@@ -211,14 +211,16 @@ export function NightRain() {
               float rp = ease - float(k) * 0.14;
               if (rp <= 0.0) continue;
               float e = abs(dist - rp * (k == 0 ? 1.0 : 0.7) * vR);
-              float line = 1.0 - smoothstep(px * 0.2, px * 1.1, e);
-              float soft = exp(-pow(e / (px * 4.0), 2.0)) * 0.22;
-              a += (k == 0 ? 1.0 : 0.6) * (line + soft);
+              // 芯の線は弱く、まわりのにじみを主体にして輪郭をぼかす
+              float line = (1.0 - smoothstep(px * 0.2, px * 1.0, e)) * 0.55;
+              float soft = exp(-pow(e / (px * 4.5), 2.0)) * 0.3;
+              a += (k == 0 ? 1.0 : 0.45) * (line + soft);
             }
             // 輪が広がる前でも落ちた点が読めるように、内側にごく淡い光を置く
-            a += 0.14 * exp(-dist * dist / (0.16 * vR * vR * ease * ease + 0.0004));
+            a += 0.08 * exp(-dist * dist / (0.16 * vR * vR * ease * ease + 0.0004));
             vec2 uv = gl_FragCoord.xy / uRes;
-            a *= fade * vAmp * edgeFade(uv) * 0.26;
+            // 落ちた瞬間にぱっと現れないよう、出だしもにじませて入れる
+            a *= fade * smoothstep(0.0, 0.1, vP) * vAmp * edgeFade(uv) * 0.25;
             gl_FragColor = vec4(uRing, clamp(a, 0.0, 1.0));
           }`,
       })
@@ -269,7 +271,7 @@ export function NightRain() {
       const addRipple = (x: number, z: number) => {
         // 大きく広がる水紋は4つに1つ。残りは小さく、すぐ消える
         const big = Math.random() < 0.25
-        const life = (big ? 3.4 : 1.4) * (0.72 + Math.random() * 0.56) // ±28% ゆらぎ
+        const life = (big ? 4.2 : 1.8) * (0.72 + Math.random() * 0.56) // ±28% ゆらぎ
         rippleDrop.setXYZW(slot, x, z, time, life)
         rippleShape.setXY(
           slot,
@@ -289,9 +291,9 @@ export function NightRain() {
         d.x = (Math.random() * 2 - 1) * halfWidth
         d.z = CAMERA_Z - dist
         d.y = y
-        d.speed = 3.2 + Math.random() * 1.0
-        d.len = 0.45 + Math.random() * 0.35
-        d.alpha = 0.2 + Math.random() * 0.18
+        d.speed = 2.6 + Math.random() * 0.8
+        d.len = 0.4 + Math.random() * 0.3
+        d.alpha = 0.1 + Math.random() * 0.1
       }
       for (let i = 0; i < DROPS; i++) {
         const d = { x: 0, z: 0, y: 0, speed: 0, len: 0, alpha: 0 }
