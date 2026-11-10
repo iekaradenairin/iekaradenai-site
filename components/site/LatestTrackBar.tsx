@@ -6,8 +6,8 @@ import { youtubeThumbnailUrl, youtubeWatchUrl } from '@/lib/works'
 
 /**
  * ヒーロー下端の「最新作」バー。
- * 右側は音の波形ではなく、奥へ続く水面のワイヤーがゆっくりうねり、光の筋が落ちるだけの装飾。
- * （実際の音を鳴らしていないので、解析しているように見せない）
+ * 右側はビジュアライザ風の装飾。淡い帯が3本、ゆっくり膨らんでは引く。
+ * 実際の音は鳴らしておらず、解析もしていない（数式だけで揺らしている）。
  */
 export function LatestTrackBar({
   title,
@@ -26,16 +26,13 @@ export function LatestTrackBar({
     const ctx = c.getContext('2d')
     if (!ctx) return
 
-    // 水面は1枚の高さ場。行ごとに別の波を描くのではなく、同じ面を奥行き位置を変えて
-    // 切り出すので、うねりの峰が行をまたいで斜めにつながる
-    const surface = (x: number, z: number, t: number) =>
-      0.55 * Math.sin(0.9 * x + 0.5 * z + t * 0.16) +
-      0.3 * Math.sin(1.7 * x - 1.1 * z - t * 0.23 + 1.3) +
-      0.15 * Math.sin(3.1 * x + 2.3 * z + t * 0.34 + 4.1)
-
-    const ROWS = 13
-    const Z_FAR = 6
-    const Z_NEAR = 1
+    // 帯ごとの波の細かさ・流れる速さと向き・位相・振れ幅・色・濃さ。
+    // 向きと速さをずらしてあるので、重なり方が少しずつ変わり続ける
+    const RIBBONS = [
+      { cycles: 1.9, speed: 0.2, phase: 0, amp: 1, rgb: '143,180,255', alpha: 1 },
+      { cycles: 2.7, speed: -0.15, phase: 2.1, amp: 0.86, rgb: '195,217,255', alpha: 0.7 },
+      { cycles: 1.3, speed: 0.11, phase: 4.4, amp: 0.7, rgb: '112,150,238', alpha: 0.8 },
+    ]
 
     const draw = (t: number) => {
       const w = c.clientWidth
@@ -49,76 +46,58 @@ export function LatestTrackBar({
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx.clearRect(0, 0, w, h)
 
-      // 水面に落ちる光の筋。ゆっくり左右へ寄る
-      const lightX = w * (0.6 + 0.07 * Math.sin(t * 0.05))
+      const mid = h / 2
+      const reach = h * 0.44
       const step = 3
+      // 幅の狭い画面では山の数を減らして、細かく詰まらないようにする
+      const density = Math.max(0.5, Math.min(1, w / 900))
+      // 全体がゆっくり息をする
+      const breath = 0.82 + 0.18 * Math.sin(t * 0.13)
 
-      // 奥から手前へ。手前の面で奥の線を消してから描くので、うねりの陰に線が隠れる
-      for (let j = 0; j < ROWS; j++) {
-        const near = j / (ROWS - 1)
-        // 透視投影: 奥の行ほど水平線へ詰まり、うねりは小さく、横には広く見える
-        const drop = Math.pow(near, 1.5)
-        const z = 1 / (1 / Z_FAR + (1 / Z_NEAR - 1 / Z_FAR) * drop)
-        const y0 = h * (0.12 + 0.66 * drop)
-        const amp = (h * 0.17) / z
-        // 幅の狭い画面では見える範囲も狭めて、うねりが細かく詰まらないようにする
-        const span = z * 6 * Math.max(0.45, Math.min(1, w / 900))
-
+      for (const r of RIBBONS) {
         ctx.beginPath()
         for (let x = 0; x <= w + step; x += step) {
-          const y = y0 - surface((x / w - 0.5) * span, z, t) * amp
+          const u = x / w
+          // 両端は中心線へ収束させる
+          const taper = Math.pow(Math.sin(Math.PI * Math.min(1, u)), 1.4)
+          // ところどころが膨らんでは引く。音に反応しているような揺らぎはここで作る
+          const swell =
+            (0.66 + 0.34 * Math.sin(u * 5.2 + t * 0.19 + r.phase * 1.7)) *
+            (0.8 + 0.2 * Math.sin(u * 11 - t * 0.27 + r.phase * 0.6))
+          const a = u * 6.2832 * r.cycles * density
+          const wave =
+            0.72 * Math.sin(a + t * r.speed + r.phase) +
+            0.28 * Math.sin(a * 2.3 - t * r.speed * 1.4 + r.phase * 2)
+          const y = mid - wave * swell * taper * breath * r.amp * reach
           if (x) ctx.lineTo(x, y)
           else ctx.moveTo(x, y)
         }
 
-        ctx.save()
-        ctx.lineTo(w + step, h)
-        ctx.lineTo(0, h)
-        ctx.closePath()
-        ctx.globalCompositeOperation = 'destination-out'
-        ctx.fillStyle = 'rgba(0,0,0,.9)'
-        ctx.fill()
-        ctx.restore()
-
-        // 光の筋は手前ほど幅が広がり、行ごとに少しずつ揺れる
-        const base = 0.07 + 0.3 * near * near
-        const cx = (lightX + Math.sin(t * 0.23 + j * 1.1) * w * 0.012) / w
-        const half = 0.05 + 0.13 * near
-        const g = ctx.createLinearGradient(0, 0, w, 0)
-        g.addColorStop(0, `rgba(143,180,255,${base.toFixed(3)})`)
-        g.addColorStop(Math.max(0, cx - half), `rgba(143,180,255,${base.toFixed(3)})`)
-        g.addColorStop(Math.min(1, Math.max(0, cx)), `rgba(226,238,255,${Math.min(0.95, base + 0.1 + 0.42 * near).toFixed(3)})`)
-        g.addColorStop(Math.min(1, cx + half), `rgba(143,180,255,${base.toFixed(3)})`)
-        g.addColorStop(1, `rgba(143,180,255,${base.toFixed(3)})`)
-
-        ctx.beginPath()
-        for (let x = 0; x <= w + step; x += step) {
-          const y = y0 - surface((x / w - 0.5) * span, z, t) * amp
-          if (x) ctx.lineTo(x, y)
-          else ctx.moveTo(x, y)
-        }
-        ctx.strokeStyle = g
-        ctx.lineWidth = 0.6 + 0.6 * near
+        // 太く淡い線を下に敷いてにじませ、その上に細い線を重ねる
+        ctx.lineJoin = 'round'
+        ctx.strokeStyle = `rgba(${r.rgb},${(0.035 * r.alpha).toFixed(3)})`
+        ctx.lineWidth = 7
+        ctx.stroke()
+        ctx.strokeStyle = `rgba(${r.rgb},${(0.2 * r.alpha).toFixed(3)})`
+        ctx.lineWidth = 1
         ctx.stroke()
 
-        // 光の筋の中で、ときどき峰がきらめく
-        for (let k = 0; k < 2; k++) {
-          const id = j * 2 + k
-          const glint = Math.pow(Math.max(0, Math.sin(t * (0.5 + (id % 5) * 0.09) + id * 2.4)), 10)
-          if (glint < 0.02) continue
-          const gx = (cx + (((id * 0.618) % 1) - 0.5) * half * 1.5) * w
-          const gy = y0 - surface((gx / w - 0.5) * span, z, t) * amp
-          ctx.fillStyle = `rgba(236,244,255,${(glint * (0.35 + 0.5 * near)).toFixed(3)})`
-          ctx.beginPath()
-          ctx.arc(gx, gy, 0.7 + near * 0.8, 0, 6.2832)
-          ctx.fill()
-        }
+        // 線と中心線のあいだを、中心へ向けて消える淡い色で満たす
+        ctx.lineTo(w + step, mid)
+        ctx.lineTo(0, mid)
+        ctx.closePath()
+        const g = ctx.createLinearGradient(0, mid - reach, 0, mid + reach)
+        g.addColorStop(0, `rgba(${r.rgb},${(0.15 * r.alpha).toFixed(3)})`)
+        g.addColorStop(0.5, `rgba(${r.rgb},0)`)
+        g.addColorStop(1, `rgba(${r.rgb},${(0.15 * r.alpha).toFixed(3)})`)
+        ctx.fillStyle = g
+        ctx.fill()
       }
     }
 
-    // 動きを減らす設定の人には、止まった水面を1枚だけ描く
+    // 動きを減らす設定の人には、止まった1枚だけを描く
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      draw(0)
+      draw(12)
       return
     }
 
