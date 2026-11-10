@@ -35,11 +35,11 @@
   "attempts": {},
   "outbox": [],
   "search": {
-    "cursor": 0,
+    "cursor": 3,
     "lastDeepScan": "2026-11-03T02:53:59.106Z"
   },
   "incidents": {},
-  "lastSearchSuccessAt": "2026-11-09T00:51:30.213Z",
+  "lastSearchSuccessAt": "2026-11-10T03:33:11.267Z",
   "lastAdditionSuccessAt": "2026-11-09T00:51:35.214Z",
   "lastDiscordSuccessAt": "2026-11-02T00:41:57.685Z"
 }
