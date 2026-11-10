@@ -24,11 +24,19 @@ const HAZE = 0x2c55c4
 /** 水面の高さ */
 const SURFACE = -1.5
 
-/** 同時に空中にある雨粒の数。しとしと降る程度に抑える */
-const DROPS = 13
+/**
+ * 同時に空中にある雨粒の数は、キャンバスの横幅（縦横比）に比例させる。
+ * 広い画面では広く降るぶん粒を増やし、降り方の密度を一定に保つ。しとしと降る程度に抑える
+ */
+const DROPS_PER_ASPECT = 18
+const MIN_DROPS = 6
+const MAX_DROPS = 48
+
+/** 描画バッファの上限。広い画面 × 高精細だと画素数が膨らむので、超えるぶんは解像度を落とす */
+const MAX_BACKING_PIXELS = 4_000_000
 
 /** 同時に描ける水紋の数。古いものから上書きする */
-const RIPPLES = 56
+const RIPPLES = 96
 
 /** 雨粒が落ちる奥行きの範囲（カメラからの距離）。左右は、その距離で画面に入る幅に合わせる */
 const FIELD = { near: 3.5, far: 17 }
@@ -56,8 +64,11 @@ export function NightRain() {
       const w = canvas.clientWidth
       const h = canvas.clientHeight
 
+      const pixelRatio = (cw: number, ch: number) =>
+        Math.min(window.devicePixelRatio || 1, 2, Math.max(1, Math.sqrt(MAX_BACKING_PIXELS / (cw * ch))))
+
       const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
+      renderer.setPixelRatio(pixelRatio(w, h))
       renderer.setSize(w, h, false)
 
       const scene = new THREE.Scene()
@@ -220,7 +231,7 @@ export function NightRain() {
             a += 0.08 * exp(-dist * dist / (0.16 * vR * vR * ease * ease + 0.0004));
             vec2 uv = gl_FragCoord.xy / uRes;
             // 落ちた瞬間にぱっと現れないよう、出だしもにじませて入れる
-            a *= fade * smoothstep(0.0, 0.1, vP) * vAmp * edgeFade(uv) * 0.25;
+            a *= fade * smoothstep(0.0, 0.1, vP) * vAmp * edgeFade(uv) * 0.2;
             gl_FragColor = vec4(uRing, clamp(a, 0.0, 1.0));
           }`,
       })
@@ -229,8 +240,8 @@ export function NightRain() {
       scene.add(ripples)
 
       // --- 雨。1粒は短い線分1本で、上端を透明にして尾を引かせる ---
-      const rainPos = new THREE.BufferAttribute(new Float32Array(DROPS * 6), 3)
-      const rainAlpha = new THREE.BufferAttribute(new Float32Array(DROPS * 2), 1)
+      const rainPos = new THREE.BufferAttribute(new Float32Array(MAX_DROPS * 6), 3)
+      const rainAlpha = new THREE.BufferAttribute(new Float32Array(MAX_DROPS * 2), 1)
       rainPos.setUsage(THREE.DynamicDrawUsage)
       rainAlpha.setUsage(THREE.DynamicDrawUsage)
       const rainGeo = new THREE.BufferGeometry()
@@ -293,18 +304,26 @@ export function NightRain() {
         d.y = y
         d.speed = 2.6 + Math.random() * 0.8
         d.len = 0.4 + Math.random() * 0.3
-        d.alpha = 0.1 + Math.random() * 0.1
+        d.alpha = 0.08 + Math.random() * 0.08
       }
-      for (let i = 0; i < DROPS; i++) {
+      for (let i = 0; i < MAX_DROPS; i++) {
         const d = { x: 0, z: 0, y: 0, speed: 0, len: 0, alpha: 0 }
         // 最初から降り続いているように、高さをばらして置く
         place(d, SURFACE + Math.random() * 5)
         drops.push(d)
       }
 
+      // いま降らせている粒の数。キャンバスの幅が変わるたびに決め直す
+      let active = 0
+      const setActive = (aspect: number) => {
+        active = Math.max(MIN_DROPS, Math.min(MAX_DROPS, Math.round(aspect * DROPS_PER_ASPECT)))
+        rainGeo.setDrawRange(0, active * 2)
+      }
+      setActive(w / h)
+
       const step = (dt: number) => {
         time += dt
-        for (let i = 0; i < DROPS; i++) {
+        for (let i = 0; i < active; i++) {
           const d = drops[i]
           d.y -= d.speed * dt
           if (d.y <= SURFACE) {
@@ -335,6 +354,7 @@ export function NightRain() {
 
       const fit = (nw: number, nh: number) => {
         uniforms.uAspect.value = nw / nh
+        setActive(nw / nh)
         renderer.getDrawingBufferSize(uniforms.uRes.value)
         if (floorEl) uniforms.uFloor.value = Math.min(0.6, floorEl.offsetHeight / nh)
       }
@@ -346,6 +366,7 @@ export function NightRain() {
         if (!nw || !nh) return
         camera.aspect = nw / nh
         camera.updateProjectionMatrix()
+        renderer.setPixelRatio(pixelRatio(nw, nh))
         renderer.setSize(nw, nh, false)
         fit(nw, nh)
       }

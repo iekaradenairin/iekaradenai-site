@@ -131,7 +131,18 @@ export function LatestTrackBar({
         zIndex: 7,
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 20, minHeight: 112, padding: '11px 0', minWidth: 0 }}>
+      {/* 広い画面で左端に張り付かないよう、900pxを超えた幅の22%ぶん右へ寄せる。狭い画面では寄せない */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 20,
+          minHeight: 112,
+          padding: '11px 0 11px max(0px, calc((100% - 900px) * 0.22))',
+          minWidth: 0,
+        }}
+      >
         <a
           href={youtubeWatchUrl(videoId)}
           target="_blank"
@@ -187,15 +198,16 @@ export function LatestTrackBar({
           ) : null}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, flex: '1 1 240px', minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flex: '1 1 240px', minWidth: 0 }}>
           <canvas
             ref={viz}
             aria-hidden="true"
             style={{
-              flex: '1 1 auto',
+              flex: '0 1 auto',
               minWidth: 0,
-              width: '100%',
-              maxWidth: 420,
+              // 残りの幅の62%を使い、その中央に置く。折り返して1行を占める狭い画面では幅いっぱい
+              width: 'max(62%, min(100%, 360px))',
+              maxWidth: 900,
               height: 76,
               display: 'block',
               WebkitMaskImage: 'linear-gradient(to right,transparent 0,#000 18%,#000 82%,transparent 100%)',

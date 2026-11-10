@@ -80,9 +80,16 @@ export default function TopPage() {
           }}
         />
 
+        {/* 雨の範囲は画面幅に比例させる。狭い画面では右55%、広い画面では見出しの幅（420px）を残して最大72%まで */}
         <div
           aria-hidden="true"
-          style={{ position: 'absolute', right: 0, top: 0, width: 'min(660px, 55%)', height: '100%' }}
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            width: 'max(55%, min(72%, calc(100% - 420px)))',
+            height: '100%',
+          }}
         >
           <NightRain />
         </div>
