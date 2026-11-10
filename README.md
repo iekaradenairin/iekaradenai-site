@@ -145,7 +145,7 @@ npm run dev
 |---|---|
 | `app/globals.css` | デザイントークンと共通クラス。Claude Design のインラインstyleをここに畳んである |
 | `components/site/RippleCanvas.tsx` | カーソル追従の水紋。全ページに敷く（デザイン方針で必須） |
-| `components/site/ParticleField.tsx` | トップのヒーローで漂う粒子（three.js） |
+| `components/site/NightRain.tsx` | トップのヒーロー右側。夜の水面に降る雨と水紋（three.js） |
 | `components/site/WorksDeck.tsx` | 作品カードが水底から浮上する演出 |
 | `lib/audioAnalysis.ts` | 音声データチェックの解析。純関数なのでテストから直接叩ける |
 | `scripts/fetch-works.mjs` | プレイリスト取り込み。ビルド時に走る |

@@ -1,10 +1,10 @@
 import Link from 'next/link'
 
-import ParticleField from '@/components/site/ParticleField'
 import RippleCanvas from '@/components/site/RippleCanvas'
 import SiteFooter from '@/components/site/SiteFooter'
 import SiteHeader from '@/components/site/SiteHeader'
 import LatestTrackBar from '@/components/site/LatestTrackBar'
+import NightRain from '@/components/site/NightRain'
 import WorldDeck, { type WorldCard } from '@/components/site/WorldDeck'
 import { siteLinks } from '@/lib/siteLinks'
 import { formatReleaseMonth, latestWork, splitWorkTitle, youtubeWatchUrl } from '@/lib/works'
@@ -39,7 +39,7 @@ function LatestTrack({ work }: { work: NonNullable<typeof latestWork> }) {
 export default function TopPage() {
   return (
     <>
-      {/* --- ヒーロー：光の帯と粒は右側だけ。水紋は下の world セクション側に敷く --- */}
+      {/* --- ヒーロー：右側は雨の降る夜の水面。カーソル追従の水紋は下の world セクション側に敷く --- */}
       <div
         data-hero=""
         style={{
@@ -84,7 +84,7 @@ export default function TopPage() {
           aria-hidden="true"
           style={{ position: 'absolute', right: 0, top: 0, width: 'min(660px, 55%)', height: '100%' }}
         >
-          <ParticleField />
+          <NightRain />
         </div>
 
         <SiteHeader current="top" />
