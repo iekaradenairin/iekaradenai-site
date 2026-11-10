@@ -119,6 +119,7 @@ export function LatestTrackBar({
 
   return (
     <div
+      data-hero-floor=""
       style={{
         position: 'relative',
         width: '100%',
@@ -186,7 +187,7 @@ export function LatestTrackBar({
           ) : null}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: '1 1 240px', minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, flex: '1 1 240px', minWidth: 0 }}>
           <canvas
             ref={viz}
             aria-hidden="true"
@@ -194,6 +195,7 @@ export function LatestTrackBar({
               flex: '1 1 auto',
               minWidth: 0,
               width: '100%',
+              maxWidth: 420,
               height: 76,
               display: 'block',
               WebkitMaskImage: 'linear-gradient(to right,transparent 0,#000 18%,#000 82%,transparent 100%)',

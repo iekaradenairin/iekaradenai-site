@@ -39,8 +39,9 @@ function LatestTrack({ work }: { work: NonNullable<typeof latestWork> }) {
 export default function TopPage() {
   return (
     <>
-      {/* --- ヒーロー：粒子フィールドは右側だけ。水紋は下の world セクション側に敷く --- */}
+      {/* --- ヒーロー：光の帯と粒は右側だけ。水紋は下の world セクション側に敷く --- */}
       <div
+        data-hero=""
         style={{
           position: 'relative',
           width: '100%',

@@ -3,14 +3,15 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * トップのヒーロー右側で漂う粒子。Claude Design 側は esm.sh から three を
- * 読んでいたが、静的エクスポート後に外部CDNへ依存したくないので npm の three を
- * 動的 import している（初期バンドルには乗らない）。
+ * トップのヒーロー右側。最新作バーのあたりから、淡い光の帯が夜のほうへ浮かんでいく。
+ * Claude Design 側は esm.sh から three を読んでいたが、静的エクスポート後に
+ * 外部CDNへ依存したくないので npm の three を動的 import している（初期バンドルには乗らない）。
  *
- * 奥行きを感じさせるための要素は3つ:
- * - 被写界深度: ピント面（カメラから uFocus の距離）から外れた粒ほど、大きく淡いボケ玉になる
- * - 霞と光の帯: 粒子の奥に、ゆっくり流れる霞と右上から差す淡い光を敷く
- * - 光の帯を横切る粒は明るく、外れた粒は沈む（粒子と霞で同じ式 shafts() を使う）
+ * 重ねているものは奥から順に3つ:
+ * - 霞と差し込む光: ゆっくり流れる霞と、右上から差す淡い光
+ * - 光の帯: 最新作バーの帯と同じ描き方（細い線・にじみ・消えていく面）。見える区間が昇っては消える
+ * - 粒: 数は控えめ。ピント面（カメラから uFocus の距離）から外れた粒ほど、大きく淡いボケ玉になる
+ * 帯も粒も、差し込む光を横切る所は明るく、外れた所は沈む（同じ式 shafts() を使う）。
  *
  * ポインタに対する追従は極端に鈍い（lerp 0.004）。水中で少し遅れて動く感じを出すため
  * デザイン側で意図的にこの値になっているので、速くしない。
@@ -27,7 +28,18 @@ const HALF_HEIGHT = 4.75
 /** デザイン上の基準の縦横比（660×920）。これより細い画面では粒を横に寄せて密度を保つ */
 const BASE_ASPECT = 0.72
 
-// 画面右上の外から差す光の帯。uv はキャンバス内の 0〜1（左下が原点）
+/** 光の帯1本を縦に何分割するか */
+const VEIL_SEGMENTS = 180
+
+// 光の帯。根元の横位置・昇るにつれて流れていく向き・奥行き・位相・幅
+const VEILS = [
+  { x: 0.2, fan: -1.5, z: 0.3, phase: 0, width: 0.9 },
+  { x: 0.4, fan: 0.9, z: -1.2, phase: 2.3, width: 1.1 },
+  { x: 0.3, fan: -0.5, z: 1.2, phase: 4.1, width: 0.7 },
+  { x: 0.5, fan: 1.6, z: -2.6, phase: 5.6, width: 1.3 },
+]
+
+// 画面右上の外から差し込む光。uv はキャンバス内の 0〜1（左下が原点）
 const SHAFTS_GLSL = `
   uniform float uTime; uniform float uAspect;
   float hash1(float n){ return fract(sin(n) * 43758.5453); }
@@ -44,7 +56,7 @@ const SHAFTS_GLSL = `
     return smoothstep(0.4, 0.85, r) * exp(-length(v) * 1.15);
   }`
 
-export function ParticleField({ count = 2600 }: { count?: number }) {
+export function ParticleField({ count = 1100 }: { count?: number }) {
   const ref = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -95,6 +107,7 @@ export function ParticleField({ count = 2600 }: { count?: number }) {
         uMouse: { value: new THREE.Vector2(0, 0) },
         uAspect: { value: w / h },
         uSpread: { value: 1 },
+        uFloor: { value: 0.12 },
         uFocus: { value: 7 },
         uTint: { value: new THREE.Color(TINT) },
         uAccent: { value: new THREE.Color(ACCENT) },
@@ -230,7 +243,106 @@ export function ParticleField({ count = 2600 }: { count?: number }) {
       })
 
       const points = new THREE.Points(geo, mat)
-      scene.add(points)
+
+      // 光の帯。最新作バーの帯と同じ描き方（細い線・にじみ・消えていく面）で、
+      // バーのすぐ上から夜のほうへ浮かんでいく。位置はすべて頂点シェーダで作るので、
+      // ここでは「帯のどこか（長さ方向 s・幅方向 v）」と帯ごとの値だけを持たせる
+      const sv: number[] = []
+      const ribbon: number[] = []
+      const width: number[] = []
+      const index: number[] = []
+      VEILS.forEach((r, k) => {
+        const base = k * (VEIL_SEGMENTS + 1) * 2
+        for (let i = 0; i <= VEIL_SEGMENTS; i++) {
+          for (let v = 0; v < 2; v++) {
+            sv.push(i / VEIL_SEGMENTS, v)
+            ribbon.push(r.x, r.fan, r.z, r.phase)
+            width.push(r.width)
+          }
+          if (i < VEIL_SEGMENTS) {
+            const a = base + i * 2
+            index.push(a, a + 1, a + 2, a + 1, a + 3, a + 2)
+          }
+        }
+      })
+      const veilGeo = new THREE.BufferGeometry()
+      // position は使わないが、three が頂点数を数えるのに要る
+      veilGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array((sv.length / 2) * 3), 3))
+      veilGeo.setAttribute('aSv', new THREE.BufferAttribute(new Float32Array(sv), 2))
+      veilGeo.setAttribute('aRibbon', new THREE.BufferAttribute(new Float32Array(ribbon), 4))
+      veilGeo.setAttribute('aWidth', new THREE.BufferAttribute(new Float32Array(width), 1))
+      veilGeo.setIndex(index)
+
+      const veilMat = new THREE.ShaderMaterial({
+        uniforms,
+        transparent: true,
+        depthTest: false,
+        depthWrite: false,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending,
+        extensions: { derivatives: true },
+        vertexShader: `
+          ${SHAFTS_GLSL}
+          uniform vec2 uMouse; uniform float uSpread; uniform float uFocus; uniform float uFloor;
+          attribute vec2 aSv; attribute vec4 aRibbon; attribute float aWidth;
+          varying float vV; varying float vFade; varying float vSoft;
+          void main(){
+            float s = aSv.x;
+            float ph = aRibbon.w;
+            // 根元はまとまり、昇るほど揺れが大きくなってほどけていく。
+            // 揺れの山は上へ送られるので、帯そのものが昇っていくように見える
+            float amp = 0.08 + 0.62 * s;
+            vec3 c = vec3(
+              aRibbon.x + aRibbon.y * pow(s, 1.3)
+                + amp * (0.6 * sin(s * 4.2 - uTime * 0.07 + ph) + 0.4 * sin(s * 7.9 - uTime * 0.1 + ph * 1.9)),
+              mix(-3.7, 3.7, s),
+              aRibbon.z + amp * 0.9 * cos(s * 3.4 - uTime * 0.06 + ph * 1.3));
+            c.x *= uSpread;
+            // 幅の向きを長さに沿ってねじる。こちらを向いた所は面が見え、横を向いた所は線だけになる
+            float th = ph * 2.0 + s * 2.6 + 0.9 * sin(s * 3.1 - uTime * 0.05 + ph);
+            vec3 p = c + vec3(cos(th), 0.12 * sin(th * 1.7), sin(th)) * (aSv.y * aWidth * (0.3 + 0.7 * s));
+            p.x += uMouse.x * 0.3;
+            p.y += uMouse.y * 0.18;
+            vec4 mv = modelViewMatrix * vec4(p, 1.0);
+            gl_Position = projectionMatrix * mv;
+
+            float d = max(-mv.z, 0.6);
+            vSoft = clamp(abs(d - uFocus) / d * 2.4, 0.0, 1.0);
+            vec2 uv = gl_Position.xy / gl_Position.w * 0.5 + 0.5;
+            // 帯は全長が見えているのではなく、見える区間がゆっくり昇っては消える
+            float pulse = 0.06 + 0.94 * smoothstep(0.15, 0.95, 0.5 + 0.5 * sin(s * 5.5 - uTime * 0.09 + ph * 3.0));
+            // 細い画面ではキャンバスが見出しや本文に重なるので、右端だけに残す
+            float narrow = 1.0 - clamp((uAspect - 0.25) / 0.4, 0.0, 1.0);
+            vFade = smoothstep(0.1, 0.4, s) * smoothstep(0.98, 0.6, s)
+              * pulse
+              * (0.7 + shafts(uv) * 1.6)
+              * smoothstep(0.0, mix(0.3, 0.8, narrow), uv.x)
+              // 最新作バーの上端から立ちのぼるように、バーの高さに合わせて下を消す
+              * smoothstep(uFloor, uFloor + 0.24, uv.y);
+            vV = aSv.y;
+          }`,
+        fragmentShader: `
+          uniform vec3 uTint; uniform vec3 uAccent;
+          varying float vV; varying float vFade; varying float vSoft;
+          void main(){
+            // 縁のすぐ内側に細い線を1本。ピントから外れた帯は線を太く淡くしてぼかす
+            float e = vV - 0.05;
+            float px = fwidth(vV);
+            float line = 1.0 - smoothstep(px * 0.4, px * mix(1.4, 5.0, vSoft), abs(e));
+            float glow = exp(-abs(e) * 10.0) * 0.1;
+            // 線から離れるほど消えていく面
+            float veil = step(0.0, e) * pow(1.0 - vV, 2.4) * 0.07;
+            float a = (line * mix(0.19, 0.07, vSoft) + glow + veil) * smoothstep(0.0, 0.04, vV) * vFade;
+            gl_FragColor = vec4(mix(uAccent, uTint, line * 0.55), clamp(a, 0.0, 1.0));
+          }`,
+      })
+      const veils = new THREE.Mesh(veilGeo, veilMat)
+      veils.frustumCulled = false
+
+      // 帯の上に粒を重ねる
+      const drift = new THREE.Group()
+      drift.add(veils, points)
+      scene.add(drift)
 
       const target = { x: 0, y: 0 }
       const cur = { x: 0, y: 0 }
@@ -240,9 +352,13 @@ export function ParticleField({ count = 2600 }: { count?: number }) {
         target.y = Math.max(-1, Math.min(1, -(((e.clientY - r.top) / r.height) * 2 - 1)))
       }
 
+      // ヒーロー下端の最新作バー。キャンバスはバーの裏まで続いているので、高さを測って帯の根元を合わせる
+      const floorEl = canvas.closest('[data-hero]')?.querySelector<HTMLElement>('[data-hero-floor]') ?? null
+
       const fit = (nw: number, nh: number) => {
         uniforms.uAspect.value = nw / nh
         uniforms.uSpread.value = Math.max(0.6, Math.min(1.3, nw / nh / BASE_ASPECT))
+        if (floorEl) uniforms.uFloor.value = Math.min(0.6, floorEl.offsetHeight / nh)
       }
       fit(w, h)
 
@@ -257,6 +373,7 @@ export function ParticleField({ count = 2600 }: { count?: number }) {
       }
       const ro = new ResizeObserver(resize)
       ro.observe(canvas)
+      if (floorEl) ro.observe(floorEl)
 
       const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -272,7 +389,7 @@ export function ParticleField({ count = 2600 }: { count?: number }) {
         // ポインタが止まっていても視点をわずかに揺らし、手前と奥のずれで奥行きを見せる
         const swayX = Math.sin(now * 0.07) * 0.2
         const swayY = Math.sin(now * 0.05 + 1.3) * 0.12
-        points.rotation.y = cur.x * 0.12 + swayX * 0.2
+        drift.rotation.y = cur.x * 0.12 + swayX * 0.2
         camera.position.x = cur.x * 0.35 + swayX
         camera.position.y = cur.y * 0.28 + swayY
         camera.lookAt(0, 0, 0)
@@ -297,6 +414,8 @@ export function ParticleField({ count = 2600 }: { count?: number }) {
         window.removeEventListener('pointermove', onMove)
         geo.dispose()
         mat.dispose()
+        veilGeo.dispose()
+        veilMat.dispose()
         haze.geometry.dispose()
         haze.material.dispose()
         renderer.dispose()
