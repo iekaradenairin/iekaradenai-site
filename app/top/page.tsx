@@ -1,10 +1,10 @@
 import Link from 'next/link'
 
-import ParticleField from '@/components/site/ParticleField'
 import RippleCanvas from '@/components/site/RippleCanvas'
 import SiteFooter from '@/components/site/SiteFooter'
 import SiteHeader from '@/components/site/SiteHeader'
 import LatestTrackBar from '@/components/site/LatestTrackBar'
+import NightRain from '@/components/site/NightRain'
 import WorldDeck, { type WorldCard } from '@/components/site/WorldDeck'
 import { siteLinks } from '@/lib/siteLinks'
 import { formatReleaseMonth, latestWork, splitWorkTitle, youtubeWatchUrl } from '@/lib/works'
@@ -15,17 +15,17 @@ const worldCards: WorldCard[] = [
   {
     videoId: 'FBlDIdRFPnk',
     title: 'あの双子座に願いを',
-    body: '二人の出会いと別れを描く物語。あのとき過ごした思い出は、いつになっても風化しない。星を見たら鮮明に思い出せる。',
+    body: '二人の出会いと別れを描く物語。あのときの思い出は、いつまでも風化しない。星を見たら鮮明に思い出せる。',
   },
   {
     videoId: 'wfamkctKfUw',
     title: '世界を旅する…そんな夢',
-    body: '静かに広がる少し暗くて冷たい世界。叶う叶わないは結果のお話。いつまでも想っていたいのも別のお話。',
+    body: '静かに広がる少し暗くて冷たい世界。叶うかどうかは結果の話。いつまでも想っていたい気持ちとは別のこと。',
   },
   {
     videoId: '6TGFCqzekSU',
     title: '花火の裏、隠れる想い',
-    body: '言葉にできないこともある。そして言葉にしても伝わらないときもあるかもしれない。それでもそれは後悔じゃない。',
+    body: '言葉にできないこともある。言葉にしても伝わらないかもしれない。それでも後悔じゃない。',
   },
 ]
 
@@ -39,8 +39,9 @@ function LatestTrack({ work }: { work: NonNullable<typeof latestWork> }) {
 export default function TopPage() {
   return (
     <>
-      {/* --- ヒーロー：粒子フィールドは右側だけ。水紋は下の world セクション側に敷く --- */}
+      {/* --- ヒーロー：右側は雨の降る夜の水面。カーソル追従の水紋は下の world セクション側に敷く --- */}
       <div
+        data-hero=""
         style={{
           position: 'relative',
           width: '100%',
@@ -79,11 +80,18 @@ export default function TopPage() {
           }}
         />
 
+        {/* 雨の範囲は画面幅に比例させる。狭い画面では右55%、広い画面では見出しの幅（420px）を残して最大72%まで */}
         <div
           aria-hidden="true"
-          style={{ position: 'absolute', right: 0, top: 0, width: 'min(660px, 55%)', height: '100%' }}
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            width: 'max(55%, min(72%, calc(100% - 420px)))',
+            height: '100%',
+          }}
         >
-          <ParticleField />
+          <NightRain />
         </div>
 
         <SiteHeader current="top" />
@@ -131,8 +139,6 @@ export default function TopPage() {
             言葉にできなかったものを
             <br />
             星や花、水の底に預けて曲にしています。
-            <br />
-            夜のいちばん静かな時間に、そっと届いて。
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 22, paddingTop: 12 }}>
@@ -212,7 +218,7 @@ export default function TopPage() {
             {/* ヒーローの段落と同じ 15px / 行間2.05。デザイン原本は17pxだったが、
                 スマホ幅だと本文としては大きすぎた */}
             <p className="lead" style={{ maxWidth: '34em' }}>
-              泣きたいわけじゃないのに、なぜか泣けてしまう夜があります。好きだった人のことを、ふいに思い出してしまう夜も。終わったはずの気持ちほど、ずいぶん経ってから戻ってくる。そういう夜のそばで鳴っている音楽を作っています。
+              泣きたいわけじゃないのに、なぜか泣けてしまう夜があります。好きだった人のことをふいに思い出してしまう夜も。終わったはずの気持ちほど、ずいぶん経ってから戻ってくる。そういう夜のそばで鳴っている音楽を作っています。
             </p>
           </div>
 
