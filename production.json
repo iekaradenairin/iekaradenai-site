@@ -29,24 +29,25 @@
     "HkAYOeJEqa4": {
       "firstSeenAt": "2026-11-02T00:41:40.891Z",
       "source": "automatic"
+    },
+    "NB2WQcCPtxM": {
+      "firstSeenAt": "2026-11-13T01:48:07.802Z",
+      "source": "automatic"
     }
   },
-  "pending": {
-    "NB2WQcCPtxM": {
-      "id": "NB2WQcCPtxM",
+  "pending": {},
+  "attempts": {},
+  "outbox": [
+    {
+      "id": "added-NB2WQcCPtxM",
+      "type": "added",
+      "videoId": "NB2WQcCPtxM",
       "title": "【オリジナル曲】彩り、鮮やかに/紡こかぜ",
       "channelTitle": "紡こかぜ",
       "reason": "原曲URL一致: GTdhEuRJRzg",
-      "discoveredAt": "2026-11-13T01:48:03.164Z"
-    }
-  },
-  "attempts": {
-    "NB2WQcCPtxM": {
-      "reason": "原曲URL一致: GTdhEuRJRzg",
       "at": "2026-11-13T01:48:07.802Z"
     }
-  },
-  "outbox": [],
+  ],
   "search": {
     "cursor": 0,
     "lastDeepScan": "2026-11-12T02:15:03.688Z"
