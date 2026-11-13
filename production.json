@@ -37,17 +37,7 @@
   },
   "pending": {},
   "attempts": {},
-  "outbox": [
-    {
-      "id": "added-NB2WQcCPtxM",
-      "type": "added",
-      "videoId": "NB2WQcCPtxM",
-      "title": "【オリジナル曲】彩り、鮮やかに/紡こかぜ",
-      "channelTitle": "紡こかぜ",
-      "reason": "原曲URL一致: GTdhEuRJRzg",
-      "at": "2026-11-13T01:48:07.802Z"
-    }
-  ],
+  "outbox": [],
   "search": {
     "cursor": 0,
     "lastDeepScan": "2026-11-12T02:15:03.688Z"
@@ -55,5 +45,5 @@
   "incidents": {},
   "lastSearchSuccessAt": "2026-11-13T01:48:03.164Z",
   "lastAdditionSuccessAt": "2026-11-13T01:48:07.802Z",
-  "lastDiscordSuccessAt": "2026-11-02T00:41:57.685Z"
+  "lastDiscordSuccessAt": "2026-11-13T01:48:12.638Z"
 }
