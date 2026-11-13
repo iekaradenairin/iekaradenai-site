@@ -40,7 +40,12 @@
       "discoveredAt": "2026-11-13T01:48:03.164Z"
     }
   },
-  "attempts": {},
+  "attempts": {
+    "NB2WQcCPtxM": {
+      "reason": "原曲URL一致: GTdhEuRJRzg",
+      "at": "2026-11-13T01:48:07.802Z"
+    }
+  },
   "outbox": [],
   "search": {
     "cursor": 0,
