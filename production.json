@@ -44,7 +44,12 @@
       "discoveredAt": "2026-11-17T03:49:36.402Z"
     }
   },
-  "attempts": {},
+  "attempts": {
+    "sz7OMZIk0og": {
+      "reason": "原曲URL一致: Jx_Wy3w1K8Y",
+      "at": "2026-11-17T03:49:40.702Z"
+    }
+  },
   "outbox": [],
   "search": {
     "cursor": 0,
