@@ -41,17 +41,7 @@
   },
   "pending": {},
   "attempts": {},
-  "outbox": [
-    {
-      "id": "added-sz7OMZIk0og",
-      "type": "added",
-      "videoId": "sz7OMZIk0og",
-      "title": "秋乃【歌ってみた】",
-      "channelTitle": "橘 くるり@めるぱに",
-      "reason": "原曲URL一致: Jx_Wy3w1K8Y",
-      "at": "2026-11-17T03:49:40.702Z"
-    }
-  ],
+  "outbox": [],
   "search": {
     "cursor": 0,
     "lastDeepScan": "2026-11-12T02:15:03.688Z"
@@ -59,5 +49,5 @@
   "incidents": {},
   "lastSearchSuccessAt": "2026-11-17T03:49:36.402Z",
   "lastAdditionSuccessAt": "2026-11-17T03:49:40.702Z",
-  "lastDiscordSuccessAt": "2026-11-13T01:48:12.638Z"
+  "lastDiscordSuccessAt": "2026-11-17T03:49:45.471Z"
 }
