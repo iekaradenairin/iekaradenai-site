@@ -37,24 +37,25 @@
     "sz7OMZIk0og": {
       "firstSeenAt": "2026-11-17T03:49:40.702Z",
       "source": "automatic"
+    },
+    "Ra2dSewblXw": {
+      "firstSeenAt": "2026-11-19T02:32:37.425Z",
+      "source": "automatic"
     }
   },
-  "pending": {
-    "Ra2dSewblXw": {
-      "id": "Ra2dSewblXw",
+  "pending": {},
+  "attempts": {},
+  "outbox": [
+    {
+      "id": "added-Ra2dSewblXw",
+      "type": "added",
+      "videoId": "Ra2dSewblXw",
       "title": "夜に聴いて欲しい曲【彩り、鮮やかに】紡こかぜ",
       "channelTitle": "紡こかぜ",
       "reason": "作者表記一致: 家から出ない倫",
-      "discoveredAt": "2026-11-19T02:32:28.536Z"
-    }
-  },
-  "attempts": {
-    "Ra2dSewblXw": {
-      "reason": "作者表記一致: 家から出ない倫",
       "at": "2026-11-19T02:32:37.425Z"
     }
-  },
-  "outbox": [],
+  ],
   "search": {
     "cursor": 3,
     "lastDeepScan": "2026-11-12T02:15:03.688Z"
