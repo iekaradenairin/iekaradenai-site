@@ -39,15 +39,23 @@
       "source": "automatic"
     }
   },
-  "pending": {},
+  "pending": {
+    "Ra2dSewblXw": {
+      "id": "Ra2dSewblXw",
+      "title": "夜に聴いて欲しい曲【彩り、鮮やかに】紡こかぜ",
+      "channelTitle": "紡こかぜ",
+      "reason": "作者表記一致: 家から出ない倫",
+      "discoveredAt": "2026-11-19T02:32:28.536Z"
+    }
+  },
   "attempts": {},
   "outbox": [],
   "search": {
-    "cursor": 0,
+    "cursor": 3,
     "lastDeepScan": "2026-11-12T02:15:03.688Z"
   },
   "incidents": {},
-  "lastSearchSuccessAt": "2026-11-18T02:53:07.307Z",
+  "lastSearchSuccessAt": "2026-11-19T02:32:28.536Z",
   "lastAdditionSuccessAt": "2026-11-18T02:53:11.086Z",
   "lastDiscordSuccessAt": "2026-11-17T03:49:45.471Z"
 }
