@@ -48,7 +48,12 @@
       "discoveredAt": "2026-11-19T02:32:28.536Z"
     }
   },
-  "attempts": {},
+  "attempts": {
+    "Ra2dSewblXw": {
+      "reason": "作者表記一致: 家から出ない倫",
+      "at": "2026-11-19T02:32:37.425Z"
+    }
+  },
   "outbox": [],
   "search": {
     "cursor": 3,
