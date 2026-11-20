@@ -47,11 +47,13 @@
   "attempts": {},
   "outbox": [],
   "search": {
-    "cursor": 3,
-    "lastDeepScan": "2026-11-12T02:15:03.688Z"
+    "cursor": 11,
+    "lastDeepScan": "2026-11-12T02:15:03.688Z",
+    "task": "deep:\"秋乃\":",
+    "pageToken": "CJYBEAA"
   },
   "incidents": {},
-  "lastSearchSuccessAt": "2026-11-19T02:32:28.536Z",
+  "lastSearchSuccessAt": "2026-11-20T02:17:59.550Z",
   "lastAdditionSuccessAt": "2026-11-19T02:32:37.425Z",
   "lastDiscordSuccessAt": "2026-11-19T02:32:42.251Z"
 }
