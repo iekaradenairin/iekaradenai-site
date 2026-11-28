@@ -41,16 +41,13 @@
     "Ra2dSewblXw": {
       "firstSeenAt": "2026-11-19T02:32:37.425Z",
       "source": "automatic"
+    },
+    "qUYdqVoGYNM": {
+      "firstSeenAt": "2026-11-28T03:17:21.902Z",
+      "source": "automatic"
     }
   },
   "pending": {
-    "qUYdqVoGYNM": {
-      "id": "qUYdqVoGYNM",
-      "title": "藍空をなぞって",
-      "channelTitle": "Iekaradenai Rin - Topic",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "discoveredAt": "2026-11-28T03:17:14.172Z"
-    },
     "CYg52eoHyZU": {
       "id": "CYg52eoHyZU",
       "title": "藍空をなぞって",
@@ -59,13 +56,18 @@
       "discoveredAt": "2026-11-28T03:17:14.172Z"
     }
   },
-  "attempts": {
-    "qUYdqVoGYNM": {
+  "attempts": {},
+  "outbox": [
+    {
+      "id": "added-qUYdqVoGYNM",
+      "type": "added",
+      "videoId": "qUYdqVoGYNM",
+      "title": "藍空をなぞって",
+      "channelTitle": "Iekaradenai Rin - Topic",
       "reason": "作者表記一致: iekaradenai_rin",
       "at": "2026-11-28T03:17:21.902Z"
     }
-  },
-  "outbox": [],
+  ],
   "search": {
     "cursor": 3,
     "lastDeepScan": "2026-11-21T02:11:32.073Z"
