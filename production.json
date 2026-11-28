@@ -53,26 +53,7 @@
   },
   "pending": {},
   "attempts": {},
-  "outbox": [
-    {
-      "id": "added-qUYdqVoGYNM",
-      "type": "added",
-      "videoId": "qUYdqVoGYNM",
-      "title": "藍空をなぞって",
-      "channelTitle": "Iekaradenai Rin - Topic",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "at": "2026-11-28T03:17:21.902Z"
-    },
-    {
-      "id": "added-CYg52eoHyZU",
-      "type": "added",
-      "videoId": "CYg52eoHyZU",
-      "title": "藍空をなぞって",
-      "channelTitle": "Iekaradenai Rin - Topic",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "at": "2026-11-28T03:17:21.902Z"
-    }
-  ],
+  "outbox": [],
   "search": {
     "cursor": 3,
     "lastDeepScan": "2026-11-21T02:11:32.073Z"
@@ -80,5 +61,5 @@
   "incidents": {},
   "lastSearchSuccessAt": "2026-11-28T03:17:14.172Z",
   "lastAdditionSuccessAt": "2026-11-28T03:17:21.902Z",
-  "lastDiscordSuccessAt": "2026-11-19T02:32:42.251Z"
+  "lastDiscordSuccessAt": "2026-11-28T03:17:30.036Z"
 }
