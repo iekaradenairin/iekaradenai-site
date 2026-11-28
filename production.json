@@ -45,28 +45,28 @@
     "qUYdqVoGYNM": {
       "firstSeenAt": "2026-11-28T03:17:21.902Z",
       "source": "automatic"
-    }
-  },
-  "pending": {
+    },
     "CYg52eoHyZU": {
-      "id": "CYg52eoHyZU",
-      "title": "藍空をなぞって",
-      "channelTitle": "Iekaradenai Rin - Topic",
-      "reason": "作者表記一致: iekaradenai_rin",
-      "discoveredAt": "2026-11-28T03:17:14.172Z"
+      "firstSeenAt": "2026-11-28T03:17:21.902Z",
+      "source": "automatic"
     }
   },
-  "attempts": {
-    "CYg52eoHyZU": {
-      "reason": "作者表記一致: iekaradenai_rin",
-      "at": "2026-11-28T03:17:21.902Z"
-    }
-  },
+  "pending": {},
+  "attempts": {},
   "outbox": [
     {
       "id": "added-qUYdqVoGYNM",
       "type": "added",
       "videoId": "qUYdqVoGYNM",
+      "title": "藍空をなぞって",
+      "channelTitle": "Iekaradenai Rin - Topic",
+      "reason": "作者表記一致: iekaradenai_rin",
+      "at": "2026-11-28T03:17:21.902Z"
+    },
+    {
+      "id": "added-CYg52eoHyZU",
+      "type": "added",
+      "videoId": "CYg52eoHyZU",
       "title": "藍空をなぞって",
       "channelTitle": "Iekaradenai Rin - Topic",
       "reason": "作者表記一致: iekaradenai_rin",
