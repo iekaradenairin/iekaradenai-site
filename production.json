@@ -43,15 +43,30 @@
       "source": "automatic"
     }
   },
-  "pending": {},
+  "pending": {
+    "qUYdqVoGYNM": {
+      "id": "qUYdqVoGYNM",
+      "title": "藍空をなぞって",
+      "channelTitle": "Iekaradenai Rin - Topic",
+      "reason": "作者表記一致: iekaradenai_rin",
+      "discoveredAt": "2026-11-28T03:17:14.172Z"
+    },
+    "CYg52eoHyZU": {
+      "id": "CYg52eoHyZU",
+      "title": "藍空をなぞって",
+      "channelTitle": "Iekaradenai Rin - Topic",
+      "reason": "作者表記一致: iekaradenai_rin",
+      "discoveredAt": "2026-11-28T03:17:14.172Z"
+    }
+  },
   "attempts": {},
   "outbox": [],
   "search": {
-    "cursor": 0,
+    "cursor": 3,
     "lastDeepScan": "2026-11-21T02:11:32.073Z"
   },
   "incidents": {},
-  "lastSearchSuccessAt": "2026-11-27T03:37:47.749Z",
+  "lastSearchSuccessAt": "2026-11-28T03:17:14.172Z",
   "lastAdditionSuccessAt": "2026-11-27T03:37:52.040Z",
   "lastDiscordSuccessAt": "2026-11-19T02:32:42.251Z"
 }
