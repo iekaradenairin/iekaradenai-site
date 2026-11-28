@@ -56,7 +56,12 @@
       "discoveredAt": "2026-11-28T03:17:14.172Z"
     }
   },
-  "attempts": {},
+  "attempts": {
+    "CYg52eoHyZU": {
+      "reason": "作者表記一致: iekaradenai_rin",
+      "at": "2026-11-28T03:17:21.902Z"
+    }
+  },
   "outbox": [
     {
       "id": "added-qUYdqVoGYNM",
